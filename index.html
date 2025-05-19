@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Namibia - National Health Information System Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- ===== Styles Section ===== -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f5f1;
+            color: #2b4b78;
+            margin: 0;
+            padding: 0;
+        }
+
+        .header {
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .header img.logo {
+            width: 60px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 33vh;
+            background-image: url('main_image.png');
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            padding: 40px 20px;
+        }
+
+        .banner {
+            background-color: #eef1f5;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            background-color: #2b4b78;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .stat {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            width: 120px;
+            text-align: center;
+        }
+
+        .footer {
+            background-color: #fafafa;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== Header Section ===== -->
+    <div class="header">
+        <img src="arms.svg" alt="Coat of Arms" class="logo">
+        <h1>Ministry of Health and Social Services</h1>
+    </div>
+
+    <!-- ===== Main Image Section ===== -->
+    <div class="main-image"></div>
+
+    <!-- ===== Main Content Section ===== -->
+    <div class="container">
+        <!-- ===== Banner Section ===== -->
+        <div class="banner">
+            <h2>Welcome to the National Health Information System Portal</h2>
+            <p>Empowering Data-Driven Decision Making for a Healthier Namibia</p>
+        </div>
+
+        <!-- ===== Buttons Section ===== -->
+        <div class="buttons-container">
+            <button class="button">Access Dashboard</button>
+            <button class="button">Submit Data</button>
+            <button class="button">View Reports</button>
+            <button class="button">Training Resources</button>
+            <a href="admin.html" class="button">Admin Panel</a>
+        </div>
+
+        <!-- ===== Stats Section ===== -->
+        <div class="stats-container">
+            <div class="stat">
+                <h3 id="facilities-reporting">96%</h3>
+                <p>Facilities Reporting</p>
+            </div>
+            <div class="stat">
+                <h3 id="data-submission">91%</h3>
+                <p>Data Submission Rate</p>
+            </div>
+            <div class="stat">
+                <h3 id="reporting-period">Q1 2025</h3>
+                <p>Reporting Period</p>
+            </div>
+            <div class="stat">
+                <h3 id="active-users">342</h3>
+                <p>Active Users</p>
+            </div>
+            <div class="stat">
+                <h3 id="timeliness">76%</h3>
+                <p>Current Timeliness Rate</p>
+            </div>
+            <div class="stat">
+                <h3 id="completeness">85%</h3>
+                <p>Current Completeness Rate</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== Footer Section ===== -->
+    <div class="footer">
+        Ministry of Health and Social Services, Republic of Namibia<br>
+        Private Bag 13189, Windhoek, Namibia<br>
+        &copy; 2025 Ministry of Health & Social Services. Powered by DH.SO. Ver. 2.3.9 | Maintained
+    </div>
+
+    <!-- ===== JavaScript Section ===== -->
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch('/data.json');
+                const data = await response.json();
+                document.getElementById('facilities-reporting').textContent = data.facilitiesReporting;
+                document.getElementById('data-submission').textContent = data.dataSubmission;
+                document.getElementById('reporting-period').textContent = data.reportingPeriod;
+                document.getElementById('active-users').textContent = data.activeUsers;
+                document.getElementById('timeliness').textContent = data.timeliness;
+                document.getElementById('completeness').textContent = data.completeness;
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+        fetchData();
+    </script>
+</body>
+</html>
