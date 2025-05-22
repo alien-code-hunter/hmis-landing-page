@@ -47,13 +47,14 @@ Tip: Ensure that data.json is editable by the admin panel. In the current setup,
 
 ## Future Improvements
 🔐 Authentication: Implement a secure login system with role-based access control.
-
 🧾 Audit Logging: Record user activities (e.g., data changes, logins).
-
 📤 Data Export: Add Excel/PDF export options for displayed data.
-
 📊 Charts Integration: Visualize key metrics using Chart.js or D3.js.
-
 💾 Data Persistence: Replace local JSON storage with server-side or database-backed persistence.
-
 ✅ Form Validation: Improve data validation for admin inputs.
+
+ Contributing
+We welcome contributions! If you’d like to improve the dashboard, fix a bug, or implement a planned feature, feel free to submit a pull request.
+
+📜 License
+This project is under the MIT License. See the LICENSE file for more info.
