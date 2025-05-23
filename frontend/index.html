@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Namibia - National Health Information System Portal</title>
+    <meta name="description" content="Official portal of the Ministry of Health and Social Services, Namibia. Access dashboards, reports, and health systems information." />
+    <link rel="icon" href="/favicon.ico" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f6f8;
+            color: #2b4b78;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #2b4b78; /* Solid background color for the header */
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            min-height: 250px; /* Give the header a larger minimum height */
+            color: white; /* Default text color for header content */
+            position: relative; /* Needed for absolute positioning of particles-js */
+            overflow: hidden; /* Hide any overflow from particles */
+        }
+
+        header::before {
+            display: none;
+        }
+
+        .header-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Place behind header content */
+            background-color: transparent; /* Particles will draw on this */
+        }
+
+        header .left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header img.logo {
+            width: 70px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .menu-toggle {
+            font-size: 26px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: none;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav.menu {
+            display: flex;
+            gap: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        nav.menu a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        nav.menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* --- Main Dropdown Styles Start --- */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 1;
+        }
+
+        .dropbtn {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 6px;
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            display: block;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: transparent; /* Changed to transparent */
+            min-width: 180px;
+            box-shadow: none; /* Removed box-shadow for a clear look */
+            z-index: 100;
+            border-radius: 4px;
+            top: 100%;
+            left: 0;
+        }
+
+        .dropdown-content a {
+            color: white; /* Changed to white for visibility on dark header */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            border-radius: 0;
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white; /* Ensure text remains white on hover */
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        /* --- Main Dropdown Styles End --- */
+
+        /* --- Nested Dropdown (Submenu) Styles Start --- */
+        .dropdown-submenu {
+            position: relative;
+            width: 100%; /* Important for proper positioning within the main dropdown */
+        }
+
+        .dropdown-submenu .dropbtn-submenu {
+            display: block;
+            padding: 12px 16px;
+            text-decoration: none;
+            color: white; /* Submenu button text color */
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-submenu .dropbtn-submenu::after {
+            content: '\25B6'; /* Right-pointing triangle arrow */
+            float: right;
+            margin-left: 5px;
+            font-size: 10px;
+            line-height: inherit; /* Align with text vertically */
+        }
+
+        .dropdown-submenu-content {
+            display: none;
+            position: absolute;
+            left: 100%; /* Position to the right of the submenu button */
+            top: 0;
+            min-width: 180px;
+            z-index: 101; /* Higher z-index to ensure it's on top */
+            background-color: transparent; /* Keep transparent for desktop */
+            box-shadow: none;
+            border-radius: 4px;
+        }
+
+        .dropdown-submenu:hover .dropdown-submenu-content {
+            display: block;
+        }
+
+        .dropdown-submenu .dropbtn-submenu:hover {
+            background-color: rgba(255, 255, 255, 0.2); /* Same hover as parent */
+        }
+
+        .dropdown-submenu-content a {
+            color: white; /* Text color for sub-menu items */
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+            background-color: transparent;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-submenu-content a:hover {
+            background-color: rgba(255, 255, 255, 0.3); /* Slightly more opaque hover for sub-items */
+        }
+        /* --- Nested Dropdown (Submenu) Styles End --- */
+
+        main.container {
+            flex: 1;
+            padding: 12px 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .banner {
+            background: linear-gradient(135deg, #cddff7, #f0f4f8);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .banner h2 {
+            font-size: 26px;
+            margin-bottom: 10px;
+        }
+
+        nav.buttons-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .button {
+            background-color: #2b4b78;
+            color: #ffffff;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .button:hover {
+            background-color: #1f3659;
+        }
+
+        .stat {
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+        }
+
+        .stats-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        .info-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .info-box {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h3 {
+            margin-top: 0;
+            font-size: 18px;
+            color: #2b4b78;
+        }
+
+        footer {
+            background-color: #eaeaea;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            nav.menu {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 10px;
+            }
+
+            nav.menu.active {
+                display: flex;
+            }
+
+            nav.menu a {
+                padding: 10px;
+                border-top: 1px solid #ccc;
+                background-color: #f9f9f9;
+                color: #2b4b78;
+            }
+
+            /* Mobile main dropdown */
+            .dropdown {
+                width: 100%;
+                border-top: 1px solid #ccc;
+                background-color: #f9f9f9;
+            }
+
+            .dropdown .dropbtn {
+                width: 100%;
+                text-align: left;
+                padding: 10px;
+                color: #2b4b78;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                min-width: unset;
+                border-top: 1px solid #eee;
+                border-radius: 0;
+                /* --- MODIFIED: Keep light background for mobile main dropdown --- */
+                background-color: #f9f9f9;
+            }
+
+            .dropdown-content a {
+                padding-left: 20px; /* Indent main links */
+                color: #2b4b78;
+                background-color: #f0f0f0;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none; /* Disable hover effect for mobile, JS will control */
+            }
+
+            /* Mobile nested dropdown (submenu) */
+            .dropdown-submenu {
+                border-top: 1px solid #ccc;
+                background-color: #f0f0f0; /* Slightly different background to show nesting */
+            }
+
+            .dropdown-submenu .dropbtn-submenu {
+                color: #2b4b78;
+                background-color: #f0f0f0;
+                padding-left: 25px; /* Further indent sub-menu button */
+                border-top: none; /* No extra border here */
+            }
+
+            .dropdown-submenu .dropbtn-submenu::after {
+                content: '\25BC'; /* Down-pointing triangle for mobile */
+                line-height: inherit;
+            }
+
+            .dropdown-submenu-content {
+                position: static; /* Stack vertically on mobile */
+                left: unset;
+                top: unset;
+                width: 100%;
+                min-width: unset;
+                box-shadow: none;
+                border-radius: 0;
+                background-color: #e8e8e8; /* Lighter background for sub-submenu content */
+                border-top: 1px solid #ddd;
+            }
+
+            .dropdown-submenu-content a {
+                color: #2b4b78;
+                background-color: #e8e8e8; /* Even lighter background for sub-submenu links */
+                padding-left: 40px; /* Further indent sub-submenu links */
+            }
+
+            .dropdown-submenu:hover .dropdown-submenu-content {
+                display: none; /* Disable hover effect for mobile, JS will control */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="particles-js" class="header-particles"></div>
+
+        <div class="left">
+            <img src="/arms.svg" alt="Namibia Coat of Arms Logo" class="logo" />
+            <h1>Ministry of Health and Social Services</h1>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
+        <nav class="menu" aria-label="Main Menu">
+            <a href="#">Home</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Systems</a>
+                <div class="dropdown-content">
+                    <div class="dropdown-submenu">
+                        <a href="#" class="dropbtn-submenu">DHIS2</a>
+                        <div class="dropdown-submenu-content">
+                            <a href="https://hmis.mhss.gov.na/core/">Core/Aggregate</a>
+                            <a href="https://hmis.mhss.gov.na/inpatient/">Inpatient</a>
+                            <a href="https://hmis.mhss.gov.na/IDSR/">IDSR</a>
+                            <a href="https://hmis.mhss.gov.na/COVAX/">Covax</a>
+                            <a href="https://hmis.mhss.gov.na/MIMS/">MIMS</a>
+                            <a href="https://hmis.mhss.gov.na/cecap/">CECAP</a>
+                            <a href="https://hmis.mhss.gov.na/malaria/">Malaria</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-submenu">
+                        <a href="#" class="dropbtn-submenu">OpenMRS</a>
+                        <div class="dropdown-submenu-content">
+                            <a href="https://ptracker.mhss.gov.na/openmrs/">Ptracker</a>
+                        </div>
+                    </div>
+
+                    <a href="https://hmis.mhss.gov.na/core/">e-Notification</a>
+                    <a href="https://ndw.mhss.gov.na/dashboards.html">NDW</a>
+                    <a href="https://mfl.mhss.gov.na/">MFL</a>
+                </div>
+            </div>
+            <a href="#">Reports</a>
+            <a href="#">Training and Resources</a>
+            <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
+            <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Dictionary</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="banner">
+            <h2>Welcome to the National Health Information System Portal</h2>
+            <p>Empowering Data-Driven Decision Making for a Healthier Namibia</p>
+        </section>
+
+        <section class="stats-container" aria-label="System Stats">
+            <div class="stat"><h3 id="facilities-reporting">96%</h3><p>Facilities Reporting</p></div>
+            <div class="stat"><h3 id="data-submission">91%</h3><p>Data Submission Rate</p></div>
+            <div class="stat"><h3 id="reporting-period">Q1 2025</h3><p>Reporting Period</p></div>
+            <div class="stat"><h3 id="active-users">342</h3><p>Active Users</p></div>
+            <div class="stat"><h3 id="timeliness">76%</h3><p>Timeliness Rate</p></div>
+            <div class="stat"><h3 id="completeness">85%</h3><p>Completeness Rate</p></div>
+        </section>
+
+        <section class="info-section" aria-label="Additional Information">
+            <div class="info-box">
+                <h3>News and Updates</h3>
+                <ul>
+                    <li>2025-05-01: New malaria dashboard launched</li>
+                    <li>2025-04-18: Training schedule for DHIS2 users updated</li>
+                    <li>2025-04-01: Monthly health report available</li>
+                </ul>
+            </div>
+            <div class="info-box">
+                <h3>System Status</h3>
+                <p>All systems operational</p>
+                <p>Next maintenance: 2025-06-05, 00:00–03:00</p>
+            </div>
+            <div class="info-box">
+                <h3>Important Links</h3>
+                <ul>
+                    <li><a href="#">MoHSS Website</a></li>
+                    <li><a href="#">DHIS2 Manual</a></li>
+                    <li><a href="#">Help Desk</a></li>
+                    <li><a href="https://dhis2.org" target="_blank" rel="noopener noreferrer">Global DHIS2</a></li>
+                    <li><a href="https://who.int" target="_blank" rel="noopener noreferrer">World Health Organization</a></li>
+                    <li><a href="https://data.un.org" target="_blank" rel="noopener noreferrer">UN Data</a></li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Ministry of Health and Social Services, Republic of Namibia<br />
+        Private Bag 13189, Windhoek, Namibia<br />
+        &copy; 2025 MoHSS. Version 1.0.0.1 | Maintained
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            async function fetchData() {
+                try {
+                    const response = await fetch('/data.json');
+                    const data = await response.json();
+                    document.getElementById('facilities-reporting').textContent = data.facilitiesReporting;
+                    document.getElementById('data-submission').textContent = data.dataSubmission;
+                    document.getElementById('reporting-period').textContent = data.reportingPeriod;
+                    document.getElementById('active-users').textContent = data.activeUsers;
+                    document.getElementById('timeliness').textContent = data.timeliness;
+                    document.getElementById('completeness').textContent = data.completeness;
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
+            }
+            fetchData();
+
+            // JavaScript for mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navMenu = document.querySelector('nav.menu');
+            const dropdownToggle = document.querySelector('.dropdown .dropbtn'); // The main Systems link
+
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                // Close all sub-menus when main menu is toggled
+                document.querySelectorAll('.dropdown-submenu-content').forEach(sub => {
+                    sub.style.display = 'none';
+                });
+                // Close main dropdown if menu is closed
+                if (!navMenu.classList.contains('active') && dropdownToggle.nextElementSibling.style.display === 'block') {
+                     dropdownToggle.nextElementSibling.style.display = 'none';
+                }
+            });
+
+            // Toggle main 'Systems' dropdown for mobile
+            if (dropdownToggle) {
+                dropdownToggle.addEventListener('click', function(event) {
+                    // Only toggle if the main menu is active (i.e., on mobile)
+                    if (window.innerWidth <= 768) {
+                        event.preventDefault(); // Prevent navigating to #
+                        const dropdownContent = this.nextElementSibling;
+                        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
+                        // Close any open sub-menus when main dropdown is toggled
+                        document.querySelectorAll('.dropdown-submenu-content').forEach(sub => {
+                            sub.style.display = 'none';
+                        });
+                    }
+                });
+            }
+
+            // New: Handle submenu toggles for mobile
+            const submenuToggles = document.querySelectorAll('.dropdown-submenu .dropbtn-submenu');
+            submenuToggles.forEach(toggle => {
+                toggle.addEventListener('click', function(event) {
+                    if (window.innerWidth <= 768) { // Only apply for mobile
+                        event.preventDefault();
+                        const submenuContent = this.nextElementSibling;
+                        // Close other open submenus within the same parent dropdown
+                        Array.from(this.closest('.dropdown-content').querySelectorAll('.dropdown-submenu-content')).forEach(otherSub => {
+                            if (otherSub !== submenuContent) {
+                                otherSub.style.display = 'none';
+                            }
+                        });
+                        // Toggle this submenu
+                        submenuContent.style.display = (submenuContent.style.display === 'block') ? 'none' : 'block';
+                    }
+                });
+            });
+
+            // Close menus if screen resized from mobile to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    navMenu.classList.remove('active');
+                    // Ensure all dropdowns are hidden when switching to desktop view, let CSS hover take over
+                    document.querySelectorAll('.dropdown-content, .dropdown-submenu-content').forEach(el => {
+                        el.style.display = ''; // Reset display to default (which will be 'none' for dropdowns and 'block' on hover by CSS)
+                    });
+                }
+            });
+        });
+
+
+        // Initialize particles.js for the header background
+        particlesJS('particles-js', {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": {
+                        "width": 0,
+                        "color": "#bada55"
+                    },
+                    "polygon": {
+                        "nb_sides": 5
+                    },
+                    "image": {
+                        "src": "img/github.svg",
+                        "width": 100,
+                        "height": 100
+                    }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false,
+                    "anim": {
+                        "enable": false,
+                        "speed": 1,
+                        "opacity_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": {
+                        "enable": false,
+                        "speed": 40,
+                        "size_min": 0.1,
+                        "sync": false
+                    }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 3,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": {
+                        "enable": false,
+                        "rotateX": 600,
+                        "rotateY": 1200
+                    }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "grab"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": {
+                        "distance": 200,
+                        "line_linked": {
+                            "opacity": 1
+                        }
+                    },
+                    "bubble": {
+                        "distance": 400,
+                        "size": 40,
+                        "duration": 2,
+                        "opacity": 8,
+                        "speed": 3
+                    },
+                    "repulse": {
+                        "distance": 200,
+                        "duration": 0.4
+                    },
+                    "push": {
+                        "particles_nb": 4
+                    },
+                    "remove": {
+                        "particles_nb": 2
+                    }
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
+</body>
+</html>
