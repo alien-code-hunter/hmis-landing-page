@@ -1,9 +1,7 @@
-Here's an updated version of your README, incorporating the current backend-driven authentication and the refined project structure we implemented.
-
-HIS Namibia - Ministry of Health Landing Page
+## HIS Namibia - Ministry of Health Landing Page
 This project is a dynamic landing page for the Ministry of Health's Health Information System (HIS) data monitoring, complemented by a secure admin panel for updating key health metrics.
 
-Project Structure
+## Project Structure
 The project is structured into distinct frontend and backend components for better organization, security, and scalability.
 
 /my-health-portal/                  # Main project directory
@@ -21,7 +19,7 @@ The project is structured into distinct frontend and backend components for bett
 │   ├── package.json                # Backend dependencies and scripts
 │   └── node_modules/               # Installed Node.js packages
 └── README.md                       # Project documentation
-Features
+## Features
 ✅ Public dashboard for displaying real-time health data metrics.
 ✅ Admin panel for dynamic data updates.
 ✅ Backend-driven authentication for admin access (secure username/password login with sessions).
@@ -30,32 +28,27 @@ Features
 ⏳ User activity logs/audit trail (planned).
 ⏳ Export options for data (Excel, PDF) (planned).
 ⏳ Embedded data visualizations (Chart.js or D3.js) (planned).
-How to Run
+
+## How to Run
 Follow these steps to get the application running on your local machine:
 
-Clone the Repository:
+## Clone the Repository:
 
 Bash
-
 git clone https://github.com/alien-code-hunter/hmis-landing-page.git
 Navigate to the Project Directory:
-
 Bash
-
 cd hmis-landing-page
 Set Up the Backend:
 
 Navigate into the backend directory:
 Bash
-
 cd backend
 Install backend dependencies:
 Bash
-
 npm install
 Generate a Hashed Password: You need a hashed password for your admin user to store in server.js. Open a new terminal window (keep the current one in backend/). Run node and execute the following commands:
 JavaScript
-
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 bcrypt.hash('YOUR_ADMIN_PASSWORD', saltRounds, function(err, hash) {
@@ -82,7 +75,7 @@ Admin Login Page: http://localhost:9000/login.html
 Admin Panel: http://localhost:9000/admin.html (You will be redirected to login.html if not authenticated.)
 Tip: Ensure your data.json file in the backend/ directory is correctly formatted JSON, as the server reads from and writes to it.
 
-Future Improvements
+## Future Improvements
 Data Persistence: Replace the current data.json file storage with a robust database (e.g., PostgreSQL, MongoDB) for scalable and reliable data management.
 Audit Logging: Implement server-side logging of user activities (e.g., data changes, logins, logouts).
 Data Export: Add functionality to export displayed data to formats like Excel or PDF.
@@ -91,5 +84,5 @@ Enhanced Form Validation: Implement more comprehensive data validation on both f
 Contributing
 We welcome contributions! If you’d like to improve the dashboard, fix a bug, or implement a planned feature, feel free to submit a pull request.
 
-License
+## License
 This project is under the MIT License. See the LICENSE file for more info.
