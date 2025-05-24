@@ -1,88 +1,127 @@
-## HIS Namibia - Ministry of Health Landing Page
-This project is a dynamic landing page for the Ministry of Health's Health Information System (HIS) data monitoring, complemented by a secure admin panel for updating key health metrics.
+# HIS Namibia – Ministry of Health Landing Page
 
-## Project Structure
-The project is structured into distinct frontend and backend components for better organization, security, and scalability.
+A responsive and secure web-based landing page and admin dashboard for monitoring key health metrics in Namibia’s Health Information System (HIS).
 
-/my-health-portal/                  # Main project directory
-├── frontend/                       # Contains all public-facing HTML, CSS, JS, and assets
-│   ├── index.html                  # Public landing page displaying key metrics
-│   ├── admin.html                  # Admin dashboard for updating metrics (protected)
-│   ├── login.html                  # Dedicated login page for admin access
-│   ├── style.css                   # Main CSS file (if applicable)
-│   ├── script.js                   # Main frontend JavaScript (if applicable)
-│   ├── main_image.png              # Image used in admin.html
-│   └── Coat_of_arms_of_Namibia.svg # Logo used in header
-├── backend/                        # Node.js Express server for data handling and authentication
-│   ├── server.js                   # Main server logic and API endpoints
-│   ├── data.json                   # Server-managed data storage (JSON format)
-│   ├── package.json                # Backend dependencies and scripts
-│   └── node_modules/               # Installed Node.js packages
-└── README.md                       # Project documentation
-## Features
-✅ Public dashboard for displaying real-time health data metrics.
-✅ Admin panel for dynamic data updates.
-✅ Backend-driven authentication for admin access (secure username/password login with sessions).
-✅ Server-side management of data.json (data is now handled by the backend).
-✅ Responsive UI compatible with mobile and desktop.
-⏳ User activity logs/audit trail (planned).
-⏳ Export options for data (Excel, PDF) (planned).
-⏳ Embedded data visualizations (Chart.js or D3.js) (planned).
+---
 
-## How to Run
-Follow these steps to get the application running on your local machine:
+## 📁 Project Structure
 
-## Clone the Repository:
+```
+/my-health-portal/                      # Root project directory
+├── frontend/                           # Public-facing assets
+│   ├── index.html                      # Landing page displaying key metrics
+│   ├── admin.html                      # Admin dashboard (authentication required)
+│   ├── login.html                      # Admin login page
+│   ├── style.css                       # Main stylesheet
+│   ├── script.js                       # Frontend interactivity logic
+│   ├── main_image.png                  # Image used in admin.html
+│   └── Coat_of_arms_of_Namibia.svg    # Official logo in the header
+├── backend/                            # Node.js backend (Express.js)
+│   ├── server.js                       # Main server logic & API endpoints
+│   ├── data.json                       # Server-managed metric data (JSON format)
+│   ├── package.json                    # Backend dependencies and scripts
+│   └── node_modules/                   # Node.js packages
+└── README.md                           # Project documentation
+```
 
-Bash
+---
+
+## ✨ Features
+
+- ✅ Real-time display of health data metrics
+- ✅ Secure admin panel with backend-managed authentication
+- ✅ JSON-based server-side data storage (`data.json`)
+- ✅ Responsive design (mobile + desktop)
+- ⏳ Planned: User audit logs
+- ⏳ Planned: Data export (Excel/PDF)
+- ⏳ Planned: Embedded data visualizations (Chart.js or D3.js)
+
+---
+
+## 🚀 Getting Started
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/alien-code-hunter/hmis-landing-page.git
-Navigate to the Project Directory:
-Bash
 cd hmis-landing-page
-Set Up the Backend:
+```
 
-Navigate into the backend directory:
-Bash
+### 2. Set Up the Backend
+
+```bash
 cd backend
-Install backend dependencies:
-Bash
 npm install
-Generate a Hashed Password: You need a hashed password for your admin user to store in server.js. Open a new terminal window (keep the current one in backend/). Run node and execute the following commands:
-JavaScript
+```
+
+### 3. Configure Admin Credentials
+
+In a new terminal window:
+
+```bash
+node
+```
+
+Inside the Node.js prompt, generate a bcrypt hash for your password:
+
+```js
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
-bcrypt.hash('YOUR_ADMIN_PASSWORD', saltRounds, function(err, hash) {
-    console.log('Your hashed password:', hash);
+bcrypt.hash('YOUR_ADMIN_PASSWORD', 10, (err, hash) => {
+  console.log('Your hashed password:', hash);
 });
-// Type .exit and press Enter to quit the Node.js prompt
-Copy the generated hash.
-Update server.js: Open my-health-portal/backend/server.js.
-Replace 'YOUR_ACTUAL_BCRYPT_HASH_HERE' with the hashed password you just generated.
-Replace 'YOUR_VERY_STRONG_SECRET_KEY' with a long, random, unique string for your session secret.
-Save the file.
-Start the Backend Server:
+```
 
-From within the backend/ directory, run:
-Bash
+- Copy the generated hash.
+- Open `backend/server.js` and:
+  - Replace `'YOUR_ACTUAL_BCRYPT_HASH_HERE'` with the hash.
+  - Replace `'YOUR_VERY_STRONG_SECRET_KEY'` with a unique session secret.
 
+Exit the Node prompt:
+
+```bash
+.exit
+```
+
+### 4. Run the Server
+
+```bash
 node server.js
-You should see messages indicating the server is running on http://localhost:9000.
-Access the Pages
-Once the server is running:
+```
 
-Public Landing Page: http://localhost:9000/ (or http://localhost:9000/index.html)
-Admin Login Page: http://localhost:9000/login.html
-Admin Panel: http://localhost:9000/admin.html (You will be redirected to login.html if not authenticated.)
-Tip: Ensure your data.json file in the backend/ directory is correctly formatted JSON, as the server reads from and writes to it.
+> The server will run at: `http://localhost:9000`
 
-## Future Improvements
-Data Persistence: Replace the current data.json file storage with a robust database (e.g., PostgreSQL, MongoDB) for scalable and reliable data management.
-Audit Logging: Implement server-side logging of user activities (e.g., data changes, logins, logouts).
-Data Export: Add functionality to export displayed data to formats like Excel or PDF.
-Charts Integration: Visualize key metrics on the public dashboard using charting libraries like Chart.js or D3.js.
-Enhanced Form Validation: Implement more comprehensive data validation on both frontend and backend for admin inputs.
-Contributing
-We welcome contributions! If you’d like to improve the dashboard, fix a bug, or implement a planned feature, feel free to submit a pull request.
+---
 
-## License
-This project is under the MIT License. See the LICENSE file for more info.
+## 🌐 Access the App
+
+- Public Landing Page: [http://localhost:9000/](http://localhost:9000/)
+- Admin Login: [http://localhost:9000/login.html](http://localhost:9000/login.html)
+- Admin Dashboard: [http://localhost:9000/admin.html](http://localhost:9000/admin.html)
+
+> 🔐 You'll be redirected to the login page if you’re not authenticated.
+
+---
+
+## 🛠 Future Enhancements
+
+- 🔄 **Persistent Database**: Replace `data.json` with PostgreSQL or MongoDB
+- 🧾 **Audit Logging**: Track data edits and user activity
+- 📤 **Export Tools**: Allow export of reports to Excel/PDF
+- 📊 **Chart Integration**: Use Chart.js or D3.js for dynamic visualizations
+- ✅ **Advanced Validation**: Strengthen frontend/backend form validation
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Submit a pull request to:
+
+- Fix bugs
+- Improve UI/UX
+- Implement planned features
+
+---
+
+## 📄 License
+
+Licensed under the [MIT License](LICENSE).
