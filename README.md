@@ -1,4 +1,4 @@
-# HIS Namibia – Ministry of Health Landing Page
+# HIS Namibia – Ministry of Health Landing Page 
 
 A responsive and secure web-based landing page and admin dashboard for monitoring key health metrics in Namibia’s Health Information System (HIS).
 
