@@ -162,6 +162,22 @@
     .file-item button:hover {
       background-color: #a02822;
     }
+    .file-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+.file-table th,
+.file-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.file-table th {
+  background-color: #e0eafc;
+}
+
   </style>
 </head>
 <body>
@@ -200,153 +216,171 @@
 
     <!-- File List -->
     <h2>Uploaded Files</h2>
-    <div id="fileList" class="file-list"></div>
+    <table class="file-table">
+      <thead>
+      <tr>
+        <th>Filename</th>
+        <th>Type</th>
+        <th>Category</th>
+        <th>Uploaded</th>
+        <th>Download</th>
+      </tr>
+    </thead>
+  <tbody id="fileList"></tbody>
+</table>
+
   </div>
 
-  <script>
-    const messageBox = document.getElementById('messageBox');
+  <!-- All your <head> and styling stays as is -->
 
-    function showMessage(text, type) {
-      messageBox.textContent = text;
-      messageBox.className = 'message ' + type;
-      messageBox.style.display = 'block';
-      setTimeout(() => {
-        messageBox.classList.remove(type);
-        messageBox.textContent = '';
-        messageBox.style.display = 'none';
-      }, 5000);
-    }
+<!-- Replace the entire <script> section with this clean version: -->
+<script>
+  const messageBox = document.getElementById('messageBox');
 
-    async function updateData() {
-      const data = {
-        facilities_reporting: document.getElementById('facilities-reporting').value,
-        data_submission: document.getElementById('data-submission').value,
-        reporting_period: document.getElementById('reporting-period').value,
-        active_users: document.getElementById('active-users').value,
-        completeness: document.getElementById('completeness').value,
-        timeliness: document.getElementById('timeliness').value
-      };
+  function showMessage(text, type) {
+    messageBox.textContent = text;
+    messageBox.className = 'message ' + type;
+    messageBox.style.display = 'block';
+    setTimeout(() => {
+      messageBox.classList.remove(type);
+      messageBox.textContent = '';
+      messageBox.style.display = 'none';
+    }, 5000);
+  }
 
-      try {
-        const response = await fetch('http://localhost:9000/data.json', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify(data)
-        });
+  async function updateData() {
+    const data = {
+      facilities_reporting: document.getElementById('facilities-reporting').value,
+      data_submission: document.getElementById('data-submission').value,
+      reporting_period: document.getElementById('reporting-period').value,
+      active_users: document.getElementById('active-users').value,
+      completeness: document.getElementById('completeness').value,
+      timeliness: document.getElementById('timeliness').value
+    };
 
-        if (response.ok) {
-          showMessage('Data updated successfully!', 'success');
-        } else if (response.status === 401 || response.status === 403) {
-          showMessage('Session expired or not authorized. Please log in again.', 'error');
-          setTimeout(() => window.location.href = 'login.html', 2000);
-        } else {
-          showMessage('Failed to update data.', 'error');
-        }
-      } catch (error) {
-        console.error('Network error:', error);
-        showMessage('Network error. Check your connection.', 'error');
+    try {
+      const response = await fetch('http://localhost:9000/data.json', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        showMessage('Data updated successfully!', 'success');
+      } else if (response.status === 401 || response.status === 403) {
+        showMessage('Session expired or not authorized. Please log in again.', 'error');
+        setTimeout(() => window.location.href = 'login.html', 2000);
+      } else {
+        showMessage('Failed to update data.', 'error');
       }
+    } catch (error) {
+      console.error('Network error:', error);
+      showMessage('Network error. Check your connection.', 'error');
+    }
+  }
+
+  async function uploadFile() {
+    const fileInput = document.getElementById('training-file');
+    const file = fileInput.files[0];
+    const uploadMessage = document.getElementById('uploadMessage');
+
+    if (!file) {
+      uploadMessage.textContent = 'Please select a file.';
+      uploadMessage.className = 'message error';
+      uploadMessage.style.display = 'block';
+      return;
     }
 
-    async function uploadFile() {
-      const fileInput = document.getElementById('training-file');
-      const file = fileInput.files[0];
-      const uploadMessage = document.getElementById('uploadMessage');
+    const formData = new FormData();
+    formData.append('file', file);
 
-      if (!file) {
-        uploadMessage.textContent = 'Please select a file.';
+    try {
+      const response = await fetch('http://localhost:9000/upload', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        uploadMessage.textContent = `File uploaded: ${result.file.originalname || result.file.filename}`;
+        uploadMessage.className = 'message success';
+        loadUploadedFiles();
+      } else {
+        uploadMessage.textContent = result.message || 'Upload failed.';
         uploadMessage.className = 'message error';
-        uploadMessage.style.display = 'block';
+      }
+    } catch (error) {
+      console.error('Upload error:', error);
+      uploadMessage.textContent = 'Network error. Try again.';
+      uploadMessage.className = 'message error';
+    }
+
+    uploadMessage.style.display = 'block';
+    setTimeout(() => {
+      uploadMessage.textContent = '';
+      uploadMessage.style.display = 'none';
+    }, 5000);
+  }
+
+  async function handleLogout() {
+    try {
+      const response = await fetch('http://localhost:9000/api/logout', {
+        method: 'POST',
+        credentials: 'include'
+      });
+      if (response.ok) {
+        window.location.href = 'login.html';
+      } else {
+        alert('Logout failed.');
+      }
+    } catch (error) {
+      console.error('Logout error:', error);
+      alert('An error occurred during logout.');
+    }
+  }
+
+  async function loadUploadedFiles() {
+    try {
+      const response = await fetch('http://localhost:9000/uploads/list', {
+        credentials: 'include'
+      });
+
+      const data = await response.json();
+      const fileListContainer = document.getElementById('fileList');
+      fileListContainer.innerHTML = '';
+
+      if (!data.files || data.files.length === 0) {
+        fileListContainer.innerHTML = '<tr><td colspan="5">No files uploaded yet.</td></tr>';
         return;
       }
 
-      const formData = new FormData();
-      formData.append('file', file);
+      data.files.forEach(file => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td><a href="/uploads/${file.filename}" target="_blank">${file.original_name}</a></td>
+          <td>${file.mimetype}</td>
+          <td>${file.category || 'Uncategorized'}</td>
+          <td>${new Date(file.upload_date).toLocaleString()}</td>
+          <td><a href="/uploads/${file.filename}" download>Download</a></td>
+        `;
+        fileListContainer.appendChild(row);
+      });
 
-      try {
-        const response = await fetch('http://localhost:9000/upload', {
-          method: 'POST',
-          credentials: 'include',
-          body: formData
-        });
-
-        const result = await response.json();
-        if (response.ok) {
-          uploadMessage.textContent = `File uploaded: ${result.filename}`;
-          uploadMessage.className = 'message success';
-          loadUploadedFiles();
-        } else {
-          uploadMessage.textContent = result.message || 'Upload failed.';
-          uploadMessage.className = 'message error';
-        }
-      } catch (error) {
-        console.error('Upload error:', error);
-        uploadMessage.textContent = 'Network error. Try again.';
-        uploadMessage.className = 'message error';
-      }
-
-      uploadMessage.style.display = 'block';
-      setTimeout(() => {
-        uploadMessage.textContent = '';
-        uploadMessage.style.display = 'none';
-      }, 5000);
+    } catch (error) {
+      console.error('Error loading uploaded files:', error);
+      const fileListContainer = document.getElementById('fileList');
+      fileListContainer.innerHTML = `<tr><td colspan="5">Error loading file list.</td></tr>`;
     }
+  }
 
-    async function deleteFile(id) {
-      if (!confirm('Delete this file?')) return;
+  document.addEventListener('DOMContentLoaded', () => {
+    loadUploadedFiles();
+  });
+</script>
 
-      try {
-        const response = await fetch(`http://localhost:9000/api/files/${id}`, {
-          method: 'DELETE',
-          credentials: 'include'
-        });
 
-        const result = await response.json();
-        if (response.ok) {
-          alert('File deleted.');
-          loadUploadedFiles();
-        } else {
-          alert(result.message || 'Failed to delete file.');
-        }
-      } catch (error) {
-        console.error('Delete error:', error);
-        alert('Network error during delete.');
-      }
-    }
-
-    async function loadUploadedFiles() {
-      try {
-        const response = await fetch('http://localhost:9000/api/files', {
-          credentials: 'include'
-        });
-
-        const files = await response.json();
-        const container = document.getElementById('fileList');
-        container.innerHTML = '';
-
-        if (files.length === 0) {
-          container.innerHTML = '<p>No files uploaded yet.</p>';
-          return;
-        }
-
-        files.forEach(file => {
-          const div = document.createElement('div');
-          div.className = 'file-item';
-          div.innerHTML = `
-            <p><strong>Name:</strong> <a href="/uploads/${file.filename}" target="_blank">${file.original_name}</a></p>
-            <p><strong>Type:</strong> ${file.mime_type}</p>
-            <p><strong>Category:</strong> ${file.category || 'Uncategorized'}</p>
-            <p><strong>Uploaded:</strong> ${new Date(file.uploaded_at).toLocaleString()}</p>
-            <button onclick="deleteFile(${file.id})">Delete</button>
-          `;
-          container.appendChild(div);
-        });
-      } catch (error) {
-        console.error('Error loading uploaded files:', error);
-        document.getElementById('fileList').innerHTML = '<p>Error loading file list.</p>';
-      }
-    }
 
     async function handleLogout() {
       try {
