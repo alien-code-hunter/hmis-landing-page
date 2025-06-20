@@ -527,10 +527,10 @@
                         credentials: 'include'
                     });
                     const data = await response.json();
-                    document.getElementById('facilities-reporting').textContent = data.facilitiesReporting;
-                    document.getElementById('data-submission').textContent = data.dataSubmission;
-                    document.getElementById('reporting-period').textContent = data.reportingPeriod;
-                    document.getElementById('active-users').textContent = data.activeUsers;
+                    document.getElementById('facilities-reporting').textContent = data.facilities_reporting;
+                    document.getElementById('data-submission').textContent = data.data_submission;
+                    document.getElementById('reporting-period').textContent = data.reporting_period;
+                    document.getElementById('active-users').textContent = data.active_users;
                     document.getElementById('timeliness').textContent = data.timeliness;
                     document.getElementById('completeness').textContent = data.completeness;
                 } catch (error) {

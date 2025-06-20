@@ -128,6 +128,40 @@
       border: 1px solid #f5c6cb;
       display: block;
     }
+
+    hr {
+      margin: 30px 0;
+    }
+
+    .file-list {
+      margin-top: 15px;
+    }
+
+    .file-item {
+      border: 1px solid #ccc;
+      padding: 12px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background-color: #f2f7fc;
+    }
+
+    .file-item p {
+      margin: 4px 0;
+    }
+
+    .file-item button {
+      margin-top: 5px;
+      background-color: #c9302c;
+      color: #fff;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .file-item button:hover {
+      background-color: #a02822;
+    }
   </style>
 </head>
 <body>
@@ -145,39 +179,28 @@
   <div class="container">
     <div id="messageBox" class="message"></div>
 
-    <div class="form-group">
-      <label for="facilities-reporting">Facilities Reporting (%)</label>
-      <input type="number" id="facilities-reporting" min="0" max="100" />
-    </div>
+    <!-- Data Update Form -->
+    <div class="form-group"><label for="facilities-reporting">Facilities Reporting (%)</label><input type="number" id="facilities-reporting" min="0" max="100" /></div>
+    <div class="form-group"><label for="data-submission">Data Submission Rate (%)</label><input type="number" id="data-submission" min="0" max="100" /></div>
+    <div class="form-group"><label for="reporting-period">Reporting Period</label><input type="text" id="reporting-period" placeholder="e.g., Q1 2025" /></div>
+    <div class="form-group"><label for="active-users">Active Users</label><input type="number" id="active-users" min="0" /></div>
+    <div class="form-group"><label for="completeness">Current Completeness Rate (%)</label><input type="number" id="completeness" min="0" max="100" /></div>
+    <div class="form-group"><label for="timeliness">Current Timeliness Rate (%)</label><input type="number" id="timeliness" min="0" max="100" /></div>
+    <div class="form-group"><button onclick="updateData()">Update Data</button></div>
 
-    <div class="form-group">
-      <label for="data-submission">Data Submission Rate (%)</label>
-      <input type="number" id="data-submission" min="0" max="100" />
-    </div>
+    <hr>
 
-    <div class="form-group">
-      <label for="reporting-period">Reporting Period</label>
-      <input type="text" id="reporting-period" placeholder="e.g., Q1 2025" />
-    </div>
+    <!-- Upload -->
+    <h2>Upload Training or Resource File</h2>
+    <div class="form-group"><label for="training-file">Choose File</label><input type="file" id="training-file" /></div>
+    <div class="form-group"><button onclick="uploadFile()">Upload File</button></div>
+    <div id="uploadMessage" class="message"></div>
 
-    <div class="form-group">
-      <label for="active-users">Active Users</label>
-      <input type="number" id="active-users" min="0" />
-    </div>
+    <hr>
 
-    <div class="form-group">
-      <label for="completeness">Current Completeness Rate (%)</label>
-      <input type="number" id="completeness" min="0" max="100" />
-    </div>
-
-    <div class="form-group">
-      <label for="timeliness">Current Timeliness Rate (%)</label>
-      <input type="number" id="timeliness" min="0" max="100" />
-    </div>
-
-    <div class="form-group">
-      <button onclick="updateData()">Update Data</button>
-    </div>
+    <!-- File List -->
+    <h2>Uploaded Files</h2>
+    <div id="fileList" class="file-list"></div>
   </div>
 
   <script>
@@ -196,10 +219,10 @@
 
     async function updateData() {
       const data = {
-        facilitiesReporting: document.getElementById('facilities-reporting').value,
-        dataSubmission: document.getElementById('data-submission').value,
-        reportingPeriod: document.getElementById('reporting-period').value,
-        activeUsers: document.getElementById('active-users').value,
+        facilities_reporting: document.getElementById('facilities-reporting').value,
+        data_submission: document.getElementById('data-submission').value,
+        reporting_period: document.getElementById('reporting-period').value,
+        active_users: document.getElementById('active-users').value,
         completeness: document.getElementById('completeness').value,
         timeliness: document.getElementById('timeliness').value
       };
@@ -207,9 +230,7 @@
       try {
         const response = await fetch('http://localhost:9000/data.json', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
+          headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify(data)
         });
@@ -218,12 +239,8 @@
           showMessage('Data updated successfully!', 'success');
         } else if (response.status === 401 || response.status === 403) {
           showMessage('Session expired or not authorized. Please log in again.', 'error');
-          setTimeout(() => {
-            window.location.href = 'login.html';
-          }, 2000);
+          setTimeout(() => window.location.href = 'login.html', 2000);
         } else {
-          const errorText = await response.text();
-          console.error(`Error: ${response.status}`, errorText);
           showMessage('Failed to update data.', 'error');
         }
       } catch (error) {
@@ -232,28 +249,122 @@
       }
     }
 
+    async function uploadFile() {
+      const fileInput = document.getElementById('training-file');
+      const file = fileInput.files[0];
+      const uploadMessage = document.getElementById('uploadMessage');
+
+      if (!file) {
+        uploadMessage.textContent = 'Please select a file.';
+        uploadMessage.className = 'message error';
+        uploadMessage.style.display = 'block';
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      try {
+        const response = await fetch('http://localhost:9000/upload', {
+          method: 'POST',
+          credentials: 'include',
+          body: formData
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          uploadMessage.textContent = `File uploaded: ${result.filename}`;
+          uploadMessage.className = 'message success';
+          loadUploadedFiles();
+        } else {
+          uploadMessage.textContent = result.message || 'Upload failed.';
+          uploadMessage.className = 'message error';
+        }
+      } catch (error) {
+        console.error('Upload error:', error);
+        uploadMessage.textContent = 'Network error. Try again.';
+        uploadMessage.className = 'message error';
+      }
+
+      uploadMessage.style.display = 'block';
+      setTimeout(() => {
+        uploadMessage.textContent = '';
+        uploadMessage.style.display = 'none';
+      }, 5000);
+    }
+
+    async function deleteFile(id) {
+      if (!confirm('Delete this file?')) return;
+
+      try {
+        const response = await fetch(`http://localhost:9000/api/files/${id}`, {
+          method: 'DELETE',
+          credentials: 'include'
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+          alert('File deleted.');
+          loadUploadedFiles();
+        } else {
+          alert(result.message || 'Failed to delete file.');
+        }
+      } catch (error) {
+        console.error('Delete error:', error);
+        alert('Network error during delete.');
+      }
+    }
+
+    async function loadUploadedFiles() {
+      try {
+        const response = await fetch('http://localhost:9000/api/files', {
+          credentials: 'include'
+        });
+
+        const files = await response.json();
+        const container = document.getElementById('fileList');
+        container.innerHTML = '';
+
+        if (files.length === 0) {
+          container.innerHTML = '<p>No files uploaded yet.</p>';
+          return;
+        }
+
+        files.forEach(file => {
+          const div = document.createElement('div');
+          div.className = 'file-item';
+          div.innerHTML = `
+            <p><strong>Name:</strong> <a href="/uploads/${file.filename}" target="_blank">${file.original_name}</a></p>
+            <p><strong>Type:</strong> ${file.mime_type}</p>
+            <p><strong>Category:</strong> ${file.category || 'Uncategorized'}</p>
+            <p><strong>Uploaded:</strong> ${new Date(file.uploaded_at).toLocaleString()}</p>
+            <button onclick="deleteFile(${file.id})">Delete</button>
+          `;
+          container.appendChild(div);
+        });
+      } catch (error) {
+        console.error('Error loading uploaded files:', error);
+        document.getElementById('fileList').innerHTML = '<p>Error loading file list.</p>';
+      }
+    }
+
     async function handleLogout() {
       try {
         const response = await fetch('http://localhost:9000/api/logout', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
           credentials: 'include'
         });
-
-        if (response.ok) {
-          window.location.href = 'login.html';
-        } else {
-          const errorText = await response.text();
-          console.error('Logout failed:', errorText);
-          alert('Logout failed.');
-        }
+        if (response.ok) window.location.href = 'login.html';
+        else alert('Logout failed.');
       } catch (error) {
-        console.error('Error during logout:', error);
+        console.error('Logout error:', error);
         alert('An error occurred during logout.');
       }
     }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadUploadedFiles();
+    });
   </script>
 </body>
 </html>

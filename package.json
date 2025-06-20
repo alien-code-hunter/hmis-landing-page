@@ -1,0 +1,13 @@
+{
+    "name": "hmis-landing-page",
+    "version": "1.0.0",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "dotenv": "^16.5.0",
+        "multer": "^2.0.1",
+        "pg": "^8.16.2"
+    }
+}

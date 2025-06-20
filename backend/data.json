@@ -1,8 +1,8 @@
 {
-  "facilitiesReporting": "23",
-  "dataSubmission": "23",
-  "reportingPeriod": "Q1",
-  "activeUsers": "34",
+  "facilities_reporting": "23",
+  "data_submission": "34",
+  "reporting_period": "Q1",
+  "active_users": "34",
   "completeness": "34",
   "timeliness": "34"
 }
