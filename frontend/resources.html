@@ -353,6 +353,15 @@
         <option value="image">Images</option>
         <option value="excel">Excel</option>
         <option value="ppt">PowerPoint</option>
+        <option value="mp4 mvi">Videos</option>
+        <option value="mva">Voice Recordings</option>
+      </select>
+      <label for="documentType">Document type:</label>
+      <select id="filter" onchange="loadResources()">
+        <option value="All">All</option>
+        <option value="Training Manual">Training</option>
+        <option value="User Manual">User Manual</option>
+        <option value="policies">Policies</option>
       </select>
       <label for="SystemFilter">System:</label>
       <select id="categoryFilter" onchange="loadResources()">
@@ -366,10 +375,12 @@
       </select>
       <label for="categoryFilter">Health type:</label>
       <select id="categoryFilter" onchange="loadResources()">
-        <option value="all">All Health Process/Types</option>
+        <option value="all">All Processes</option>
         <option value="Survelleince">Survelleince</option>
         <option value="Inpatient">Inpatient</option>
         <option value="Outpatient">Outpatient</option>
+        <option value="DataCapturing">Data Capturing</option>
+        <option value="DataManagement">Data Management</option>
       </select>
     </div>
 
