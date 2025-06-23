@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Training and Resources</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f4f7fb;
+      color: #2b4b78;
+    }
+
+    header {
+            background-color: #2b4b78; /* Solid background color for the header */
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            min-height: 250px; /* Give the header a larger minimum height */
+            color: white; /* Default text color for header content */
+            position: relative; /* Needed for absolute positioning of particles-js */
+            overflow: hidden; /* Hide any overflow from particles */
+        }
+
+        header::before {
+            display: none;
+        }
+
+        .header-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0; /* Place behind header content */
+            background-color: transparent; /* Particles will draw on this */
+        }
+
+        header .left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        header img.logo {
+            width: 70px;
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      padding: 40px;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 25px;
+      align-items: center;
+    }
+
+    label {
+      font-weight: 500;
+    }
+
+    select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: #fff;
+      min-width: 150px;
+    }
+
+    .resource-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .resource-table th, .resource-table td {
+      padding: 16px 18px;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .resource-table th {
+      background-color: #e3effd;
+      font-weight: 600;
+    }
+
+    .resource-table tr:hover {
+      background-color: #f9fcff;
+    }
+
+    .download-btn, .view-btn, .preview-btn {
+      padding: 8px 14px;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      width: 100%;
+      margin-bottom: 5px;
+      text-align: center;
+    }
+
+    .download-btn {
+      background-color: #2b4b78;
+    }
+
+    .download-btn:hover {
+      background-color: #1f3659;
+    }
+
+    .view-btn {
+      background-color: #4caf50;
+    }
+
+    .view-btn:hover {
+      background-color: #3e8e41;
+    }
+
+    .preview-btn {
+      background-color: #ff9800;
+    }
+
+    .preview-btn:hover {
+      background-color: #e68900;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.7);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 5% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 90%;
+      max-width: 850px;
+      height: 80%;
+      overflow-y: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    .modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close {
+      color: #888;
+      float: right;
+      font-size: 26px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+    }
+    footer {
+            background-color: #eaeaea;
+            text-align: center;
+            padding: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+    .file-icon {
+      margin-right: 8px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <div id="particles-js" class="header-particles"></div>
+
+        <div class="left">
+            <img src="/arms.svg" alt="Namibia Coat of Arms Logo" class="logo" />
+            <h1>Ministry of Health and Social Services</h1>
+        </div>
+        <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
+        <nav class="menu" aria-label="Main Menu">
+            <a href="#">Home</a>
+            <div class="dropdown">
+                <a href="#" class="dropbtn">Systems</a>
+                <div class="dropdown-content">
+                    <div class="dropdown-submenu">
+                        <a href="#" class="dropbtn-submenu">DHIS2</a>
+                        <div class="dropdown-submenu-content">
+                            <a href="https://hmis.mhss.gov.na/core/">Core/Aggregate</a>
+                            <a href="https://hmis.mhss.gov.na/inpatient/">Inpatient</a>
+                            <a href="https://hmis.mhss.gov.na/IDSR/">IDSR</a>
+                            <a href="https://hmis.mhss.gov.na/COVAX/">Covax</a>
+                            <a href="https://hmis.mhss.gov.na/MIMS/">MIMS</a>
+                            <a href="https://hmis.mhss.gov.na/cecap/">CECAP</a>
+                            <a href="https://hmis.mhss.gov.na/malaria/">Malaria</a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown-submenu">
+                        <a href="#" class="dropbtn-submenu">OpenMRS</a>
+                        <div class="dropdown-submenu-content">
+                            <a href="https://ptracker.mhss.gov.na/openmrs/">Ptracker</a>
+                        </div>
+                    </div>
+
+                    <a href="https://hmis.mhss.gov.na/core/">e-Notification</a>
+                    <a href="https://ndw.mhss.gov.na/dashboards.html">NDW</a>
+                    <a href="https://mfl.mhss.gov.na/">MFL</a>
+                </div>
+            </div>
+            <a href="#">Reports</a>
+            <a href="resources.html">Training and Resources</a>
+            <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
+            <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Dictionary</a>
+            <a href="admin.html">Admin</a>
+        </nav>
+    </header>
+  <script>
+    function openPreview(fileUrl) {
+      const modal = document.getElementById('previewModal');
+      const frame = document.getElementById('previewFrame');
+      frame.src = fileUrl;
+      modal.style.display = 'block';
+    }
+  
+    function closePreview() {
+      const modal = document.getElementById('previewModal');
+      const frame = document.getElementById('previewFrame');
+      frame.src = '';
+      modal.style.display = 'none';
+    }
+  
+    function getFriendlyType(mime) {
+      if (mime.includes('pdf')) return 'PDF Document';
+      if (mime.includes('wordprocessingml')) return 'Microsoft Word';
+      if (mime.includes('spreadsheetml')) return 'Microsoft Excel';
+      if (mime.includes('presentationml')) return 'PowerPoint';
+      if (mime.includes('image')) return 'Image';
+      return 'File';
+    }
+  
+    function getFileIcon(mime) {
+      if (mime.includes('pdf')) return '📄';
+      if (mime.includes('wordprocessingml')) return '📝';
+      if (mime.includes('spreadsheetml')) return '📊';
+      if (mime.includes('presentationml')) return '📽️';
+      if (mime.includes('image')) return '🖼️';
+      return '📁';
+    }
+  
+    async function loadResources() {
+      try {
+        const response = await fetch('http://localhost:9000/uploads/list');
+        const data = await response.json();
+        const resourceList = document.getElementById('resourceList');
+        const typeFilter = document.getElementById('filter').value;
+        const categoryFilter = document.getElementById('categoryFilter').value;
+  
+        resourceList.innerHTML = '';
+  
+        if (!data.files || data.files.length === 0) {
+          resourceList.innerHTML = '<tr><td colspan="5">No resources available at this time.</td></tr>';
+          return;
+        }
+  
+        data.files.forEach(file => {
+          const fileType = getFriendlyType(file.mimetype);
+          const icon = getFileIcon(file.mimetype);
+          const fileUrl = `/uploads/${file.filename}`;
+          const category = file.category || 'Uncategorized';
+  
+          const matchesType =
+            typeFilter === 'all' ||
+            (typeFilter === 'pdf' && fileType === 'PDF Document') ||
+            (typeFilter === 'word' && fileType === 'Microsoft Word') ||
+            (typeFilter === 'excel' && fileType === 'Microsoft Excel') ||
+            (typeFilter === 'ppt' && fileType === 'PowerPoint') ||
+            (typeFilter === 'image' && fileType === 'Image');
+  
+          const matchesCategory = categoryFilter === 'all' || category === categoryFilter;
+  
+          if (!matchesType || !matchesCategory) return;
+  
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${icon} ${file.original_name}</td>
+            <td>${fileType}</td>
+            <td>${category}</td>
+            <td>${new Date(file.upload_date).toLocaleDateString()}</td>
+            <td style="display: flex; flex-direction: column; gap: 5px;">
+              <button class="preview-btn" onclick="openPreview('${fileUrl}')">Preview</button>
+              <a class="download-btn" href="${fileUrl}" download>Download</a>
+            </td>
+          `;
+          resourceList.appendChild(row);
+        });
+      } catch (error) {
+        console.error('Error loading resources:', error);
+        document.getElementById('resourceList').innerHTML = '<tr><td colspan="5">Error loading resources.</td></tr>';
+      }
+    }
+  
+    document.addEventListener('DOMContentLoaded', loadResources);
+  </script>
+  
+  <div class="container">
+    <div class="filter-bar">
+      <label for="filter">File type:</label>
+      <select id="filter" onchange="loadResources()">
+        <option value="all">All</option>
+        <option value="pdf">PDF</option>
+        <option value="word">Word</option>
+        <option value="image">Images</option>
+        <option value="excel">Excel</option>
+        <option value="ppt">PowerPoint</option>
+      </select>
+      <label for="SystemFilter">System:</label>
+      <select id="categoryFilter" onchange="loadResources()">
+        <option value="all">All Systems</option>
+        <option value="DHIS2">DHIS2</option>
+        <option value="PTracker">PTracker</option>
+        <option value="NDW">National Data Warehouse</option>
+        <option value="MPI">Master Patient Index</option>
+        <option value="e-Notification">e-Notification</option>
+        <option value="MFL">Master Facility List</option>
+      </select>
+      <label for="categoryFilter">Health type:</label>
+      <select id="categoryFilter" onchange="loadResources()">
+        <option value="all">All Health Process/Types</option>
+        <option value="Survelleince">Survelleince</option>
+        <option value="Inpatient">Inpatient</option>
+        <option value="Outpatient">Outpatient</option>
+      </select>
+    </div>
+
+    <table class="resource-table">
+      <thead>
+        <tr>
+          <th>Filename</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Uploaded</th>
+          <th style="width: 180px;">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="resourceList">
+        <!-- Dynamic file list will appear here -->
+      </tbody>
+    </table>
+  </div>
+
+  <div id="previewModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closePreview()">&times;</span>
+      <iframe id="previewFrame" src=""></iframe>
+    </div>
+  </div>
+  <footer>
+    Ministry of Health and Social Services, Republic of Namibia<br />
+    Private Bag 13189, Windhoek, Namibia<br />
+    &copy; 2025 MoHSS. Version 1.0.0.1 | Maintained
+</footer>
+</body>
+</html>
