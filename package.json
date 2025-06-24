@@ -6,8 +6,26 @@
         "start": "node server.js"
     },
     "dependencies": {
+        "bcryptjs": "^3.0.2",
+        "cors": "^2.8.5",
         "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "express-validator": "^7.2.1",
+        "jsonwebtoken": "^9.0.2",
+        "morgan": "^1.10.0",
         "multer": "^2.0.1",
         "pg": "^8.16.2"
-    }
+    },
+    "description": "A responsive and secure web-based landing page and admin dashboard for monitoring key health metrics in Namibia’s Health Information System (HIS).",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/alien-code-hunter/hmis-landing-page.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/alien-code-hunter/hmis-landing-page/issues"
+    },
+    "homepage": "https://github.com/alien-code-hunter/hmis-landing-page#readme"
 }
