@@ -23,11 +23,6 @@
       align-items: center;
     }
 
-    .header h1 {
-      font-size: 24px;
-      margin: 0;
-    }
-
     .logout-button {
       background-color: #d9534f;
       color: #fff;
@@ -35,10 +30,6 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
-    }
-
-    .logout-button:hover {
-      background-color: #c9302c;
     }
 
     .tab-menu {
@@ -133,10 +124,6 @@
       align-items: center;
     }
 
-    .checkbox-group input {
-      margin-right: 5px;
-    }
-
     .file-table {
       width: 100%;
       border-collapse: collapse;
@@ -167,7 +154,6 @@
     <button class="tab-btn" onclick="showTab('manage-files')">Manage Files</button>
   </div>
 
-  <!-- Tabs -->
   <div id="data-update" class="tab-content active">
     <div id="messageBox" class="message"></div>
 
@@ -244,7 +230,7 @@ async function updateData() {
   };
 
   try {
-    const response = await fetch('http://localhost:9000/data.json', {
+    const response = await fetch('http://localhost:9000/api/dashboard/update', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
@@ -280,7 +266,7 @@ async function uploadFile() {
   formData.append('categories', JSON.stringify(categories));
 
   try {
-    const response = await fetch('http://localhost:9000/upload', {
+    const response = await fetch('http://localhost:9000/api/files/upload', {
       method: 'POST',
       credentials: 'include',
       body: formData
@@ -307,7 +293,7 @@ async function uploadFile() {
 
 async function loadUploadedFiles() {
   try {
-    const res = await fetch('http://localhost:9000/uploads/list', {
+    const res = await fetch('http://localhost:9000/api/files/list', {
       credentials: 'include'
     });
     const data = await res.json();

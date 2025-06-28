@@ -1,25 +1,30 @@
 // routes/userRoutes.js
 const express = require('express');
 const bcrypt = require('bcrypt');
-const router = express.Router();
+const { Pool } = require('pg');
 const { isAuthenticated } = require('../middleware/authMiddleware');
 
-// Create user (Admin only)
-router.post('/create', isAuthenticated, async (req, res) => {
-  const pool = req.pool;
-  const { username, password, role } = req.body;
+const router = express.Router();
 
-  if (!username || !password || !role) {
-    return res.status(400).json({ message: 'All fields required' });
-  }
+const pool = new Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'hmis_dashboard',
+  password: '',
+  port: 5432
+});
+
+router.post('/create', isAuthenticated, async (req, res) => {
+  const { username, password, role } = req.body;
+  if (!username || !password || !role)
+    return res.status(400).json({ message: 'Missing required fields' });
 
   try {
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hash = await bcrypt.hash(password, 10);
     const result = await pool.query(
       'INSERT INTO users (username, password_hash, role) VALUES ($1, $2, $3) RETURNING id, username, role',
-      [username, hashedPassword, role]
+      [username, hash, role]
     );
-
     res.status(201).json({ user: result.rows[0] });
   } catch (err) {
     console.error('User creation error:', err);
@@ -27,50 +32,43 @@ router.post('/create', isAuthenticated, async (req, res) => {
   }
 });
 
-// Get all users
-router.get('/', isAuthenticated, async (req, res) => {
-  const pool = req.pool;
+router.get('/', isAuthenticated, async (_, res) => {
   try {
     const result = await pool.query('SELECT id, username, role FROM users ORDER BY id ASC');
     res.json({ users: result.rows });
   } catch (err) {
-    console.error('Fetch users error:', err);
-    res.status(500).json({ message: 'Failed to fetch users' });
+    console.error('Get users error:', err);
+    res.status(500).json({ message: 'Failed to get users' });
   }
 });
 
-// Update user role or password
 router.put('/:id', isAuthenticated, async (req, res) => {
-  const pool = req.pool;
-  const userId = req.params.id;
-  const { role, password } = req.body;
+  const { id } = req.params;
+  const { password, role } = req.body;
 
   try {
     if (role) {
-      await pool.query('UPDATE users SET role = $1 WHERE id = $2', [role, userId]);
+      await pool.query('UPDATE users SET role = $1 WHERE id = $2', [role, id]);
     }
     if (password) {
-      const hashed = await bcrypt.hash(password, 10);
-      await pool.query('UPDATE users SET password_hash = $1 WHERE id = $2', [hashed, userId]);
+      const hash = await bcrypt.hash(password, 10);
+      await pool.query('UPDATE users SET password_hash = $1 WHERE id = $2', [hash, id]);
     }
     res.json({ message: 'User updated' });
   } catch (err) {
     console.error('Update user error:', err);
-    res.status(500).json({ message: 'Failed to update user' });
+    res.status(500).json({ message: 'Update failed' });
   }
 });
 
-// Delete user
 router.delete('/:id', isAuthenticated, async (req, res) => {
-  const pool = req.pool;
-  const userId = req.params.id;
-
+  const { id } = req.params;
   try {
-    await pool.query('DELETE FROM users WHERE id = $1', [userId]);
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
     res.json({ message: 'User deleted' });
   } catch (err) {
     console.error('Delete user error:', err);
-    res.status(500).json({ message: 'Failed to delete user' });
+    res.status(500).json({ message: 'Deletion failed' });
   }
 });
 

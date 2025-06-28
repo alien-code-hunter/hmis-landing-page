@@ -1,4 +1,4 @@
-// File: server.js (Root)
+// File: server.js
 require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -32,36 +32,38 @@ app.use(session({
     httpOnly: true,
     secure: false,
     sameSite: 'lax',
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    maxAge: 24 * 60 * 60 * 1000
   }
 }));
 
 // --- Static Files ---
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 const frontendPath = path.join(__dirname, '../frontend');
-app.use(express.static(frontendPath));
+app.use(express.static(frontendPath)); // serve static frontend files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // serve uploaded files
 
-// --- Routes ---
+// --- API Routes ---
 app.use('/api/files', fileRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'admin.html'));
-});
+// --- Frontend Routes ---
 app.get('/', (req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
+});
+app.get('/admin.html', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'admin.html'));
 });
 app.get('/login.html', (req, res) => {
   res.sendFile(path.join(frontendPath, 'login.html'));
 });
 
-// --- 404 Fallback ---
+// --- 404 fallback for frontend routes ---
 app.use((req, res) => {
   res.status(404).send('Page not found');
 });
 
+// --- Start Server ---
 app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`✅ HMIS Backend running at http://localhost:${PORT}`);
 });
