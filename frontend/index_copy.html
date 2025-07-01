@@ -26,19 +26,26 @@
         }
 
         header {
-            background-color: #2b4b78; /* Solid background color for the header */
-            padding: 20px;
+            background-color: #184687; 
+            padding: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            min-height: 250px; /* Give the header a larger minimum height */
-            color: white; /* Default text color for header content */
-            position: relative; /* Needed for absolute positioning of particles-js */
-            overflow: hidden; /* Hide any overflow from particles */
+            min-height: 5px;
+            color: black;
+            position: relative;
+            overflow: visible;
+            z-index: 1; 
         }
 
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex: 1;
+            }
         header::before {
             display: none;
         }
@@ -49,8 +56,8 @@
             height: 100%;
             top: 0;
             left: 0;
-            z-index: 0; /* Place behind header content */
-            background-color: transparent; /* Particles will draw on this */
+            z-index: 0; 
+            background-color: transparent;
         }
 
         header .left {
@@ -62,7 +69,7 @@
         }
 
         header img.logo {
-            width: 70px;
+            width: 35px;
         }
 
         header h1 {
@@ -74,7 +81,7 @@
         }
 
         .menu-toggle {
-            font-size: 26px;
+            font-size: 20px;
             background: none;
             border: none;
             cursor: pointer;
@@ -93,7 +100,7 @@
 
         nav.menu a {
             text-decoration: none;
-            color: white;
+            color: black;
             font-weight: 500;
             padding: 8px 12px;
             border-radius: 6px;
@@ -113,7 +120,7 @@
 
         .dropbtn {
             text-decoration: none;
-            color: white;
+            color: black;
             font-weight: 500;
             padding: 8px 12px;
             border-radius: 6px;
@@ -125,6 +132,7 @@
         }
 
         .dropdown-content {
+            color: #000 !important;
             display: none;
             position: absolute;
             background-color: transparent; /* Changed to transparent */
@@ -137,7 +145,7 @@
         }
 
         .dropdown-content a {
-            color: white; /* Changed to white for visibility on dark header */
+            color: white; /* White for visibility on dark header */
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -149,7 +157,7 @@
 
         .dropdown-content a:hover {
             background-color: rgba(255, 255, 255, 0.2);
-            color: white; /* Ensure text remains white on hover */
+            color: black; /* Keep text white on hover */
         }
 
         .dropdown:hover .dropdown-content {
@@ -159,6 +167,7 @@
         .dropdown:hover .dropbtn {
             background-color: rgba(255, 255, 255, 0.2);
         }
+
         /* --- Main Dropdown Styles End --- */
 
         /* --- Nested Dropdown (Submenu) Styles Start --- */
@@ -171,7 +180,7 @@
             display: block;
             padding: 12px 16px;
             text-decoration: none;
-            color: white; /* Submenu button text color */
+            color: black; /* Submenu button text color */
             background-color: transparent;
             border: none;
             cursor: pointer;
@@ -209,7 +218,7 @@
         }
 
         .dropdown-submenu-content a {
-            color: white; /* Text color for sub-menu items */
+            color: black; /* Text color for sub-menu items */
             padding: 12px 16px;
             text-decoration: none;
             display: block;
@@ -219,7 +228,7 @@
         }
 
         .dropdown-submenu-content a:hover {
-            background-color: rgba(255, 255, 255, 0.3); /* Slightly more opaque hover for sub-items */
+            background-color: rgba(255, 255, 255, 0.3);
         }
         /* --- Nested Dropdown (Submenu) Styles End --- */
 
@@ -238,6 +247,11 @@
             margin-bottom: 12px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
+        .banner .logo {
+            width: 100px;
+            height: auto;
+            flex-shrink: 0; /* prevent it from shrinking in flex layout */
+            }
 
         .banner h2 {
             font-size: 26px;
@@ -309,8 +323,11 @@
             color: #2b4b78;
         }
         .blue-tile {
-            background-color: #2b4b78;
+            background-color: #184687;
             color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
         nav.menu a:hover {
         border-bottom: 2px solid #fff;
@@ -407,7 +424,7 @@
                 min-width: unset;
                 box-shadow: none;
                 border-radius: 0;
-                background-color: #e8e8e8; /* Lighter background for sub-submenu content */
+                background-color: rgba(43, 75, 120, 0.95);
                 border-top: 1px solid #ddd;
             }
 
@@ -420,58 +437,89 @@
             .dropdown-submenu:hover .dropdown-submenu-content {
                 display: none; /* Disable hover effect for mobile, JS will control */
             }
+            #particles-js.full-bg {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1; /* Put behind all content */
+                pointer-events: none; /* Optional: allows clicks to pass through */
+            }
+              /* Ensure body content appears above the background */
+            body {
+                position: relative;
+                z-index: 1;
+            }
+
+            /* Optional: make sure header & content stay above background too */
+            header, main, .content, .tab-content {
+                position: relative;
+                z-index: 2;
+            }
+            
+
         }
     </style>
 </head>
 <body>
-    <header>
-        <div id="particles-js" class="header-particles"></div>
 
-        <div class="left">
-            <img src="/arms.svg" alt="Namibia Coat of Arms Logo" class="logo" />
-            <h1>Ministry of Health and Social Services</h1>
-        </div>
+    <div id="particles-js" class="header-particles"></div>
+    <header>
         <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
         <nav class="menu" aria-label="Main Menu">
-            <a href="#">Home</a>
-            <div class="dropdown">
+            <div class="left">
+              <img src="/flag.png" alt="Namibian flag Logo" class="logo" />
+            </div>
+        
+            <div class="nav-links">
+              <a href="#">Home</a>
+              <a href="#">Reports</a>
+              <a href="resources.html">Training and Resources</a>
+              <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
+        
+              <div class="dropdown">
                 <a href="#" class="dropbtn">Systems</a>
                 <div class="dropdown-content">
-                    <div class="dropdown-submenu">
-                        <a href="#" class="dropbtn-submenu">DHIS2</a>
-                        <div class="dropdown-submenu-content">
-                            <a href="https://hmis.mhss.gov.na/core/">Core/Aggregate</a>
-                            <a href="https://hmis.mhss.gov.na/inpatient/">Inpatient</a>
-                            <a href="https://hmis.mhss.gov.na/IDSR/">IDSR</a>
-                            <a href="https://hmis.mhss.gov.na/COVAX/">Covax</a>
-                            <a href="https://hmis.mhss.gov.na/MIMS/">MIMS</a>
-                            <a href="https://hmis.mhss.gov.na/cecap/">CECAP</a>
-                            <a href="https://hmis.mhss.gov.na/malaria/">Malaria</a>
-                        </div>
+        
+                  <div class="dropdown-submenu">
+                    <a href="#" class="dropbtn-submenu">DHIS2</a>
+                    <div class="dropdown-submenu-content">
+                      <a href="https://hmis.mhss.gov.na/core/">Core/Aggregate</a>
+                      <a href="https://hmis.mhss.gov.na/inpatient/">Inpatient</a>
+                      <a href="https://hmis.mhss.gov.na/IDSR/">IDSR</a>
+                      <a href="https://hmis.mhss.gov.na/COVAX/">Covax</a>
+                      <a href="https://hmis.mhss.gov.na/MIMS/">MIMS</a>
+                      <a href="https://hmis.mhss.gov.na/cecap/">CECAP</a>
+                      <a href="https://hmis.mhss.gov.na/malaria/">Malaria</a>
                     </div>
-
-                    <div class="dropdown-submenu">
-                        <a href="#" class="dropbtn-submenu">OpenMRS</a>
-                        <div class="dropdown-submenu-content">
-                            <a href="https://ptracker.mhss.gov.na/openmrs/">Ptracker</a>
-                        </div>
+                  </div>
+        
+                  <div class="dropdown-submenu">
+                    <a href="#" class="dropbtn-submenu">OpenMRS</a>
+                    <div class="dropdown-submenu-content">
+                      <a href="https://ptracker.mhss.gov.na/openmrs/">Ptracker</a>
                     </div>
-
-                    <a href="https://hmis.mhss.gov.na/core/">e-Notification</a>
-                    <a href="https://ndw.mhss.gov.na/dashboards.html">NDW</a>
-                    <a href="https://mfl.mhss.gov.na/">MFL</a>
+                  </div>
+        
+                  <a href="https://hmis.mhss.gov.na/core/">e-Notification</a>
+                  <a href="https://ndw.mhss.gov.na/dashboards.html">NDW</a>
+                  <a href="https://mfl.mhss.gov.na/">MFL</a>
                 </div>
+              </div>
+        
+              <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Dictionary</a>
+              <a href="admin.html">Admin</a>
             </div>
-            <a href="#">Reports</a>
-            <a href="resources.html">Training and Resources</a>
-            <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
-            <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Dictionary</a>
-            <a href="admin.html">Admin</a>
-        </nav>
+          </nav>  
     </header>
 
     <main class="container">
         <section class="banner">
+            <div class="left">
+                <img src="/arms.svg" alt="Namibia Coat of Arms Logo" class="logo" />
+                <h1>Ministry of Health and Social Services</h1>
+            </div>
             <h2>Welcome to the National Health Information System Portal</h2>
             <p>Empowering Data-Driven Decision Making for a Healthier Namibia</p>
         </section>
@@ -608,14 +656,14 @@
         particlesJS('particles-js', {
             "particles": {
                 "number": {
-                    "value": 80,
+                    "value": 20,
                     "density": {
                         "enable": true,
                         "value_area": 800
                     }
                 },
                 "color": {
-                    "value": "#ffffff"
+                    "value": "#2b4b78"
                 },
                 "shape": {
                     "type": "circle",
@@ -654,8 +702,8 @@
                 },
                 "line_linked": {
                     "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
+                    "distance": 180,
+                    "color": "#2b4b78",
                     "opacity": 0.4,
                     "width": 1
                 },
@@ -696,7 +744,7 @@
                     },
                     "bubble": {
                         "distance": 400,
-                        "size": 40,
+                        "size": 10,
                         "duration": 2,
                         "opacity": 8,
                         "speed": 3
