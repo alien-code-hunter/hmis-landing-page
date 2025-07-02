@@ -10,508 +10,514 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
+        /* Reset */
         * {
-            box-sizing: border-box;
+          box-sizing: border-box;
         }
-
+      
         body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f6f8;
-            color: #2b4b78;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+          font-family: 'Roboto', sans-serif;
+          background-color: #f4f6f8;
+          color: #2b4b78;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          min-height: 100vh;
+          position: relative;
+          z-index: 1;
         }
-
+      
         header {
-            background-color: #184687; 
-            padding: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            min-height: 5px;
-            color: black;
-            position: relative;
-            overflow: visible;
-            z-index: 1; 
+          background-color: #184687;
+          padding: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          flex-wrap: wrap;
+          min-height: 5px;
+          color: black;
+          position: relative;
+          overflow: visible;
+          z-index: 2;
         }
-
-        .menu {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex: 1;
-            }
-        header::before {
-            display: none;
-        }
-
+      
         .header-particles {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          top: 0;
+          left: 0;
+          z-index: 0;
+          background-color: transparent;
+        }
+      
+        header .left {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+          position: relative;
+          z-index: 1;
+        }
+      
+        header img.logo {
+          width: 35px;
+        }
+      
+        header h1 {
+          font-size: 28px;
+          font-weight: 700;
+          margin: 0;
+          position: relative;
+          z-index: 1;
+        }
+      
+        .menu-toggle {
+          font-size: 20px;
+          background: none;
+          border: none;
+          cursor: pointer;
+          display: none;
+          color: black;
+          position: relative;
+          z-index: 3;
+        }
+      
+        nav.menu {
+          display: flex;
+          gap: 15px;
+          position: relative;
+          z-index: 2;
+          margin-left: auto;
+        }
+      
+        nav.menu a {
+          text-decoration: none;
+          color: white;
+          font-weight: 500;
+          padding: 8px 12px;
+          border-radius: 6px;
+          transition: background-color 0.3s ease;
+        }
+      
+        nav.menu a:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          border-bottom: 2px solid #fff;
+        }
+      
+        /* Dropdown */
+        .dropdown {
+          position: relative;
+          display: inline-block;
+          z-index: 1;
+        }
+      
+        .dropbtn {
+          text-decoration: none;
+          color: white;
+          font-weight: 500;
+          padding: 8px 12px;
+          border-radius: 6px;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          display: block;
+          transition: background-color 0.3s ease;
+        }
+      
+        .dropdown-content {
+          color: #d81c1c !important;
+          display: none;
+          position: absolute;
+          background-color: transparent;
+          min-width: 180px;
+          box-shadow: none;
+          z-index: 100;
+          border-radius: 4px;
+          top: 100%;
+          left: 0;
+        }
+      
+        .dropdown-content a {
+          color: white;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          text-align: left;
+          background-color: transparent;
+          transition: background-color 0.3s ease;
+        }
+      
+        .dropdown-content a:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          border-bottom: 2px solid #fff;
+          color: black;
+        }
+      
+        .dropdown:hover .dropdown-content {
+          display: block;
+        }
+      
+        .dropdown:hover .dropbtn {
+          background-color: rgba(255, 255, 255, 0.2);
+          color: black;
+        }
+      
+        /* Submenu */
+        .dropdown-submenu {
+          position: relative;
+          width: 100%;
+          background-color: rgb(50, 109, 167);
+        }
+      
+        .dropdown-submenu .dropbtn-submenu {
+          display: block;
+          padding: 12px 16px;
+          text-decoration: none;
+          color: black;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          text-align: left;
+          width: 100%;
+          transition: background-color 0.3s ease;
+        }
+      
+        .dropdown-submenu .dropbtn-submenu::after {
+          content: '\25B6';
+          float: right;
+          margin-left: 5px;
+          font-size: 10px;
+          line-height: inherit;
+        }
+      
+        .dropdown-submenu-content {
+          display: none;
+          position: absolute;
+          left: 100%;
+          top: 0;
+          min-width: 180px;
+          z-index: 101;
+          background-color: transparent;
+          box-shadow: none;
+          border-radius: 4px;
+        }
+      
+        .dropdown-submenu:hover .dropdown-submenu-content {
+          display: block;
+        }
+      
+        .dropdown-submenu .dropbtn-submenu:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      
+        .dropdown-submenu-content a {
+          color: black;
+          padding: 12px 16px;
+          text-decoration: none;
+          display: block;
+          text-align: left;
+          background-color: rgb(30, 91, 148);
+          transition: background-color 0.3s ease;
+        }
+      
+        .dropdown-submenu-content a:hover {
+          background-color: rgba(255, 255, 255, 0.3);
+        }
+      
+        main.container {
+          flex: 1;
+          padding: 12px 20px;
+          max-width: 1200px;
+          margin: auto;
+        }
+      
+        .banner {
+          background: linear-gradient(135deg, #cddff7, #f0f4f8);
+          padding: 30px;
+          border-radius: 12px;
+          text-align: center;
+          margin-bottom: 12px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+      
+        .banner .logo {
+          width: 100px;
+          height: auto;
+        }
+      
+        .banner h2 {
+          font-size: 26px;
+          margin-bottom: 10px;
+        }
+      
+        nav.buttons-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+          justify-content: center;
+          margin-bottom: 30px;
+        }
+      
+        .button {
+          background-color: #2b4b78;
+          color: #ffffff;
+          padding: 12px 24px;
+          border: none;
+          border-radius: 8px;
+          font-weight: 500;
+          font-size: 16px;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          text-decoration: none;
+          text-align: center;
+        }
+      
+        .button:hover {
+          background-color: #1f3659;
+        }
+      
+        .stat {
+          background-color: #ffffff;
+          padding: 15px;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
+          text-align: center;
+          flex: 1;
+          min-width: 100px;
+        }
+      
+        .stats-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 15px;
+          justify-content: center;
+          margin-bottom: 12px;
+        }
+      
+        .info-section {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 20px;
+          justify-content: center;
+        }
+      
+        .info-box {
+          background-color: #ffffff;
+          padding: 20px;
+          border-radius: 10px;
+          width: 300px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+      
+        .info-box h3 {
+          margin-top: 0;
+          font-size: 18px;
+          color: #2b4b78;
+        }
+      
+        .blue-tile {
+          background-color: #184687;
+          color: white;
+          padding: 15px;
+          border-radius: 8px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+      
+        footer {
+          background-color: #eaeaea;
+          text-align: center;
+          padding: 20px;
+          font-size: 14px;
+          color: #555;
+        }
+      
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+          .menu-toggle {
+            display: block;
+          }
+      
+          nav.menu {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background-color: #f9f9f9;
             position: absolute;
+            top: 60px;
+            left: 0;
+            z-index: 10;
+            border-top: 1px solid #ccc;
+          }
+      
+          nav.menu.active {
+            display: flex;
+          }
+      
+          nav.menu a {
+            padding: 12px 20px;
+            border-top: 1px solid #ddd;
+            color: #2b4b78;
+            background-color: #f9f9f9;
+            width: 100%;
+            text-align: left;
+          }
+      
+          .dropdown {
+            width: 100%;
+          }
+      
+          .dropdown .dropbtn {
+            width: 100%;
+            padding: 12px 20px;
+            text-align: left;
+            color: #2b4b78;
+            background-color: #f9f9f9;
+          }
+      
+          .dropdown-content {
+            display: none;
+            position: static;
+            background-color: #eaeaea;
+            width: 100%;
+            border-top: 1px solid #ccc;
+          }
+      
+          .dropdown-content a {
+            padding-left: 30px;
+            background-color: #f0f0f0;
+            color: #2b4b78;
+          }
+      
+          .dropdown-submenu {
+            background-color: #f0f0f0;
+            width: 100%;
+          }
+      
+          .dropdown-submenu .dropbtn-submenu {
+            width: 100%;
+            padding: 12px 30px;
+            text-align: left;
+            background-color: #f0f0f0;
+            color: #2b4b78;
+          }
+      
+          .dropdown-submenu .dropbtn-submenu::after {
+            content: '\25BC';
+            float: right;
+          }
+      
+          .dropdown-submenu-content {
+            position: static;
+            background-color: #e8e8e8;
+            padding-left: 20px;
+            width: 100%;
+          }
+      
+          .dropdown-submenu-content a {
+            background-color: #e8e8e8;
+            color: #2b4b78;
+            padding-left: 40px;
+          }
+      
+          .dropdown:hover .dropdown-content,
+          .dropdown-submenu:hover .dropdown-submenu-content {
+            display: none;
+          }
+      
+          #particles-js.full-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
-            z-index: 0; 
-            background-color: transparent;
-        }
-
-        header .left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        header img.logo {
-            width: 35px;
-        }
-
-        header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            margin: 0;
-            position: relative;
-            z-index: 1;
-        }
-
-        .menu-toggle {
-            font-size: 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            display: none;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-
-        nav.menu {
-            display: flex;
-            gap: 15px;
-            position: relative;
-            z-index: 1;
-        }
-
-        nav.menu a {
-            text-decoration: none;
-            color: black;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: background-color 0.3s ease;
-        }
-
-        nav.menu a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* --- Main Dropdown Styles Start --- */
-        .dropdown {
-            position: relative;
-            display: inline-block;
-            z-index: 1;
-        }
-
-        .dropbtn {
-            text-decoration: none;
-            color: black;
-            font-weight: 500;
-            padding: 8px 12px;
-            border-radius: 6px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            display: block;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown-content {
-            color: #000 !important;
-            display: none;
-            position: absolute;
-            background-color: transparent; /* Changed to transparent */
-            min-width: 180px;
-            box-shadow: none; /* Removed box-shadow for a clear look */
-            z-index: 100;
-            border-radius: 4px;
-            top: 100%;
-            left: 0;
-        }
-
-        .dropdown-content a {
-            color: white; /* White for visibility on dark header */
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            border-radius: 0;
-            background-color: transparent;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown-content a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: black; /* Keep text white on hover */
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown:hover .dropbtn {
-            background-color: rgba(255, 255, 255, 0.2);
-        }
-
-        /* --- Main Dropdown Styles End --- */
-
-        /* --- Nested Dropdown (Submenu) Styles Start --- */
-        .dropdown-submenu {
-            position: relative;
-            width: 100%; /* Important for proper positioning within the main dropdown */
-        }
-
-        .dropdown-submenu .dropbtn-submenu {
-            display: block;
-            padding: 12px 16px;
-            text-decoration: none;
-            color: black; /* Submenu button text color */
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            text-align: left;
+            z-index: -1;
+            pointer-events: none;
+          }
+      
+          header {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 12px;
+          }
+      
+          header .left {
+            flex-direction: row;
+            justify-content: space-between;
             width: 100%;
-            transition: background-color 0.3s ease;
+          }
+      
+          header h1 {
+            font-size: 20px;
+          }
+      
+          .stats-container,
+          .info-section {
+            flex-direction: column;
+            align-items: center;
+          }
+      
+          .button {
+            width: 100%;
+            max-width: 300px;
+          }
         }
-
-        .dropdown-submenu .dropbtn-submenu::after {
-            content: '\25B6'; /* Right-pointing triangle arrow */
-            float: right;
-            margin-left: 5px;
-            font-size: 10px;
-            line-height: inherit; /* Align with text vertically */
-        }
-
-        .dropdown-submenu-content {
-            display: none;
-            position: absolute;
-            left: 100%; /* Position to the right of the submenu button */
-            top: 0;
-            min-width: 180px;
-            z-index: 101; /* Higher z-index to ensure it's on top */
-            background-color: transparent; /* Keep transparent for desktop */
-            box-shadow: none;
-            border-radius: 4px;
-        }
-
-        .dropdown-submenu:hover .dropdown-submenu-content {
-            display: block;
-        }
-
-        .dropdown-submenu .dropbtn-submenu:hover {
-            background-color: rgba(255, 255, 255, 0.2); /* Same hover as parent */
-        }
-
-        .dropdown-submenu-content a {
-            color: black; /* Text color for sub-menu items */
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-            background-color: transparent;
-            transition: background-color 0.3s ease;
-        }
-
-        .dropdown-submenu-content a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-        }
-        /* --- Nested Dropdown (Submenu) Styles End --- */
-
-        main.container {
-            flex: 1;
-            padding: 12px 20px;
-            max-width: 1200px;
-            margin: auto;
-        }
-
-        .banner {
-            background: linear-gradient(135deg, #cddff7, #f0f4f8);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        .banner .logo {
-            width: 100px;
-            height: auto;
-            flex-shrink: 0; /* prevent it from shrinking in flex layout */
-            }
-
-        .banner h2 {
-            font-size: 26px;
-            margin-bottom: 10px;
-        }
-
-        nav.buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 30px;
-        }
-
-        .button {
-            background-color: #2b4b78;
-            color: #ffffff;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 500;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .button:hover {
-            background-color: #1f3659;
-        }
-
-        .stat {
-            background-color: #ffffff;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
-        }
-
-        .stats-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-bottom: 12px;
-        }
-
-        .info-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-
-        .info-box {
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .info-box h3 {
-            margin-top: 0;
-            font-size: 18px;
-            color: #2b4b78;
-        }
-        .blue-tile {
-            background-color: #184687;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        nav.menu a:hover {
-        border-bottom: 2px solid #fff;
-        }
-        footer {
-            background-color: #eaeaea;
-            text-align: center;
-            padding: 20px;
-            font-size: 14px;
-            color: #555;
-        }
-        @
-
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-            }
-
-            nav.menu {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            nav.menu.active {
-                display: flex;
-            }
-
-            nav.menu a {
-                padding: 10px;
-                border-top: 1px solid #ccc;
-                background-color: #f9f9f9;
-                color: #2b4b78;
-            }
-
-            /* Mobile main dropdown */
-            .dropdown {
-                width: 100%;
-                border-top: 1px solid #ccc;
-                background-color: #f9f9f9;
-            }
-
-            .dropdown .dropbtn {
-                width: 100%;
-                text-align: left;
-                padding: 10px;
-                color: #2b4b78;
-            }
-
-            .dropdown-content {
-                position: static;
-                box-shadow: none;
-                min-width: unset;
-                border-top: 1px solid #eee;
-                border-radius: 0;
-                /* --- MODIFIED: Keep light background for mobile main dropdown --- */
-                background-color: #f9f9f9;
-            }
-
-            .dropdown-content a {
-                padding-left: 20px; /* Indent main links */
-                color: #2b4b78;
-                background-color: #f0f0f0;
-            }
-
-            .dropdown:hover .dropdown-content {
-                display: none; /* Disable hover effect for mobile, JS will control */
-            }
-
-            /* Mobile nested dropdown (submenu) */
-            .dropdown-submenu {
-                border-top: 1px solid #ccc;
-                background-color: #f0f0f0; /* Slightly different background to show nesting */
-            }
-
-            .dropdown-submenu .dropbtn-submenu {
-                color: #2b4b78;
-                background-color: #f0f0f0;
-                padding-left: 25px; /* Further indent sub-menu button */
-                border-top: none; /* No extra border here */
-            }
-
-            .dropdown-submenu .dropbtn-submenu::after {
-                content: '\25BC'; /* Down-pointing triangle for mobile */
-                line-height: inherit;
-            }
-
-            .dropdown-submenu-content {
-                position: static; /* Stack vertically on mobile */
-                left: unset;
-                top: unset;
-                width: 100%;
-                min-width: unset;
-                box-shadow: none;
-                border-radius: 0;
-                background-color: rgba(43, 75, 120, 0.95);
-                border-top: 1px solid #ddd;
-            }
-
-            .dropdown-submenu-content a {
-                color: #2b4b78;
-                background-color: #e8e8e8; /* Even lighter background for sub-submenu links */
-                padding-left: 40px; /* Further indent sub-submenu links */
-            }
-
-            .dropdown-submenu:hover .dropdown-submenu-content {
-                display: none; /* Disable hover effect for mobile, JS will control */
-            }
-            #particles-js.full-bg {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                z-index: -1; /* Put behind all content */
-                pointer-events: none; /* Optional: allows clicks to pass through */
-            }
-              /* Ensure body content appears above the background */
-            body {
-                position: relative;
-                z-index: 1;
-            }
-
-            /* Optional: make sure header & content stay above background too */
-            header, main, .content, .tab-content {
-                position: relative;
-                z-index: 2;
-            }
-            
-
-        }
-    </style>
+      </style>
+      
 </head>
 <body>
 
     <div id="particles-js" class="header-particles"></div>
     <header>
+        <div class="left">
+            <img src="/flag.png" alt="Namibian flag Logo" class="logo" />
+            </div>
+    
         <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
+    
         <nav class="menu" aria-label="Main Menu">
-            <div class="left">
-              <img src="/flag.png" alt="Namibian flag Logo" class="logo" />
-            </div>
-        
             <div class="nav-links">
-              <a href="#">Home</a>
-              <a href="#">Reports</a>
-              <a href="resources.html">Training and Resources</a>
-              <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
-        
-              <div class="dropdown">
-                <a href="#" class="dropbtn">Systems</a>
-                <div class="dropdown-content">
-        
-                  <div class="dropdown-submenu">
-                    <a href="#" class="dropbtn-submenu">DHIS2</a>
-                    <div class="dropdown-submenu-content">
-                      <a href="https://hmis.mhss.gov.na/core/">Core/Aggregate</a>
-                      <a href="https://hmis.mhss.gov.na/inpatient/">Inpatient</a>
-                      <a href="https://hmis.mhss.gov.na/IDSR/">IDSR</a>
-                      <a href="https://hmis.mhss.gov.na/COVAX/">Covax</a>
-                      <a href="https://hmis.mhss.gov.na/MIMS/">MIMS</a>
-                      <a href="https://hmis.mhss.gov.na/cecap/">CECAP</a>
-                      <a href="https://hmis.mhss.gov.na/malaria/">Malaria</a>
+                <a href="#">Home</a>
+                <a href="#">Reports</a>
+                <a href="resources.html">Training and Resources</a>
+                <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
+    
+                <div class="dropdown">
+                    <a href="#" class="dropbtn">Systems</a>
+                    <div class="dropdown-content">
+    
+                        <div class="dropdown-submenu">
+                            <a href="#" class="dropbtn-submenu">DHIS2</a>
+                            <div class="dropdown-submenu-content">
+                                <a href="https://hmis.mhss.gov.na/core/">Core/Aggregate</a>
+                                <a href="https://hmis.mhss.gov.na/inpatient/">Inpatient</a>
+                                <a href="https://hmis.mhss.gov.na/IDSR/">IDSR</a>
+                                <a href="https://hmis.mhss.gov.na/COVAX/">Covax</a>
+                                <a href="https://hmis.mhss.gov.na/MIMS/">MIMS</a>
+                                <a href="https://hmis.mhss.gov.na/cecap/">CECAP</a>
+                                <a href="https://hmis.mhss.gov.na/malaria/">Malaria</a>
+                            </div>
+                        </div>
+    
+                        <div class="dropdown-submenu">
+                            <a href="#" class="dropbtn-submenu">OpenMRS</a>
+                            <div class="dropdown-submenu-content">
+                                <a href="https://ptracker.mhss.gov.na/openmrs/">Ptracker</a>
+                            </div>
+                        </div>
+                            
+                            <a href="https://hmis.mhss.gov.na/core/">e-Notification</a>
+                            <a href="https://ndw.mhss.gov.na/dashboards.html">NDW</a>
+                            <a href="https://mfl.mhss.gov.na/">MFL</a>
                     </div>
-                  </div>
-        
-                  <div class="dropdown-submenu">
-                    <a href="#" class="dropbtn-submenu">OpenMRS</a>
-                    <div class="dropdown-submenu-content">
-                      <a href="https://ptracker.mhss.gov.na/openmrs/">Ptracker</a>
-                    </div>
-                  </div>
-        
-                  <a href="https://hmis.mhss.gov.na/core/">e-Notification</a>
-                  <a href="https://ndw.mhss.gov.na/dashboards.html">NDW</a>
-                  <a href="https://mfl.mhss.gov.na/">MFL</a>
                 </div>
-              </div>
-        
-              <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Dictionary</a>
-              <a href="admin.html">Admin</a>
+    
+                <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Dictionary</a>
+                <a href="admin.html">Admin</a>
+                <a href="contact.html">Contact</a>
             </div>
-          </nav>  
+        </nav>
     </header>
 
     <main class="container">
