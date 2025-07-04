@@ -1,134 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f4f6f8;
-            color: #2b4b78;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-
-        .login-container {
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-            text-align: center;
-        }
-
-        .login-container h2 {
-            margin-bottom: 25px;
-            color: #2b4b78;
-            font-size: 24px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input {
-            width: calc(100% - 20px);
-            padding: 12px 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-
-        .login-button {
-            background-color: #2b4b78;
-            color: #fff;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            width: 100%;
-        }
-
-        .login-button:hover {
-            background-color: #1f3659;
-        }
-
-        .error-message {
-            color: #d9534f;
-            margin-top: 15px;
-            font-size: 14px;
-            min-height: 20px; /* Reserve space */
-        }
-
-        .logo {
-            width: 80px;
-            margin-bottom: 20px;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f4f6f8;
+    color: #2b4b78;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+.login-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+.login-container h2 {
+    margin-bottom: 25px;
+    color: #2b4b78;
+    font-size: 24px;
+}
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+.form-group input {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+.login-button {
+    background-color: #2b4b78;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+.login-button:hover {
+    background-color: #1f3659;
+}
+.error-message {
+    color: #d9534f;
+    margin-top: 15px;
+    font-size: 14px;
+    min-height: 20px;
+}
+.logo {
+    width: 80px;
+    margin-bottom: 20px;
+}
+</style>
 </head>
 <body>
-    <img src="arms.svg" alt="Namibia Coat of Arms" class="logo">
-    <div class="login-container">
-        <h2>Admin Login</h2>
-        <div class="form-group">
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <button class="login-button" onclick="handleLogin()">Login</button>
-        <p id="errorMessage" class="error-message"></p>
+<img src="arms.svg" alt="Namibia Coat of Arms" class="logo">
+<div class="login-container">
+    <h2>Admin Login</h2>
+    <div class="form-group">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
     </div>
+    <div class="form-group">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <button class="login-button" onclick="handleLogin()">Login</button>
+    <p id="errorMessage" class="error-message"></p>
+</div>
 
-    <script>
-        async function handleLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const errorMessageElement = document.getElementById('errorMessage');
-            errorMessageElement.textContent = ''; // Clear previous errors
+<script>
+async function handleLogin() {
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const errorMessageElement = document.getElementById('errorMessage');
+    errorMessageElement.textContent = '';
 
-            try {
-                // IMPORTANT: This URL should point to your backend login endpoint
-                const response = await fetch('http://localhost:9000/api/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ username, password })
-                });
+    try {
+        const response = await fetch('http://localhost:9000/api/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include', // ✅ important: send cookies!
+            body: JSON.stringify({ username, password })
+        });
 
-                if (response.ok) {
-                    // Backend successfully authenticated and likely set an HTTP-only cookie
-                    window.location.href = 'admin.html'; // Redirect to the admin page
-                } else {
-                    const errorData = await response.json();
-                    errorMessageElement.textContent = errorData.message || 'Login failed. Please check your credentials.';
-                }
-            } catch (error) {
-                console.error('Error during login:', error);
-                errorMessageElement.textContent = 'An error occurred. Please try again.';
-            }
+        if (response.ok) {
+            window.location.href = 'admin.html';
+        } else {
+            const errorData = await response.json();
+            errorMessageElement.textContent = errorData.message || 'Login failed. Please check your credentials.';
         }
-    </script>
+    } catch (error) {
+        console.error('Error during login:', error);
+        errorMessageElement.textContent = 'An error occurred. Please try again.';
+    }
+}
+</script>
 </body>
 </html>

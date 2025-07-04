@@ -1,4 +1,5 @@
 // File: server.js
+const { Pool } = require('pg');
 require('dotenv').config();
 const express = require('express');
 const cookieParser = require('cookie-parser');
@@ -15,6 +16,15 @@ const dashboardRoutes = require('./routes/dashboardRoutes');
 const app = express();
 const PORT = process.env.PORT || 9000;
 
+// PostgreSQL connection
+const pool = new Pool({
+  user: 'postgres',   
+  host: 'localhost',
+  database: 'hmis_landing_page',
+  password: '',                // I will add a pasword later
+  port: 5432,
+});
+
 // --- Middleware ---
 app.use(cors({
   origin: 'http://localhost:9000',
@@ -25,14 +35,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(morgan('dev'));
 app.use(session({
-  secret: 'CHANGE_THIS_TO_A_STRONG_RANDOM_SECRET',
+  secret: 'something-strong-here',
   resave: false,
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: false,
+    secure: false, // use true if HTTPS
     sameSite: 'lax',
-    maxAge: 24 * 60 * 60 * 1000
+    maxAge: 24 * 60 * 60 * 1000 // 1 day
   }
 }));
 

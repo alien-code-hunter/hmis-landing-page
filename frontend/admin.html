@@ -30,6 +30,11 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-button:hover {
+      background-color: #c9302c;
     }
 
     .tab-menu {
@@ -46,7 +51,12 @@
       color: white;
       font-weight: bold;
       cursor: pointer;
-      border-right: 1px solid #fff;
+      border-right: 1px solid rgba(255, 255, 255, 0.1); /* Softer border */
+      transition: background-color 0.3s ease;
+    }
+
+    .tab-menu button:last-child {
+        border-right: none;
     }
 
     .tab-menu button:hover,
@@ -58,6 +68,10 @@
       display: none;
       padding: 20px;
       background-color: white;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05); /* Added subtle shadow for content area */
+      max-width: 800px; /* Constrain content width */
+      margin: 20px auto; /* Center content */
+      border-radius: 8px; /* Rounded corners for content box */
     }
 
     .tab-content.active {
@@ -65,13 +79,13 @@
     }
 
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 20px; /* Increased spacing */
     }
 
     .form-group label {
       font-weight: 500;
       display: block;
-      margin-bottom: 5px;
+      margin-bottom: 8px; /* Increased spacing */
     }
 
     .form-group input[type="number"],
@@ -81,6 +95,7 @@
       padding: 10px;
       border: 1px solid #ccc;
       border-radius: 5px;
+      box-sizing: border-box; /* Include padding in width */
     }
 
     .form-group button {
@@ -90,6 +105,7 @@
       border: none;
       border-radius: 5px;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
 
     .form-group button:hover {
@@ -97,47 +113,201 @@
     }
 
     .message {
-      margin-top: 10px;
-      padding: 10px;
+      margin-top: 15px; /* Increased spacing */
+      padding: 12px; /* Increased padding */
       border-radius: 5px;
       display: none;
+      font-weight: 500;
+      text-align: center;
     }
 
     .message.success {
       background-color: #d4edda;
       color: #155724;
+      border: 1px solid #c3e6cb;
     }
 
     .message.error {
       background-color: #f8d7da;
       color: #721c24;
+      border: 1px solid #f5c6cb;
     }
 
     .checkbox-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 15px; /* Increased gap */
+      margin-top: 5px;
+      margin-bottom: 15px; /* Add margin-bottom for spacing below checkboxes */
     }
 
     .checkbox-group label {
       display: flex;
       align-items: center;
+      cursor: pointer;
+      font-weight: normal; /* Reset font-weight from form-group label */
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      margin-right: 8px; /* Space between checkbox and label text */
+      width: auto; /* Override 100% width */
     }
 
     .file-table {
       width: 100%;
       border-collapse: collapse;
-      margin-top: 15px;
+      margin-top: 20px; /* Increased spacing */
+      font-size: 0.9em;
     }
 
     .file-table th,
     .file-table td {
-      padding: 10px;
-      border: 1px solid #ccc;
+      padding: 12px 15px; /* Increased padding */
+      border: 1px solid #e0e0e0; /* Lighter border */
+      text-align: left;
     }
 
     .file-table th {
-      background-color: #e0eafc;
+      background-color: #eef4f9; /* Lighter header background */
+      color: #2b4b78;
+      font-weight: 600;
+    }
+
+    .file-table tr:nth-child(even) {
+      background-color: #f9fbfd; /* Subtle stripe effect */
+    }
+
+    .file-table a {
+        color: #2b4b78;
+        text-decoration: none;
+    }
+    .file-table a:hover {
+        text-decoration: underline;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%; /* Could be responsive */
+      max-width: 500px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      text-align: left;
+      position: relative; /* For positioning close button */
+    }
+
+    .modal-content h3 {
+        margin-top: 0;
+        color: #2b4b78;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .modal-content div {
+        margin-bottom: 15px;
+    }
+
+    .modal-content label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+    }
+
+    .modal-content input[type="text"] {
+        width: calc(100% - 22px); /* Account for padding and border */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .modal-content button {
+        background-color: #2b4b78;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .modal-content button:hover {
+        background-color: #1f3659;
+    }
+
+    .modal-content button:last-child { /* Cancel button */
+        background-color: #6c757d;
+    }
+    .modal-content button:last-child:hover {
+        background-color: #5a6268;
+    }
+
+    @media (max-width: 768px) {
+        .header {
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 15px;
+        }
+        .header h1 {
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .logout-button {
+            width: 100%;
+            padding: 10px;
+        }
+        .tab-menu {
+            flex-direction: column;
+        }
+        .tab-menu button {
+            border-right: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .tab-menu button:last-child {
+            border-bottom: none;
+        }
+        .tab-content {
+            padding: 15px;
+            margin: 15px;
+        }
+        .form-group input,
+        .form-group textarea {
+            font-size: 0.95em;
+        }
+        .file-table th,
+        .file-table td {
+            padding: 8px 10px;
+            font-size: 0.8em;
+        }
+        /* Make table scrollable on small screens */
+        .tab-content#manage-files,
+        .tab-content#audit-log { /* Apply to audit log too */
+            overflow-x: auto;
+        }
+        .file-table {
+            min-width: 600px; /* Ensure table needs scrolling if content is wide */
+        }
+        .modal-content {
+            width: 90%;
+        }
     }
   </style>
 </head>
@@ -149,14 +319,14 @@
   </div>
 
   <div class="tab-menu">
-    <button class="tab-btn active" onclick="showTab('data-update')">Data Update</button>
-    <button class="tab-btn" onclick="showTab('upload-files')">Upload Files</button>
-    <button class="tab-btn" onclick="showTab('manage-files')">Manage Files</button>
+    <button class="tab-btn active" onclick="showTab('data-update', this)">Data Update</button>
+    <button class="tab-btn" onclick="showTab('upload-files', this)">Upload Files</button>
+    <button class="tab-btn" onclick="showTab('manage-files', this)">Manage Files</button>
+    <button class="tab-btn" onclick="showTab('audit-log', this)">Audit Logs</button>
   </div>
 
   <div id="data-update" class="tab-content active">
-    <div id="messageBox" class="message"></div>
-
+    <div id="dataUpdateMessageBox" class="message"></div>
     <div class="form-group"><label for="facilities-reporting">Facilities Reporting (%)</label><input type="number" id="facilities-reporting" min="0" max="100" /></div>
     <div class="form-group"><label for="data-submission">Data Submission Rate (%)</label><input type="number" id="data-submission" min="0" max="100" /></div>
     <div class="form-group"><label for="reporting-period">Reporting Period</label><input type="text" id="reporting-period" placeholder="e.g., Q1 2025" /></div>
@@ -184,7 +354,7 @@
     </div>
 
     <div class="form-group"><button onclick="uploadFile()">Upload</button></div>
-    <div id="uploadMessage" class="message"></div>
+    <div id="uploadMessageBox" class="message"></div>
   </div>
 
   <div id="manage-files" class="tab-content">
@@ -196,23 +366,74 @@
           <th>Type</th>
           <th>Categories</th>
           <th>Uploaded</th>
-          <th>Download</th>
-        </tr>
+          <th>Actions</th> </tr>
       </thead>
-      <tbody id="fileList"></tbody>
+      <tbody id="fileList">
+        <tr><td colspan="5">Loading files...</td></tr>
+      </tbody>
     </table>
   </div>
 
+  <div id="audit-log" class="tab-content">
+    <h3>Audit Logs</h3>
+    <table class="file-table">
+      <thead>
+        <tr><th>User</th><th>Action</th><th>File ID</th><th>Details</th><th>Time</th></tr>
+      </thead>
+      <tbody id="auditLogList"><tr><td colspan="5">Loading...</td></tr></tbody>
+    </table>
+  </div>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <h3>Edit File Metadata</h3>
+      <input type="hidden" id="editFileId" />
+      <div>
+        <label for="editOriginalName">Filename:</label>
+        <input type="text" id="editOriginalName" />
+      </div>
+      <div>
+        <label for="editCategories">Categories (comma separated):</label>
+        <input type="text" id="editCategories" />
+      </div>
+      <button onclick="saveEdit()">Save</button>
+      <button onclick="closeEditModal()">Cancel</button>
+    </div>
+  </div>
+
 <script>
-function showTab(tabId) {
+/**
+ * Displays the selected tab and highlights the corresponding button.
+ * @param {string} tabId The ID of the tab content div to show.
+ * @param {HTMLElement} clickedButton The button element that was clicked.
+ */
+function showTab(tabId, clickedButton) {
+  // Hide all tab content
   document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
+  // Deactivate all tab buttons
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+
+  // Show the target tab content
   document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
+  // Activate the clicked button
+  clickedButton.classList.add('active');
+
+  // Load content specific to the tab
+  if (tabId === 'manage-files') {
+    loadUploadedFiles();
+  } else if (tabId === 'audit-log') {
+    loadAuditLogs();
+  }
 }
 
-function showMessage(text, type) {
-  const box = document.getElementById('messageBox');
+/**
+ * Displays a temporary message in a specified message box.
+ * @param {string} messageBoxId The ID of the message box element.
+ * @param {string} text The message text to display.
+ * @param {string} type The type of message ('success' or 'error').
+ */
+function showMessage(messageBoxId, text, type) {
+  const box = document.getElementById(messageBoxId);
   box.textContent = text;
   box.className = 'message ' + type;
   box.style.display = 'block';
@@ -230,116 +451,225 @@ async function updateData() {
   };
 
   try {
+    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
     const response = await fetch('http://localhost:9000/api/dashboard/update', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      credentials: 'include', // Important for sending cookies/session info
       body: JSON.stringify(data)
     });
 
     if (response.ok) {
-      showMessage('Data updated successfully!', 'success');
+      showMessage('dataUpdateMessageBox', 'Data updated successfully!', 'success');
     } else {
-      showMessage('Failed to update data.', 'error');
+      const errorData = await response.json(); // Attempt to read error message from backend
+      showMessage('dataUpdateMessageBox', errorData.message || 'Failed to update data.', 'error');
     }
   } catch (err) {
-    console.error(err);
-    showMessage('Network error.', 'error');
+    console.error('Update data error:', err);
+    showMessage('dataUpdateMessageBox', 'Network error or server unreachable. Please check your connection.', 'error');
   }
 }
 
 async function uploadFile() {
-  const file = document.getElementById('training-file').files[0];
-  const uploadMessage = document.getElementById('uploadMessage');
+  const fileInput = document.getElementById('training-file');
+  const file = fileInput.files[0];
+  const uploadMessageBox = document.getElementById('uploadMessageBox');
+
+  // Validate file
   if (!file) {
-    uploadMessage.textContent = 'Please select a file.';
-    uploadMessage.className = 'message error';
-    uploadMessage.style.display = 'block';
+    showMessage('uploadMessageBox', 'Please select a file to upload.', 'error');
     return;
   }
 
+  // Get checked categories
   const categories = Array.from(document.querySelectorAll('.checkbox-group input:checked'))
     .map(cb => cb.value);
+
+  if (categories.length === 0) {
+    showMessage('uploadMessageBox', 'Please select at least one category.', 'error');
+    return;
+  }
 
   const formData = new FormData();
   formData.append('file', file);
   formData.append('categories', JSON.stringify(categories));
 
   try {
+    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
     const response = await fetch('http://localhost:9000/api/files/upload', {
       method: 'POST',
-      credentials: 'include',
+      credentials: 'include', // session cookie
       body: formData
     });
 
-    const result = await response.json();
+    const result = await response.json().catch(() => null); // handle bad JSON gracefully
+
     if (response.ok) {
-      uploadMessage.textContent = `File uploaded: ${result.file.originalname}`;
-      uploadMessage.className = 'message success';
-      loadUploadedFiles();
+      showMessage('uploadMessageBox', `✅ File uploaded: ${result?.file?.original_name || file.name}`, 'success');
+      fileInput.value = '';
+      document.querySelectorAll('.checkbox-group input:checked').forEach(cb => cb.checked = false);
     } else {
-      uploadMessage.textContent = result.message || 'Upload failed.';
-      uploadMessage.className = 'message error';
+      showMessage(
+        'uploadMessageBox',
+        result?.message || '⚠️ File upload failed. Please check your connection or try again.',
+        'error'
+      );
     }
   } catch (err) {
-    console.error(err);
-    uploadMessage.textContent = 'Upload error.';
-    uploadMessage.className = 'message error';
+    console.error('Upload error:', err);
+    showMessage('uploadMessageBox', '❌ Network error. Please check your connection.', 'error');
   }
-
-  uploadMessage.style.display = 'block';
-  setTimeout(() => uploadMessage.style.display = 'none', 5000);
 }
 
+
 async function loadUploadedFiles() {
+  const fileList = document.getElementById('fileList');
+  fileList.innerHTML = '<tr><td colspan="6">Loading files...</td></tr>'; // Changed colspan to 6
+
   try {
+    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
     const res = await fetch('http://localhost:9000/api/files/list', {
-      credentials: 'include'
+      credentials: 'include' // Important for sending cookies/session info
     });
     const data = await res.json();
-    const list = document.getElementById('fileList');
-    list.innerHTML = '';
+
+    fileList.innerHTML = ''; // Clear loading message
 
     if (!data.files || data.files.length === 0) {
-      list.innerHTML = '<tr><td colspan="5">No files found.</td></tr>';
+      fileList.innerHTML = '<tr><td colspan="6">No files found.</td></tr>'; // Changed colspan to 6
       return;
     }
 
     data.files.forEach(file => {
       const row = document.createElement('tr');
+      // Added data-file-id attribute for easier selection later if needed
+      row.setAttribute('data-file-id', file.id);
       row.innerHTML = `
-        <td><a href="/uploads/${file.filename}" target="_blank">${file.original_name}</a></td>
+        <td><a href="/uploads/${file.filename}" target="_blank" rel="noopener noreferrer">${file.original_name}</a></td>
         <td>${file.mimetype}</td>
-        <td>${(file.categories || []).join(', ')}</td>
-        <td>${new Date(file.upload_date).toLocaleString()}</td>
-        <td><a href="/uploads/${file.filename}" download>Download</a></td>
+        <td>${(file.categories && file.categories.length > 0 ? file.categories.join(', ') : 'N/A')}</td>
+        <td>${new Date(file.upload_date).toLocaleString('en-NA', { dateStyle: 'short', timeStyle: 'short' })}</td>
+        <td>
+          <a href="/uploads/${file.filename}" download="${file.original_name}">Download</a>
+        </td>
+        <td>
+          <button onclick="showEditModal(${file.id}, \`${escapeHtml(file.original_name)}\`, \`${escapeHtml((file.categories || []).join(", "))}\`)">Edit</button>
+        </td>
       `;
-      list.appendChild(row);
+      fileList.appendChild(row);
     });
   } catch (err) {
-    console.error(err);
-    document.getElementById('fileList').innerHTML = '<tr><td colspan="5">Error loading files.</td></tr>';
+    console.error('Load files error:', err);
+    fileList.innerHTML = '<tr><td colspan="6">Error loading files. Please check the console for details.</td></tr>'; // Changed colspan to 6
   }
 }
+
+// Helper function to escape HTML for use in template literals
+function escapeHtml(unsafe) {
+    return unsafe
+         .replace(/&/g, "&amp;")
+         .replace(/</g, "&lt;")
+         .replace(/>/g, "&gt;")
+         .replace(/"/g, "&quot;")
+         .replace(/'/g, "&#039;");
+}
+
 
 async function handleLogout() {
   try {
+    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
     const res = await fetch('http://localhost:9000/api/logout', {
       method: 'POST',
-      credentials: 'include'
+      credentials: 'include' // Important for clearing server-side sessions/cookies
     });
     if (res.ok) {
-      window.location.href = 'login.html';
+      window.location.href = 'login.html'; // Redirect to login page on successful logout
     } else {
-      alert('Logout failed.');
+      const errorData = await res.json();
+      alert('Logout failed: ' + (errorData.message || 'Unknown error.'));
     }
   } catch (err) {
-    alert('Error logging out.');
+    console.error('Logout error:', err);
+    alert('Error logging out. Please try again.');
   }
 }
 
+function showEditModal(id, name, categories) {
+  document.getElementById('editFileId').value = id;
+  document.getElementById('editOriginalName').value = name;
+  document.getElementById('editCategories').value = categories;
+  document.getElementById('editModal').style.display = 'flex'; // Use flex to center the modal
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+async function saveEdit() {
+  const id = document.getElementById('editFileId').value;
+  const name = document.getElementById('editOriginalName').value;
+  const categories = document.getElementById('editCategories').value.split(',').map(s => s.trim()).filter(s => s !== ''); // Filter out empty strings
+
+  try {
+    const res = await fetch(`http://localhost:9000/api/files/${id}`, {
+      method: 'PATCH',
+      credentials: 'include',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ original_name: name, categories })
+    });
+
+    const data = await res.json();
+    if (res.ok) {
+      alert('File metadata updated successfully!');
+      closeEditModal();
+      loadUploadedFiles(); // Reload files to show updated data
+    } else {
+      alert(data.message || 'Failed to update file metadata.');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Error saving changes to file metadata.');
+  }
+}
+
+async function loadAuditLogs() {
+  const auditLogList = document.getElementById('auditLogList');
+  auditLogList.innerHTML = '<tr><td colspan="5">Loading logs...</td></tr>';
+
+  try {
+    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
+    const res = await fetch('http://localhost:9000/api/files/audit', { credentials: 'include' });
+    const data = await res.json();
+
+    auditLogList.innerHTML = '';
+    if (!data.logs || data.logs.length === 0) {
+      auditLogList.innerHTML = '<tr><td colspan="5">No logs found.</td></tr>';
+      return;
+    }
+
+    data.logs.forEach(log => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+        <td>${escapeHtml(log.user_name || 'N/A')}</td>
+        <td>${escapeHtml(log.action || 'N/A')}</td>
+        <td>${log.file_id ? escapeHtml(log.file_id) : 'N/A'}</td>
+        <td>${escapeHtml(log.details || 'N/A')}</td>
+        <td>${new Date(log.timestamp).toLocaleString('en-NA', { dateStyle: 'short', timeStyle: 'short' })}</td>
+      `;
+      auditLogList.appendChild(row);
+    });
+  } catch (err) {
+    console.error(err);
+    auditLogList.innerHTML = '<tr><td colspan="5">Error loading logs. Please check the console for details.</td></tr>';
+  }
+}
+
+
+// Load uploaded files when the page first loads
 document.addEventListener('DOMContentLoaded', () => {
-  loadUploadedFiles();
+  // This ensures the first tab ('data-update') which is active by default has its message box ready
+  // and any initial data if needed.
 });
 </script>
 </body>

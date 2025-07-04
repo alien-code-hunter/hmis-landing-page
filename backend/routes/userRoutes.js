@@ -9,7 +9,7 @@ const router = express.Router();
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
-  database: 'hmis_dashboard',
+  database: 'hmis_landing_page',
   password: '',
   port: 5432
 });
