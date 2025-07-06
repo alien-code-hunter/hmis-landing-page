@@ -14,11 +14,11 @@
         * {
             box-sizing: border-box;
         }
-    
+
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f4f6f8;
-            color: #2b4b78; 
+            color: #2b4b78;
             margin: 0;
             padding: 0;
             display: flex;
@@ -27,7 +27,7 @@
             position: relative;
             z-index: 1;
         }
-    
+
         /* Header Section */
         header {
             background-color: #184687; /* Main header blue */
@@ -61,19 +61,20 @@
             position: relative;
             z-index: 1;
         }
-    
+
         header img.logo {
             width: 35px;
         }
-    
+
         header h1 {
             font-size: 28px;
             font-weight: 700;
             margin: 0;
             position: relative;
             z-index: 1;
+            color: #fff; /* Ensure header title is white */
         }
-    
+
         /* Menu Toggle (Hamburger Icon) */
         .menu-toggle {
             font-size: 20px;
@@ -85,7 +86,7 @@
             position: relative;
             z-index: 3;
         }
-    
+
         /* Main Navigation Menu */
         nav.menu {
             display: flex;
@@ -94,13 +95,13 @@
             z-index: 2;
             margin-left: auto; /* Pushes the menu to the right */
         }
-    
+
         .nav-links {
             display: flex;
             gap: 15px; /* Spacing between main menu items */
             align-items: center;
         }
-    
+
         /* --- MENU ITEM BASE STYLING --- */
         nav.menu a,
         .dropbtn,
@@ -112,28 +113,28 @@
             transition: background-color 0.3s ease, color 0.3s ease, border-bottom 0.3s ease;
             background-color: transparent; /* Default background is transparent for most items */
         }
-    
+
         /* --- MENU ITEM COLOR SCHEME (as per your last provided CSS) --- */
-    
+
         /* 1. Main Menu Items (Home, Reports, etc., and 'Systems' button) */
         .nav-links > a,
         .nav-links > .dropdown > .dropbtn {
             color: white; /* Current scheme: White for main menu items */
         }
-    
+
         /* 2. Submenu Buttons (DHIS2, OpenMRS) and their Sub-Sub-Menu Links (Core/Aggregate, Ptracker, etc.) */
         .dropdown-submenu .dropbtn-submenu,
         .dropdown-submenu-content a {
             color: white; /* Current scheme: White for these submenu items */
         }
-    
+
         /* 3. Specific Sub-items under 'Systems' (e-Notification, NDW, MFL) */
         .dropdown-content > a:not(.dropbtn-submenu) {
             color: white; /* Current scheme: White for these specific submenu items */
         }
-    
+
         /* --- HOVER STATES FOR MENU ITEMS --- */
-    
+
         /* Hover state for Main Menu Items */
         .nav-links > a:hover,
         .nav-links > .dropdown > .dropbtn:hover {
@@ -141,7 +142,7 @@
             border-bottom: 2px solid #fff;
             color: black; /* Text turns black on hover */
         }
-    
+
         /* Hover state for ALL Submenu/Sub-Submenu Items (including e-Notification, NDW, MFL) */
         .dropdown-content a:hover,
         .dropdown-submenu .dropbtn-submenu:hover,
@@ -150,23 +151,23 @@
             color: black; /* Text turns black on hover */
             border-bottom: none; /* Ensure no bottom border for submenus on hover */
         }
-    
-    
+
+
         /* --- DROPDOWN STRUCTURE & BACKGROUNDS --- */
-    
+
         .dropdown {
             position: relative;
             display: inline-block;
             z-index: 1;
         }
-    
+
         .dropbtn {
             background-color: transparent;
             border: none;
             cursor: pointer;
             display: block;
         }
-    
+
         .dropdown-content {
             display: none;
             position: absolute;
@@ -178,7 +179,7 @@
             top: 100%;
             left: 0;
         }
-    
+
         .dropdown-content a { /* Generic styles for links within dropdown-content */
             padding: 12px 16px;
             text-decoration: none;
@@ -186,21 +187,21 @@
             text-align: left;
             /* Specific colors and backgrounds are set by rules above */
         }
-    
+
         .dropdown:hover .dropdown-content {
             display: block;
         }
-    
+
         /* Submenu (DHIS2, OpenMRS containers for nested dropdowns) */
         .dropdown-submenu {
             position: relative;
             width: 100%;
         }
-    
+
         .dropdown-submenu .dropbtn-submenu { /* DHIS2, OpenMRS buttons */
             width: 100%;
         }
-    
+
         .dropdown-submenu .dropbtn-submenu::after {
             content: '\25B6'; /* Right-pointing arrow for submenu indicator */
             float: right;
@@ -208,7 +209,7 @@
             font-size: 10px;
             line-height: inherit;
         }
-    
+
         .dropdown-submenu-content {
             display: none;
             position: absolute;
@@ -220,16 +221,16 @@
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Subtle shadow re-added */
             border-radius: 4px;
         }
-    
+
         .dropdown-submenu:hover .dropdown-submenu-content {
             display: block;
         }
-    
+
         .dropdown-submenu-content a { /* Links within sub-sub-menus */
             /* Specific colors and backgrounds are set by rules above */
         }
-    
-    
+
+
         /* --- GENERAL PAGE LAYOUT & COMPONENTS --- */
         /* Main content container (applies to the <main> tag) */
         main.container {
@@ -238,7 +239,7 @@
             max-width: 1200px;
             margin: auto; /* Centers the main content horizontally */
         }
-    
+
         .banner {
             background: linear-gradient(135deg, #cddff7, #f0f4f8);
             padding: 30px;
@@ -247,17 +248,17 @@
             margin-bottom: 12px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-    
+
         .banner .logo {
             width: 100px;
             height: auto;
         }
-    
+
         .banner h2 {
             font-size: 26px;
             margin-bottom: 10px;
         }
-    
+
         nav.buttons-container {
             display: flex;
             flex-wrap: wrap;
@@ -265,7 +266,7 @@
             justify-content: center;
             margin-bottom: 30px;
         }
-    
+
         .button {
             background-color: #2b4b78;
             color: #ffffff;
@@ -279,11 +280,11 @@
             text-decoration: none;
             text-align: center;
         }
-    
+
         .button:hover {
             background-color: #1f3659;
         }
-    
+
         .stat {
             background-color: #ffffff;
             padding: 15px;
@@ -293,7 +294,7 @@
             flex: 1;
             min-width: 100px;
         }
-    
+
         .stats-container {
             display: flex;
             flex-wrap: wrap;
@@ -301,14 +302,14 @@
             justify-content: center;
             margin-bottom: 12px;
         }
-    
+
         .info-section {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             justify-content: center;
         }
-    
+
         .info-box {
             background-color: #ffffff;
             padding: 20px;
@@ -316,13 +317,13 @@
             width: 300px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-    
+
         .info-box h3 {
             margin-top: 0;
             font-size: 18px;
             color: #2b4b78;
         }
-    
+
         .blue-tile {
             background-color: #184687;
             color: white;
@@ -330,17 +331,17 @@
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-    
+
         footer {
             background-color: #eaeaea;
             text-align: center;
             padding: 20px;
             font-size: 14px;
             color: #555;
+            margin-top: auto; /* Push footer to the bottom */
         }
-    
+
         /* Contact Section Specific Styles */
-        /* This applies to the div with class="contact-page-wrapper" holding the contact info and form */
         .contact-page-wrapper {
             max-width: 900px; /* Adjust as needed */
             margin: 40px auto; /* Centers the container horizontally */
@@ -350,13 +351,13 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             text-align: center; /* Centers text like h2 inside */
         }
-    
+
         .contact-page-wrapper h2 { /* Targeting the h2 specifically inside this wrapper */
             text-align: center;
             color: #184687;
             margin-bottom: 20px;
         }
-    
+
         .contact-info {
             display: flex;
             flex-wrap: wrap;
@@ -364,7 +365,7 @@
             margin-bottom: 30px;
             gap: 20px; /* Space between contact info blocks */
         }
-    
+
         .contact-info div {
             flex: 1 1 200px; /* Allows flexible sizing, minimum 200px wide */
             max-width: 300px; /* Max width to prevent them from getting too wide */
@@ -373,12 +374,12 @@
             padding: 15px;
             border-radius: 6px;
         }
-    
+
         .contact-info h3 {
             margin-bottom: 5px;
             color: #2b4b78;
         }
-    
+
        /* Form Styles */
         form {
             display: flex;
@@ -418,31 +419,38 @@
             /* Button styles are already defined by .button class */
             pointer-events: auto !important; /* Ensure the button is clickable */
         }
-    
+
         /* --- MOBILE STYLES (Adjustments for smaller screens) --- */
         @media (max-width: 768px) {
             .menu-toggle {
                 display: block; /* Show hamburger icon on mobile */
             }
-    
+
             nav.menu {
                 display: none; /* Hide menu by default on mobile */
                 flex-direction: column;
                 width: 100%;
                 background-color: #f9f9f9; /* Light background for mobile main menu */
                 position: absolute;
-                top: 60px; /* Position below header */
+                top: 51px; /* Position below header's effective height */
                 left: 0;
                 z-index: 10;
                 border-top: 1px solid #ccc;
                 margin-left: 0; /* Remove auto-margin */
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Add shadow to mobile menu */
             }
-    
+
             nav.menu.active {
                 display: flex; /* Show menu when active class is applied by JS */
             }
-    
+
             /* Main Menu Links on Mobile (Home, Reports, etc.) */
+            .nav-links {
+                flex-direction: column; /* Stack main links vertically */
+                width: 100%;
+                gap: 0; /* Remove gap between stacked links */
+            }
+
             .nav-links > a,
             .nav-links > .dropdown > .dropbtn {
                 padding: 12px 20px;
@@ -452,12 +460,16 @@
                 width: 100%;
                 text-align: left;
             }
-    
+            .nav-links > a:first-child,
+            .nav-links > .dropdown:first-child .dropbtn { /* Remove top border for first item */
+                border-top: none;
+            }
+
             /* All Submenu/Sub-Submenu items on Mobile */
             .dropdown {
                 width: 100%;
             }
-    
+
             .dropdown .dropbtn {
                 width: 100%;
                 padding: 12px 20px;
@@ -465,7 +477,11 @@
                 color: #2b4b78;
                 background-color: #f9f9f9;
             }
-    
+            /* Mobile dropdown specific styles */
+            .dropdown.active .dropdown-content {
+                display: block; /* Show dropdown content when dropdown is active */
+            }
+
             .dropdown-content {
                 display: none;
                 position: static; /* Remove absolute positioning for mobile dropdowns */
@@ -474,18 +490,18 @@
                 border-top: 1px solid #ccc;
                 box-shadow: none; /* Remove shadows for mobile */
             }
-    
+
             .dropdown-content a {
                 padding-left: 30px;
                 background-color: #f0f0f0;
                 color: #2b4b78;
             }
-    
+
             .dropdown-submenu {
                 background-color: #f0f0f0;
                 width: 100%;
             }
-    
+
             .dropdown-submenu .dropbtn-submenu {
                 width: 100%;
                 padding: 12px 30px;
@@ -493,12 +509,23 @@
                 background-color: #f0f0f0;
                 color: #2b4b78;
             }
-    
+
+            /* Change arrow direction for mobile dropdowns */
             .dropdown-submenu .dropbtn-submenu::after {
-                content: '\25BC'; /* Change arrow direction for mobile dropdowns */
+                content: '\25BC';
                 float: right;
+                transition: transform 0.3s ease; /* Add transition for rotation */
             }
-    
+            /* Rotate arrow when submenu is active */
+            .dropdown-submenu.active .dropbtn-submenu::after {
+                transform: rotate(180deg);
+            }
+
+            /* Mobile submenu specific styles */
+            .dropdown-submenu.active .dropdown-submenu-content {
+                display: block; /* Show submenu content when submenu is active */
+            }
+
             .dropdown-submenu-content {
                 position: static;
                 background-color: #e8e8e8;
@@ -506,47 +533,47 @@
                 width: 100%;
                 box-shadow: none;
             }
-    
+
             .dropdown-submenu-content a {
                 background-color: #e8e8e8;
                 color: #2b4b78;
                 padding-left: 40px;
             }
-    
+
             /* Disable :hover effects for dropdowns on mobile (handled by JS toggling 'active' classes) */
             .dropdown:hover .dropdown-content,
             .dropdown-submenu:hover .dropdown-submenu-content {
                 display: none;
             }
-    
+
             /* Mobile layout adjustments for header/main content */
             header {
-                flex-direction: column;
-                align-items: flex-start;
+                flex-direction: row; /* Keep logo and toggle on same row */
+                align-items: center;
                 padding: 12px;
+                justify-content: space-between; /* Space out logo and toggle */
             }
-    
+
             header .left {
-                flex-direction: row;
-                justify-content: space-between;
-                width: 100%;
+                flex-grow: 1; /* Allow left part to take space */
+                justify-content: flex-start; /* Align logo to start */
+                width: auto; /* Override 100% width */
             }
-    
-            header h1 {
+             header h1 {
                 font-size: 20px;
             }
-    
+
             .stats-container,
             .info-section {
                 flex-direction: column;
                 align-items: center;
             }
-    
+
             .button {
                 width: 100%;
                 max-width: 300px;
             }
-            
+
             /* Contact section mobile adjustments for screens <= 768px */
             .contact-page-wrapper {
                 max-width: 100%; /* Allows it to take full width on smaller screens */
@@ -572,7 +599,7 @@
                 max-width: 100%; /* Ensure inputs/textareas are full width on very small screens */
             }
         }
-        
+
         /* Particles JS (if used in HTML - typically full-screen) */
         #particles-js.full-bg { /* Note: This class is not directly applied in your HTML but exists in CSS */
             position: fixed;
@@ -585,7 +612,7 @@
         }
 
         /* NEW STYLES FOR RESOURCES PAGE */
-        .container {
+        .container.resources-page { /* More specific selector for the resource page container */
             max-width: 1200px;
             margin: 20px auto;
             padding: 20px;
@@ -705,7 +732,7 @@
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-            display: flex;
+            display: flex; /* Use flex for centering */
             justify-content: center;
             align-items: center;
         }
@@ -733,7 +760,7 @@
 
         .close {
             color: #aaa;
-            float: right;
+            /* float: right; Removed float for better flex/grid compatibility */
             font-size: 28px;
             font-weight: bold;
             position: absolute;
@@ -771,7 +798,7 @@
                 padding: 8px 10px;
                 font-size: 0.85rem;
             }
-            
+
             /* Make table horizontally scrollable */
             .table-responsive {
                 overflow-x: auto;
@@ -784,13 +811,14 @@
             .resource-table td:last-child {
                 flex-direction: row; /* Buttons side-by-side on mobile table */
                 justify-content: center;
+                gap: 5px; /* Space between buttons */
             }
 
             .preview-btn, .download-btn {
                 padding: 6px 10px;
                 font-size: 0.8rem;
             }
-            
+
             .modal-content {
                 width: 95%;
                 height: 95%;
@@ -810,48 +838,48 @@
     <header>
         <div class="left">
             <img src="/flag.png" alt="Namibian flag Logo" class="logo" />
-            <h1>National Health Information System</h1> 
+            <h1>National Health Information System</h1>
         </div>
-    
+
         <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
-    
+
         <nav class="menu" aria-label="Main Menu">
             <div class="nav-links">
                 <a href="#">Home</a>
                 <a href="#">Reports</a>
                 <a href="resources.html">Training and Resources</a>
                 <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
-    
+
                 <div class="dropdown">
                     <a href="#" class="dropbtn">Systems</a>
                     <div class="dropdown-content">
-    
+
                         <div class="dropdown-submenu">
                             <a href="#" class="dropbtn-submenu">DHIS2</a>
                             <div class="dropdown-submenu-content">
-                                <a href="https://hmis.mhss.gov.na/core/">Core/Aggregate</a>
-                                <a href="https://hmis.mhss.gov.na/inpatient/">Inpatient</a>
-                                <a href="https://hmis.mhss.gov.na/IDSR/">IDSR</a>
-                                <a href="https://hmis.mhss.gov.na/COVAX/">Covax</a>
-                                <a href="https://hmis.mhss.gov.na/MIMS/">MIMS</a>
-                                <a href="https://hmis.mhss.gov.na/cecap/">CECAP</a>
-                                <a href="https://hmis.mhss.gov.na/malaria/">Malaria</a>
+                                <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Core/Aggregate</a>
+                                <a href="https://hmis.mhss.gov.na/inpatient/" target="_blank" rel="noopener noreferrer">Inpatient</a>
+                                <a href="https://hmis.mhss.gov.na/IDSR/" target="_blank" rel="noopener noreferrer">IDSR</a>
+                                <a href="https://hmis.mhss.gov.na/COVAX/" target="_blank" rel="noopener noreferrer">Covax</a>
+                                <a href="https://hmis.mhss.gov.na/MIMS/" target="_blank" rel="noopener noreferrer">MIMS</a>
+                                <a href="https://hmis.mhss.gov.na/cecap/" target="_blank" rel="noopener noreferrer">CECAP</a>
+                                <a href="https://hmis.mhss.gov.na/malaria/" target="_blank" rel="noopener noreferrer">Malaria</a>
                             </div>
                         </div>
-    
+
                         <div class="dropdown-submenu">
                             <a href="#" class="dropbtn-submenu">OpenMRS</a>
                             <div class="dropdown-submenu-content">
-                                <a href="https://ptracker.mhss.gov.na/openmrs/">Ptracker</a>
+                                <a href="https://ptracker.mhss.gov.na/openmrs/" target="_blank" rel="noopener noreferrer">Ptracker</a>
                             </div>
                         </div>
-                            
-                            <a href="https://hmis.mhss.gov.na/core/">e-Notification</a>
-                            <a href="https://ndw.mhss.gov.na/dashboards.html">NDW</a>
-                            <a href="https://mfl.mhss.gov.na/">MFL</a>
+
+                            <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">e-Notification</a>
+                            <a href="https://ndw.mhss.gov.na/dashboards.html" target="_blank" rel="noopener noreferrer">NDW</a>
+                            <a href="https://mfl.mhss.gov.na/" target="_blank" rel="noopener noreferrer">MFL</a>
                     </div>
                 </div>
-    
+
                 <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Dictionary</a>
                 <a href="admin.html">Admin</a>
                 <a href="contact.html">Contact</a>
@@ -859,8 +887,7 @@
         </nav>
     </header>
 
-    <main class="container">
-        <div class="filter-bar">
+    <main class="container resources-page"> <div class="filter-bar">
             <label for="fileTypeFilter">File type:</label>
             <select id="fileTypeFilter" onchange="loadResources()">
                 <option value="all">All</option>
@@ -869,17 +896,14 @@
                 <option value="image">Images</option>
                 <option value="excel">Excel</option>
                 <option value="ppt">PowerPoint</option>
-                <option value="mp4 mvi">Videos</option>
-                <option value="mva">Voice Recordings</option>
-            </select>
+                <option value="video">Videos</option> <option value="audio">Voice Recordings</option> </select>
 
             <label for="documentTypeFilter">Document type:</label>
             <select id="documentTypeFilter" onchange="loadResources()">
                 <option value="All">All</option>
                 <option value="Training Manual">Training Manual</option>
                 <option value="User Manual">User Manual</option>
-                <option value="policies">Policies</option>
-            </select>
+                <option value="Policies">Policies</option> </select>
 
             <label for="systemFilter">System:</label>
             <select id="systemFilter" onchange="loadResources()">
@@ -898,8 +922,8 @@
                 <option value="Surveillance">Surveillance</option>
                 <option value="Inpatient">Inpatient</option>
                 <option value="Outpatient">Outpatient</option>
-                <option value="DataCapturing">Data Capturing</option>
-                <option value="DataManagement">Data Management</option>
+                <option value="Data Capturing">Data Capturing</option>
+                <option value="Data Management">Data Management</option>
             </select>
         </div>
 
@@ -927,7 +951,7 @@
             <iframe id="previewFrame" src="" title="File Preview"></iframe>
         </div>
     </div>
-    
+
     <footer>
         Ministry of Health and Social Services, Republic of Namibia<br />
         Private Bag 13189, Windhoek, Namibia<br />
@@ -935,7 +959,7 @@
     </footer>
 
     <script>
-        // Initialize particles.js for the header (if desired, adjust config as needed)
+        // Initialize particles.js
         particlesJS('particles-js', {
             "particles": {
                 "number": {
@@ -1001,9 +1025,7 @@
                 }
             },
             "interactivity": {
-                // IMPORTANT: With pointer-events: none; on the canvas, these interactions will NOT work.
-                // They are kept here for reference if you ever choose to make the particles interactive again.
-                "detect_on": "canvas", 
+                "detect_on": "canvas",
                 "events": {
                     "onhover": {
                         "enable": true,
@@ -1044,195 +1066,125 @@
             "retina_detect": true
         });
 
-        // JavaScript for Mobile Menu Toggle
-        document.addEventListener('DOMContentLoaded', function () {
-            const menuToggle = document.querySelector('.menu-toggle');
+
+        // --- Helper function to escape HTML ---
+        function escapeHtml(unsafe) {
+            return unsafe
+                 .replace(/&/g, "&amp;")
+                 .replace(/</g, "&lt;")
+                 .replace(/>/g, "&gt;")
+                 .replace(/"/g, "&quot;")
+                 .replace(/'/g, "&#039;");
+        }
+
+        // --- Mobile Menu Toggle ---
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
             const navMenu = document.querySelector('nav.menu');
-            const dropdowns = document.querySelectorAll('.dropdown');
-            const submenuDrops = document.querySelectorAll('.dropdown-submenu');
+            navMenu.classList.toggle('active');
+        });
 
-            // Toggle main mobile menu
-            menuToggle.addEventListener('click', function () {
-                navMenu.classList.toggle('active');
-            });
-
-            // Handle main dropdowns on mobile
-            dropdowns.forEach(dropdown => {
-                const dropbtn = dropdown.querySelector('.dropbtn');
-                const dropdownContent = dropdown.querySelector('.dropdown-content');
-
-                dropbtn.addEventListener('click', function (e) {
-                    // Only toggle if on mobile, prevent default link behavior
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        // Close other open dropdowns at the same level
-                        dropdowns.forEach(otherDropdown => {
-                            if (otherDropdown !== dropdown) {
-                                otherDropdown.querySelector('.dropdown-content').style.display = 'none';
-                            }
-                        });
-                        // Toggle current dropdown
-                        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
-                    }
-                });
-            });
-
-            // Handle submenu dropdowns on mobile
-            submenuDrops.forEach(submenu => {
-                const dropbtnSubmenu = submenu.querySelector('.dropbtn-submenu');
-                const submenuContent = submenu.querySelector('.dropdown-submenu-content');
-
-                dropbtnSubmenu.addEventListener('click', function (e) {
-                    if (window.innerWidth <= 768) {
-                        e.preventDefault();
-                        // Close other open submenus at the same level
-                        submenuDrops.forEach(otherSubmenu => {
-                            if (otherSubmenu !== submenu) {
-                                otherSubmenu.querySelector('.dropdown-submenu-content').style.display = 'none';
-                            }
-                        });
-                        // Toggle current submenu
-                        submenuContent.style.display = submenuContent.style.display === 'block' ? 'none' : 'block';
-                    }
-                });
-            });
-
-            // Close menus if window resized to desktop or clicked outside
-            window.addEventListener('resize', function () {
-                if (window.innerWidth > 768) {
-                    navMenu.classList.remove('active');
-                    dropdowns.forEach(dropdown => {
-                        dropdown.querySelector('.dropdown-content').style.display = ''; // Reset display
-                    });
-                    submenuDrops.forEach(submenu => {
-                        submenu.querySelector('.dropdown-submenu-content').style.display = ''; // Reset display
-                    });
-                }
-            });
-
-            // Optional: Close menu when clicking outside (on desktop size, hover takes over)
-            document.addEventListener('click', function(e) {
-                if (window.innerWidth > 768) return; // Only for mobile
-                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
-                    navMenu.classList.remove('active');
-                    dropdowns.forEach(dropdown => {
-                        dropdown.querySelector('.dropdown-content').style.display = 'none';
-                    });
-                    submenuDrops.forEach(submenu => {
-                        submenu.querySelector('.dropdown-submenu-content').style.display = 'none';
-                    });
+        // --- Mobile Dropdown Toggle (for 'Systems' and sub-submenus) ---
+        document.querySelectorAll('.dropdown > .dropbtn, .dropdown-submenu > .dropbtn-submenu').forEach(button => {
+            button.addEventListener('click', function(event) {
+                // Only toggle if on a mobile view, where the menu is typically stacked
+                if (window.innerWidth <= 768) {
+                    event.preventDefault(); // Prevent default link behavior for menu items that open dropdowns
+                    const parentDropdown = this.closest('.dropdown') || this.closest('.dropdown-submenu');
+                    parentDropdown.classList.toggle('active'); // Toggle 'active' on the parent dropdown/submenu
                 }
             });
         });
 
-        // JavaScript for resource page functionality
+        // --- File Preview Modal Functions ---
         function openPreview(fileUrl) {
-            const modal = document.getElementById('previewModal');
-            const frame = document.getElementById('previewFrame');
-            frame.src = fileUrl;
-            modal.style.display = 'flex'; // Use flex to center the modal content
+            const previewModal = document.getElementById('previewModal');
+            const previewFrame = document.getElementById('previewFrame');
+            previewFrame.src = fileUrl;
+            previewModal.style.display = 'flex'; // Use flex to center
         }
-    
+
         function closePreview() {
-            const modal = document.getElementById('previewModal');
-            const frame = document.getElementById('previewFrame');
-            frame.src = '';
-            modal.style.display = 'none';
+            const previewModal = document.getElementById('previewModal');
+            const previewFrame = document.getElementById('previewFrame');
+            previewFrame.src = ''; // Clear iframe src to stop playback/loading
+            previewModal.style.display = 'none';
         }
-    
-        function getFriendlyType(mime) {
-            if (mime.includes('pdf')) return 'PDF Document';
-            if (mime.includes('wordprocessingml') || mime.includes('word')) return 'Microsoft Word';
-            if (mime.includes('spreadsheetml') || mime.includes('excel')) return 'Microsoft Excel';
-            if (mime.includes('presentationml') || mime.includes('powerpoint')) return 'PowerPoint';
-            if (mime.includes('image')) return 'Image';
-            if (mime.includes('video')) return 'Video';
-            if (mime.includes('audio')) return 'Voice Recording';
-            return 'File';
-        }
-    
-        function getFileIcon(mime) {
-            if (mime.includes('pdf')) return '📄';
-            if (mime.includes('wordprocessingml') || mime.includes('word')) return '📝';
-            if (mime.includes('spreadsheetml') || mime.includes('excel')) return '📊';
-            if (mime.includes('presentationml') || mime.includes('powerpoint')) return '📽️';
-            if (mime.includes('image')) return '🖼️';
-            if (mime.includes('video')) return '🎞️';
-            if (mime.includes('audio')) return '🎤';
-            return '📁';
-        }
-    
+
+        // --- Load Resources Function ---
         async function loadResources() {
+            const resourceList = document.getElementById('resourceList');
+            resourceList.innerHTML = '<tr><td colspan="5">Loading resources...</td></tr>';
+
+            const fileType = document.getElementById('fileTypeFilter').value;
+            const documentType = document.getElementById('documentTypeFilter').value;
+            const system = document.getElementById('systemFilter').value;
+            const healthType = document.getElementById('healthTypeFilter').value;
+
+            // Construct query parameters based on selected filters
+            const queryParams = new URLSearchParams();
+            if (fileType !== 'all') queryParams.append('fileType', fileType);
+            if (documentType !== 'All') queryParams.append('documentType', documentType);
+            if (system !== 'all') queryParams.append('system', system);
+            if (healthType !== 'all') queryParams.append('healthType', healthType);
+
             try {
-                // IMPORTANT: This URL points to a local development server.
-                // For deployment, you will need to replace 'http://localhost:9000'
-                // with the actual domain or API endpoint where your backend serves files.
-                const response = await fetch('http://localhost:9000/uploads/list'); 
+                // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
+                // Your backend API should handle these query parameters to filter the results.
+                const response = await fetch(`http://localhost:9000/api/resources/list?${queryParams.toString()}`);
                 const data = await response.json();
-                const resourceList = document.getElementById('resourceList');
-    
-                // Get filter values from their unique IDs
-                const fileTypeFilter = document.getElementById('fileTypeFilter').value;
-                const documentTypeFilter = document.getElementById('documentTypeFilter').value;
-                const systemFilter = document.getElementById('systemFilter').value;
-                const healthTypeFilter = document.getElementById('healthTypeFilter').value;
-    
-                resourceList.innerHTML = ''; // Clear previous entries
-    
-                if (!data.files || data.files.length === 0) {
-                    resourceList.innerHTML = '<tr><td colspan="5">No resources available at this time.</td></tr>';
+
+                resourceList.innerHTML = ''; // Clear loading message
+
+                if (!data.resources || data.resources.length === 0) {
+                    resourceList.innerHTML = '<tr><td colspan="5">No resources found matching your criteria.</td></tr>';
                     return;
                 }
-    
-                data.files.forEach(file => {
-                    const fileType = getFriendlyType(file.mimetype);
-                    const icon = getFileIcon(file.mimetype);
-                    const fileUrl = `/uploads/${file.filename}`;
-                    // Assuming 'file.category' might contain document type or system info from backend
-                    const category = file.category || 'Uncategorized'; 
-                    // Assuming 'file.health_process' is a new field from backend for health type
-                    const healthProcess = file.health_process || 'Uncategorized Process'; 
-    
-                    // Filtering logic
-                    const matchesFileType = 
-                        fileTypeFilter === 'all' ||
-                        (fileTypeFilter === 'pdf' && fileType === 'PDF Document') ||
-                        (fileTypeFilter === 'word' && fileType === 'Microsoft Word') ||
-                        (fileTypeFilter === 'excel' && fileType === 'Microsoft Excel') ||
-                        (fileTypeFilter === 'ppt' && fileType === 'PowerPoint') ||
-                        (fileTypeFilter === 'image' && fileType === 'Image') ||
-                        (fileTypeFilter === 'mp4 mvi' && fileType === 'Video') ||
-                        (fileTypeFilter === 'mva' && fileType === 'Voice Recording');
-    
-                    // Using .includes() for flexibility if backend 'category' string contains multiple keywords
-                    const matchesDocumentType = documentTypeFilter === 'All' || category.includes(documentTypeFilter);
-                    const matchesSystem = systemFilter === 'all' || category.includes(systemFilter);
-                    const matchesHealthType = healthTypeFilter === 'all' || healthProcess.includes(healthTypeFilter);
-    
-                    if (!matchesFileType || !matchesDocumentType || !matchesSystem || !matchesHealthType) {
-                        return; // Skip this file if it doesn't match all filters
-                    }
-    
+
+                data.resources.forEach(resource => {
                     const row = document.createElement('tr');
+                    // Assuming your resource object has: filename, mimetype, categories (array), upload_date, and a unique ID
+                    // The backend should provide a direct download URL or a filename you can construct.
+                    const categoriesDisplay = Array.isArray(resource.categories) ? resource.categories.join(', ') : resource.categories || 'N/A';
+
+                    // Determine if preview is possible directly in iframe. PDFs, images are generally fine.
+                    // Word/Excel/PPT might require Google Docs Viewer or similar, or just a download option.
+                    let previewButtonHtml = '';
+                    const fileExtension = resource.filename.split('.').pop().toLowerCase();
+                    const viewableExtensions = ['pdf', 'png', 'jpg', 'jpeg', 'gif']; // Add more if your iframe can handle them
+                    if (viewableExtensions.includes(fileExtension)) {
+                        previewButtonHtml = `<button class="preview-btn" onclick="openPreview('/uploads/${escapeHtml(resource.filename)}')">Preview</button>`;
+                    } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(fileExtension)) {
+                        // Option for Google Docs Viewer for office files, but requires file to be publicly accessible online
+                        // previewButtonHtml = `<button class="preview-btn" onclick="openPreview('https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + '/uploads/' + resource.filename)}&embedded=true')">Preview</button>`;
+                        // For local development, direct preview of office files won't work in iframe without a viewer.
+                        // So, we'll just show a download button for these if no direct preview is available.
+                        previewButtonHtml = ''; // Or remove this else if block if you want only download
+                    }
+
+
                     row.innerHTML = `
-                        <td>${icon} ${file.original_name}</td>
-                        <td>${fileType}</td>
-                        <td>${category}</td>
-                        <td>${new Date(file.upload_date).toLocaleDateString()}</td>
+                        <td>${escapeHtml(resource.original_name || resource.filename)}</td>
+                        <td>${escapeHtml(resource.mimetype.split('/')[1] || resource.file_type || 'N/A')}</td>
+                        <td>${escapeHtml(categoriesDisplay)}</td>
+                        <td>${new Date(resource.upload_date).toLocaleString('en-NA', { dateStyle: 'short', timeStyle: 'short' })}</td>
                         <td>
-                            <button class="preview-btn" onclick="openPreview('${fileUrl}')">Preview</button>
-                            <a class="download-btn" href="${fileUrl}" download="${file.original_name}">Download</a>
+                            ${previewButtonHtml}
+                            <a href="/uploads/${escapeHtml(resource.filename)}" download="${escapeHtml(resource.original_name || resource.filename)}" class="download-btn">Download</a>
                         </td>
                     `;
                     resourceList.appendChild(row);
                 });
+
             } catch (error) {
                 console.error('Error loading resources:', error);
-                document.getElementById('resourceList').innerHTML = '<tr><td colspan="5">Error loading resources. Please ensure the backend server is running and accessible.</td></tr>';
+                resourceList.innerHTML = '<tr><td colspan="5">Error loading resources. Please try again.</td></tr>';
             }
         }
-    
-        document.addEventListener('DOMContentLoaded', loadResources); // Load resources on page load
+
+        // --- Initial Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            loadResources(); // Load resources when the page first loads
+        });
     </script>
 </body>
 </html>

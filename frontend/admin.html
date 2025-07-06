@@ -1,675 +1,1009 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Panel - HMIS Namibia</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"/>
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f9f5f1;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel - HMIS Namibia</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Base Styles */
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f5f8fa; /* Lighter, subtle background */
+    color: #2c3e50; /* Darker, professional text color */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    line-height: 1.6; /* Improved readability */
+  }
+
+  /* Header */
+  .header {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* More pronounced shadow */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #e0e6eb; /* Subtle border at the bottom */
+  }
+
+  .header h1 {
+    margin: 0;
+    font-size: 32px; /* Slightly larger title */
+    color: #2b4b78; /* Primary blue for title */
+    font-weight: 700;
+  }
+
+  .logout-button {
+    background-color: #e74c3c; /* Flat red */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px; /* Slightly more rounded */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Add transform for subtle click effect */
+    font-weight: 500;
+  }
+
+  .logout-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-1px); /* Slight lift on hover */
+  }
+  .logout-button:active {
+    transform: translateY(0); /* Press effect */
+  }
+
+  /* Tab Menu */
+  .tab-menu {
+    display: flex;
+    background-color: #34495e; /* Darker blue/grey for tabs */
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Stronger shadow for tab bar */
+  }
+
+  .tab-menu button {
+    flex: 1;
+    padding: 18px 15px; /* More vertical padding */
+    border: none;
+    background-color: #34495e;
+    color: white;
+    font-weight: 500; /* Medium font weight */
+    cursor: pointer;
+    border-right: 1px solid rgba(255, 255, 255, 0.08); /* Even softer border */
+    transition: background-color 0.3s ease, border-bottom 0.3s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 1.05em; /* Slightly larger font */
+  }
+
+  .tab-menu button:last-child {
+      border-right: none;
+  }
+
+  .tab-menu button:hover {
+    background-color: #2c3a4a;
+  }
+
+  .tab-menu button.active {
+    background-color: #2b4b78; /* Primary blue for active tab */
+    border-bottom: 3px solid #f39c12; /* Accent color for active tab */
+    font-weight: 700;
+  }
+
+  /* Tab Content */
+  .tab-content {
+    display: none;
+    padding: 30px; /* Increased padding */
+    background-color: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Softer, broader shadow */
+    max-width: 900px; /* Wider content area */
+    margin: 25px auto; /* More vertical margin */
+    border-radius: 10px; /* More rounded corners */
+    flex-grow: 1;
+    border: 1px solid #e0e6eb; /* Subtle border around content box */
+  }
+
+  .tab-content h3 {
+    color: #2b4b78;
+    margin-top: 0;
+    margin-bottom: 25px; /* More space below heading */
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0; /* Lighter separator */
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .tab-content.active {
+    display: block;
+  }
+
+  /* Forms */
+  .form-group {
+    margin-bottom: 25px; /* More spacing between form groups */
+  }
+
+  .form-group label {
+    font-weight: 600; /* Bolder labels */
+    display: block;
+    margin-bottom: 10px; /* More space below labels */
+    color: #34495e;
+  }
+
+  .form-group input[type="number"],
+  .form-group input[type="text"],
+  .form-group input[type="file"],
+  .form-group select {
+    width: 100%;
+    padding: 12px; /* More padding in inputs */
+    border: 1px solid #dcdcdc; /* Lighter border */
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    color: #333;
+    background-color: #fcfcfc;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #2b4b78; /* Highlight on focus */
+    box-shadow: 0 0 0 3px rgba(43, 75, 120, 0.2); /* Subtle glow */
+    outline: none;
+  }
+
+  .form-group button {
+    background-color: #2b4b78;
+    color: #fff;
+    padding: 12px 25px; /* More padding for buttons */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+    font-size: 1.05em;
+  }
+
+  .form-group button:hover {
+    background-color: #1f3659;
+    transform: translateY(-1px);
+  }
+  .form-group button:active {
+    transform: translateY(0);
+  }
+
+  /* Messages */
+  .message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 6px;
+    display: none;
+    font-weight: 500;
+    text-align: center;
+    font-size: 0.95em;
+  }
+
+  .message.success {
+    background-color: #e9f7ef; /* Lighter green background */
+    color: #27ae60; /* Darker green text */
+    border: 1px solid #d4edda;
+  }
+
+  .message.error {
+    background-color: #fdf0f2; /* Lighter red background */
+    color: #c0392b; /* Darker red text */
+    border: 1px solid #f8d7da;
+  }
+
+  /* Checkbox Group (if used, apply consistent styling) */
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* More space */
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal;
+    color: #333;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    margin-right: 10px;
+    width: auto;
+    transform: scale(1.1); /* Slightly larger checkbox */
+  }
+
+  /* Tables */
+  .file-table, .audit-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 25px;
+    font-size: 0.9em;
+    background-color: #ffffff; /* Ensure table background is white */
+    border-radius: 8px; /* Rounded corners for the table itself */
+    overflow: hidden; /* Ensures borders/shadows conform to border-radius */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03); /* Subtle shadow for tables */
+  }
+
+  .file-table th, .file-table td,
+  .audit-table th, .audit-table td {
+    padding: 14px 18px; /* More padding */
+    border: 1px solid #f0f0f0; /* Very light border */
+    text-align: left;
+  }
+
+  .file-table th, .audit-table th {
+    background-color: #ecf0f1; /* Lighter header background */
+    color: #34495e;
+    font-weight: 600;
+    text-transform: uppercase; /* Uppercase headers */
+    font-size: 0.95em;
+  }
+
+  .file-table tr:nth-child(even),
+  .audit-table tr:nth-child(even) {
+    background-color: #fcfcfc; /* Even subtler stripe */
+  }
+
+  .file-table a {
       color: #2b4b78;
-      margin: 0;
-      padding: 0;
-    }
+      text-decoration: none;
+      transition: color 0.2s ease;
+  }
+  .file-table a:hover {
+      text-decoration: underline;
+      color: #1a2b40;
+  }
 
-    .header {
-      background-color: #fff;
-      padding: 20px;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  .action-buttons {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logout-button {
-      background-color: #d9534f;
-      color: #fff;
-      padding: 8px 15px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .logout-button:hover {
-      background-color: #c9302c;
-    }
-
-    .tab-menu {
-      display: flex;
-      background-color: #2b4b78;
-      color: white;
-    }
-
-    .tab-menu button {
-      flex: 1;
-      padding: 15px;
-      border: none;
-      background-color: #2b4b78;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      border-right: 1px solid rgba(255, 255, 255, 0.1); /* Softer border */
-      transition: background-color 0.3s ease;
-    }
-
-    .tab-menu button:last-child {
-        border-right: none;
-    }
-
-    .tab-menu button:hover,
-    .tab-menu button.active {
-      background-color: #1f3659;
-    }
-
-    .tab-content {
-      display: none;
-      padding: 20px;
-      background-color: white;
-      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.05); /* Added subtle shadow for content area */
-      max-width: 800px; /* Constrain content width */
-      margin: 20px auto; /* Center content */
-      border-radius: 8px; /* Rounded corners for content box */
-    }
-
-    .tab-content.active {
-      display: block;
-    }
-
-    .form-group {
-      margin-bottom: 20px; /* Increased spacing */
-    }
-
-    .form-group label {
-      font-weight: 500;
-      display: block;
-      margin-bottom: 8px; /* Increased spacing */
-    }
-
-    .form-group input[type="number"],
-    .form-group input[type="text"],
-    .form-group input[type="file"] {
-      width: 100%;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      box-sizing: border-box; /* Include padding in width */
-    }
-
-    .form-group button {
-      background-color: #2b4b78;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-
-    .form-group button:hover {
-      background-color: #1f3659;
-    }
-
-    .message {
-      margin-top: 15px; /* Increased spacing */
-      padding: 12px; /* Increased padding */
-      border-radius: 5px;
-      display: none;
-      font-weight: 500;
-      text-align: center;
-    }
-
-    .message.success {
-      background-color: #d4edda;
-      color: #155724;
-      border: 1px solid #c3e6cb;
-    }
-
-    .message.error {
-      background-color: #f8d7da;
-      color: #721c24;
-      border: 1px solid #f5c6cb;
-    }
-
-    .checkbox-group {
-      display: flex;
+      gap: 8px; /* Slightly more space */
       flex-wrap: wrap;
-      gap: 15px; /* Increased gap */
-      margin-top: 5px;
-      margin-bottom: 15px; /* Add margin-bottom for spacing below checkboxes */
-    }
+  }
 
-    .checkbox-group label {
-      display: flex;
-      align-items: center;
+  .action-buttons button {
+      padding: 7px 12px;
+      font-size: 0.8em;
+      border-radius: 4px;
       cursor: pointer;
-      font-weight: normal; /* Reset font-weight from form-group label */
-    }
+      font-weight: 500;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+  .action-buttons button:active {
+    transform: translateY(1px);
+  }
 
-    .checkbox-group input[type="checkbox"] {
-      margin-right: 8px; /* Space between checkbox and label text */
-      width: auto; /* Override 100% width */
-    }
+  .action-buttons .edit-btn {
+      background-color: #3498db; /* Blue for edit */
+      color: white;
+      border: none;
+  }
+  .action-buttons .edit-btn:hover {
+      background-color: #2980b9;
+  }
+  .action-buttons .delete-btn {
+      background-color: #e74c3c; /* Red for delete */
+      color: white;
+      border: none;
+  }
+  .action-buttons .delete-btn:hover {
+      background-color: #c0392b;
+  }
 
-    .file-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px; /* Increased spacing */
-      font-size: 0.9em;
-    }
+  /* Modal Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Darker overlay */
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px); /* Subtle blur for background */
+  }
 
-    .file-table th,
-    .file-table td {
-      padding: 12px 15px; /* Increased padding */
-      border: 1px solid #e0e0e0; /* Lighter border */
-      text-align: left;
-    }
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 30px; /* More padding */
+    border: 1px solid #ccc;
+    width: 90%; /* Responsive width */
+    max-width: 550px; /* Max width */
+    border-radius: 12px; /* More rounded */
+    box-shadow: 0 8px 30px rgba(0,0,0,0.25); /* Stronger shadow */
+    text-align: left;
+    position: relative;
+  }
 
-    .file-table th {
-      background-color: #eef4f9; /* Lighter header background */
+  .modal-content h3 {
+      margin-top: 0;
       color: #2b4b78;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 15px;
+      margin-bottom: 25px;
+      font-size: 22px;
       font-weight: 600;
-    }
+  }
 
-    .file-table tr:nth-child(even) {
-      background-color: #f9fbfd; /* Subtle stripe effect */
-    }
+  .modal-content div {
+      margin-bottom: 20px; /* More space between fields */
+  }
 
-    .file-table a {
-        color: #2b4b78;
-        text-decoration: none;
-    }
-    .file-table a:hover {
-        text-decoration: underline;
-    }
+  .modal-content label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #34495e;
+  }
 
-    /* Modal Styles */
-    .modal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1000; /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-      justify-content: center;
-      align-items: center;
-    }
+  .modal-content input[type="text"],
+  .modal-content select { /* Apply to select as well */
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #dcdcdc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 1rem;
+      color: #333;
+  }
+  .modal-content input:focus,
+  .modal-content select:focus {
+    border-color: #2b4b78;
+    box-shadow: 0 0 0 3px rgba(43, 75, 120, 0.2);
+    outline: none;
+  }
 
-    .modal-content {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 80%; /* Could be responsive */
-      max-width: 500px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      text-align: left;
-      position: relative; /* For positioning close button */
-    }
+  .modal-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px; /* More space between buttons */
+      margin-top: 30px;
+  }
 
-    .modal-content h3 {
-        margin-top: 0;
-        color: #2b4b78;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-    }
+  .modal-buttons button {
+      background-color: #2b4b78;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+      font-weight: 500;
+      font-size: 0.95em;
+  }
 
-    .modal-content div {
-        margin-bottom: 15px;
-    }
+  .modal-buttons button:hover {
+      background-color: #1f3659;
+      transform: translateY(-1px);
+  }
+  .modal-buttons button:active {
+    transform: translateY(0);
+  }
 
-    .modal-content label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: 500;
-    }
+  .modal-buttons .cancel-btn {
+      background-color: #95a5a6; /* Softer grey for cancel */
+  }
+  .modal-buttons .cancel-btn:hover {
+      background-color: #7f8c8d;
+  }
 
-    .modal-content input[type="text"] {
-        width: calc(100% - 22px); /* Account for padding and border */
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-
-    .modal-content button {
-        background-color: #2b4b78;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-right: 10px;
-        transition: background-color 0.3s ease;
-    }
-
-    .modal-content button:hover {
-        background-color: #1f3659;
-    }
-
-    .modal-content button:last-child { /* Cancel button */
-        background-color: #6c757d;
-    }
-    .modal-content button:last-child:hover {
-        background-color: #5a6268;
-    }
-
-    @media (max-width: 768px) {
-        .header {
-            flex-direction: column;
-            align-items: flex-start;
-            padding: 15px;
-        }
-        .header h1 {
-            margin-bottom: 10px;
-            font-size: 24px;
-        }
-        .logout-button {
-            width: 100%;
-            padding: 10px;
-        }
-        .tab-menu {
-            flex-direction: column;
-        }
-        .tab-menu button {
-            border-right: none;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .tab-menu button:last-child {
-            border-bottom: none;
-        }
-        .tab-content {
-            padding: 15px;
-            margin: 15px;
-        }
-        .form-group input,
-        .form-group textarea {
-            font-size: 0.95em;
-        }
-        .file-table th,
-        .file-table td {
-            padding: 8px 10px;
-            font-size: 0.8em;
-        }
-        /* Make table scrollable on small screens */
-        .tab-content#manage-files,
-        .tab-content#audit-log { /* Apply to audit log too */
-            overflow-x: auto;
-        }
-        .file-table {
-            min-width: 600px; /* Ensure table needs scrolling if content is wide */
-        }
-        .modal-content {
-            width: 90%;
-        }
-    }
-  </style>
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+      .header {
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 15px;
+      }
+      .header h1 {
+          margin-bottom: 10px;
+          font-size: 26px;
+      }
+      .logout-button {
+          width: 100%;
+          margin-top: 10px;
+      }
+      .tab-menu {
+          flex-direction: column;
+      }
+      .tab-menu button {
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+          padding: 15px; /* Adjust padding for stacked buttons */
+          font-size: 1em;
+      }
+      .tab-menu button:last-child {
+          border-bottom: none;
+      }
+      .tab-content {
+          padding: 20px;
+          margin: 15px;
+      }
+      .tab-content h3 {
+          font-size: 20px;
+          margin-bottom: 20px;
+      }
+      .form-group input,
+      .form-group select {
+          font-size: 0.9em;
+          padding: 10px;
+      }
+      .file-table th, .file-table td,
+      .audit-table th, .audit-table td {
+          padding: 10px 12px;
+          font-size: 0.8em;
+      }
+      #manage-files,
+      #audit-log {
+          overflow-x: auto;
+      }
+      .file-table, .audit-table {
+          min-width: 650px; /* Ensure table needs scrolling if content is wide */
+      }
+      .modal-content {
+          width: 95%;
+          padding: 20px;
+      }
+      .modal-content h3 {
+          font-size: 20px;
+          margin-bottom: 20px;
+          padding-bottom: 10px;
+      }
+      .modal-content div {
+          margin-bottom: 15px;
+      }
+      .modal-buttons {
+          flex-direction: column; /* Stack modal buttons */
+          gap: 10px;
+          margin-top: 20px;
+      }
+      .modal-buttons button {
+          width: 100%; /* Full width buttons */
+          padding: 10px;
+      }
+      .action-buttons {
+          flex-direction: row; /* Keep action buttons side-by-side if possible, wrap if not */
+          flex-wrap: wrap;
+          gap: 5px;
+      }
+      .action-buttons button {
+        padding: 5px 8px;
+        font-size: 0.75em;
+      }
+  }
+</style>
 </head>
 <body>
 
-  <div class="header">
-    <h1>Admin Panel - HMIS</h1>
-    <button class="logout-button" onclick="handleLogout()">Logout</button>
-  </div>
+<div class="header">
+  <h1>Admin Panel - HMIS</h1>
+  <button class="logout-button" onclick="handleLogout()">Logout</button>
+</div>
 
-  <div class="tab-menu">
-    <button class="tab-btn active" onclick="showTab('data-update', this)">Data Update</button>
-    <button class="tab-btn" onclick="showTab('upload-files', this)">Upload Files</button>
-    <button class="tab-btn" onclick="showTab('manage-files', this)">Manage Files</button>
-    <button class="tab-btn" onclick="showTab('audit-log', this)">Audit Logs</button>
-  </div>
+<div class="tab-menu">
+  <button class="tab-btn active" onclick="showTab('data-update', this)">Data Update</button>
+  <button class="tab-btn" onclick="showTab('upload-files', this)">Upload Files</button>
+  <button class="tab-btn" onclick="showTab('manage-files', this)">Manage Files</button>
+  <button class="tab-btn" onclick="showTab('audit-log', this)">Audit Logs</button>
+</div>
 
-  <div id="data-update" class="tab-content active">
-    <div id="dataUpdateMessageBox" class="message"></div>
-    <div class="form-group"><label for="facilities-reporting">Facilities Reporting (%)</label><input type="number" id="facilities-reporting" min="0" max="100" /></div>
-    <div class="form-group"><label for="data-submission">Data Submission Rate (%)</label><input type="number" id="data-submission" min="0" max="100" /></div>
-    <div class="form-group"><label for="reporting-period">Reporting Period</label><input type="text" id="reporting-period" placeholder="e.g., Q1 2025" /></div>
-    <div class="form-group"><label for="active-users">Active Users</label><input type="number" id="active-users" min="0" /></div>
-    <div class="form-group"><label for="completeness">Completeness Rate (%)</label><input type="number" id="completeness" min="0" max="100" /></div>
-    <div class="form-group"><label for="timeliness">Timeliness Rate (%)</label><input type="number" id="timeliness" min="0" max="100" /></div>
-    <div class="form-group"><button onclick="updateData()">Update Data</button></div>
-  </div>
-
-  <div id="upload-files" class="tab-content">
-    <div class="form-group"><label for="training-file">Select File</label><input type="file" id="training-file" /></div>
-
+<div id="data-update" class="tab-content active">
+  <h3>Update Data Records</h3>
+  <form id="dataUpdateForm">
     <div class="form-group">
-      <label>Select Categories:</label>
-      <div class="checkbox-group">
-        <label><input type="checkbox" value="Training Manual" /> Training Manual</label>
-        <label><input type="checkbox" value="User Manual" /> User Manual</label>
-        <label><input type="checkbox" value="Policies" /> Policies</label>
-        <label><input type="checkbox" value="Inpatient" /> Inpatient</label>
-        <label><input type="checkbox" value="Outpatient" /> Outpatient</label>
-        <label><input type="checkbox" value="Surveillance" /> Surveillance</label>
-        <label><input type="checkbox" value="Data Capturing" /> Data Capturing</label>
-        <label><input type="checkbox" value="Data Management" /> Data Management</label>
-      </div>
+      <label for="dataField">Data Field Name:</label>
+      <input type="text" id="dataField" name="dataField" placeholder="e.g., total_registered_users" required>
     </div>
+    <div class="form-group">
+      <label for="dataValue">New Value:</label>
+      <input type="text" id="dataValue" name="dataValue" placeholder="e.g., 5000 (for numbers) or 'Active' (for status)" required>
+    </div>
+    <div class="form-group">
+      <button type="submit">Apply Update</button>
+    </div>
+    <div id="dataUpdateMessage" class="message"></div>
+  </form>
+</div>
 
-    <div class="form-group"><button onclick="uploadFile()">Upload</button></div>
-    <div id="uploadMessageBox" class="message"></div>
-  </div>
+<div id="upload-files" class="tab-content">
+  <h3>Upload New Documents or Media</h3>
+  <form id="uploadForm" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="fileInput">Select File to Upload:</label>
+      <input type="file" id="fileInput" name="file" required>
+    </div>
+    <div class="form-group">
+        <label for="fileCategories">Categories (comma separated):</label>
+        <input type="text" id="fileCategories" name="categories" placeholder="e.g., 'Reports, Guidelines, Training'">
+    </div>
+    <div class="form-group">
+        <label for="fileSystem">Associated System:</label>
+        <select id="fileSystem" name="system">
+            <option value="">-- Select System --</option>
+            <option value="DHIS2">DHIS2</option>
+            <option value="PTracker">PTracker</option>
+            <option value="NDW">National Data Warehouse</option>
+            <option value="MPI">Master Patient Index</option>
+            <option value="e-Notification">e-Notification</option>
+            <option value="MFL">Master Facility List</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="fileDocumentType">Document Type:</label>
+        <select id="fileDocumentType" name="documentType">
+            <option value="">-- Select Document Type --</option>
+            <option value="Training Manual">Training Manual</option>
+            <option value="User Manual">User Manual</option>
+            <option value="Policy Document">Policy Document</option>
+            <option value="Statistical Report">Statistical Report</option>
+            <option value="Clinical Guideline">Clinical Guideline</option>
+            <option value="Form">Form</option>
+            <option value="Presentation">Presentation</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="fileHealthType">Health Type/Process:</label>
+        <select id="fileHealthType" name="healthType">
+            <option value="">-- Select Health Type --</option>
+            <option value="Surveillance">Surveillance</option>
+            <option value="Inpatient Management">Inpatient Management</option>
+            <option value="Outpatient Services">Outpatient Services</option>
+            <option value="Data Capturing">Data Capturing</option>
+            <option value="Data Analysis">Data Analysis</option>
+            <option value="Immunization">Immunization</option>
+            <option value="Maternal & Child Health">Maternal & Child Health</option>
+            <option value="HIV/AIDS">HIV/AIDS</option>
+            <option value="TB">TB</option>
+            <option value="Malaria">Malaria</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <button type="submit">Upload File Now</button>
+    </div>
+    <div id="uploadMessage" class="message"></div>
+  </form>
+</div>
 
-  <div id="manage-files" class="tab-content">
-    <h3>Uploaded Files</h3>
-    <table class="file-table">
-      <thead>
-        <tr>
-          <th>Filename</th>
-          <th>Type</th>
-          <th>Categories</th>
-          <th>Uploaded</th>
-          <th>Actions</th> </tr>
-      </thead>
-      <tbody id="fileList">
-        <tr><td colspan="5">Loading files...</td></tr>
-      </tbody>
-    </table>
-  </div>
+<div id="manage-files" class="tab-content">
+  <h3>Manage Uploaded Files</h3>
+  <table class="file-table">
+    <thead>
+      <tr>
+        <th>Filename</th>
+        <th>Type</th>
+        <th>Categories</th>
+        <th>System</th>
+        <th>Doc Type</th>
+        <th>Health Type</th>
+        <th>Uploaded Date</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody id="fileList">
+      <tr><td colspan="8">Loading files...</td></tr> </tbody>
+  </table>
+</div>
 
-  <div id="audit-log" class="tab-content">
-    <h3>Audit Logs</h3>
-    <table class="file-table">
-      <thead>
-        <tr><th>User</th><th>Action</th><th>File ID</th><th>Details</th><th>Time</th></tr>
-      </thead>
-      <tbody id="auditLogList"><tr><td colspan="5">Loading...</td></tr></tbody>
-    </table>
-  </div>
+<div id="audit-log" class="tab-content">
+  <h3>System Audit Logs</h3>
+  <table class="audit-table">
+    <thead>
+      <tr><th>User</th><th>Action</th><th>File ID</th><th>Details</th><th>Time</th></tr>
+    </thead>
+    <tbody id="auditLogList"><tr><td colspan="5">Loading...</td></tr></tbody>
+  </table>
+</div>
 
-  <div id="editModal" class="modal">
-    <div class="modal-content">
-      <h3>Edit File Metadata</h3>
-      <input type="hidden" id="editFileId" />
-      <div>
-        <label for="editOriginalName">Filename:</label>
-        <input type="text" id="editOriginalName" />
-      </div>
-      <div>
-        <label for="editCategories">Categories (comma separated):</label>
-        <input type="text" id="editCategories" />
-      </div>
-      <button onclick="saveEdit()">Save</button>
-      <button onclick="closeEditModal()">Cancel</button>
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <h3>Edit File Details</h3>
+    <input type="hidden" id="editFileId">
+    <div>
+      <label for="editOriginalName">Filename:</label>
+      <input type="text" id="editOriginalName" placeholder="Enter new filename">
+    </div>
+    <div>
+      <label for="editCategories">Categories (comma separated):</label>
+      <input type="text" id="editCategories" placeholder="e.g., 'Manuals, DHIS2'">
+    </div>
+    <div>
+        <label for="editSystem">System:</label>
+        <select id="editSystem">
+            <option value="">-- Select System --</option>
+            <option value="DHIS2">DHIS2</option>
+            <option value="PTracker">PTracker</option>
+            <option value="NDW">National Data Warehouse</option>
+            <option value="MPI">Master Patient Index</option>
+            <option value="e-Notification">e-Notification</option>
+            <option value="MFL">Master Facility List</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div>
+        <label for="editDocumentType">Document Type:</label>
+        <select id="editDocumentType">
+            <option value="">-- Select Document Type --</option>
+            <option value="Training Manual">Training Manual</option>
+            <option value="User Manual">User Manual</option>
+            <option value="Policy Document">Policy Document</option>
+            <option value="Statistical Report">Statistical Report</option>
+            <option value="Clinical Guideline">Clinical Guideline</option>
+            <option value="Form">Form</option>
+            <option value="Presentation">Presentation</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div>
+        <label for="editHealthType">Health Type/Process:</label>
+        <select id="editHealthType">
+            <option value="">-- Select Health Type --</option>
+            <option value="Surveillance">Surveillance</option>
+            <option value="Inpatient Management">Inpatient Management</option>
+            <option value="Outpatient Services">Outpatient Services</option>
+            <option value="Data Capturing">Data Capturing</option>
+            <option value="Data Analysis">Data Analysis</option>
+            <option value="Immunization">Immunization</option>
+            <option value="Maternal & Child Health">Maternal & Child Health</option>
+            <option value="HIV/AIDS">HIV/AIDS</option>
+            <option value="TB">TB</option>
+            <option value="Malaria">Malaria</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+    <div class="modal-buttons">
+      <button onclick="saveEdit()">Save Changes</button>
+      <button class="cancel-btn" onclick="closeEditModal()">Cancel</button>
     </div>
   </div>
+</div>
 
 <script>
+// --- Helper Functions ---
+
 /**
- * Displays the selected tab and highlights the corresponding button.
- * @param {string} tabId The ID of the tab content div to show.
- * @param {HTMLElement} clickedButton The button element that was clicked.
+ * Utility to safely render text in HTML context.
  */
-function showTab(tabId, clickedButton) {
-  // Hide all tab content
+function escapeHtml(unsafe) {
+  return unsafe
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+/**
+ * Displays a message in a specified message element.
+ * @param {HTMLElement} messageElement - The DOM element to display the message.
+ * @param {string} message - The message text.
+ * @param {string} type - 'success' or 'error'.
+ */
+function showMessage(messageElement, message, type) {
+    messageElement.textContent = message;
+    messageElement.className = `message ${type}`;
+    messageElement.style.display = 'block';
+    setTimeout(() => {
+        messageElement.style.display = 'none';
+    }, 5000); // Hide after 5 seconds
+}
+
+// --- Tab Management ---
+
+/**
+ * Show the selected tab
+ */
+function showTab(tabId, btn) {
   document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
-  // Deactivate all tab buttons
-  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-
-  // Show the target tab content
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
   document.getElementById(tabId).classList.add('active');
-  // Activate the clicked button
-  clickedButton.classList.add('active');
+  btn.classList.add('active');
 
-  // Load content specific to the tab
-  if (tabId === 'manage-files') {
-    loadUploadedFiles();
-  } else if (tabId === 'audit-log') {
-    loadAuditLogs();
-  }
+  // Load content specific to the tab when it's activated
+  if (tabId === 'manage-files') loadUploadedFiles();
+  if (tabId === 'audit-log') loadAuditLogs();
 }
+
+// --- Logout Function ---
 
 /**
- * Displays a temporary message in a specified message box.
- * @param {string} messageBoxId The ID of the message box element.
- * @param {string} text The message text to display.
- * @param {string} type The type of message ('success' or 'error').
+ * Handles user logout.
  */
-function showMessage(messageBoxId, text, type) {
-  const box = document.getElementById(messageBoxId);
-  box.textContent = text;
-  box.className = 'message ' + type;
-  box.style.display = 'block';
-  setTimeout(() => box.style.display = 'none', 5000);
-}
-
-async function updateData() {
-  const data = {
-    facilities_reporting: document.getElementById('facilities-reporting').value,
-    data_submission: document.getElementById('data-submission').value,
-    reporting_period: document.getElementById('reporting-period').value,
-    active_users: document.getElementById('active-users').value,
-    completeness: document.getElementById('completeness').value,
-    timeliness: document.getElementById('timeliness').value
-  };
-
+async function handleLogout() {
   try {
-    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
-    const response = await fetch('http://localhost:9000/api/dashboard/update', {
+    const res = await fetch('/api/auth/logout', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include', // Important for sending cookies/session info
-      body: JSON.stringify(data)
+      credentials: 'include' // Important for sending cookies
     });
-
-    if (response.ok) {
-      showMessage('dataUpdateMessageBox', 'Data updated successfully!', 'success');
+    if (res.ok) {
+      window.location.href = 'login.html'; // Redirect to login page
     } else {
-      const errorData = await response.json(); // Attempt to read error message from backend
-      showMessage('dataUpdateMessageBox', errorData.message || 'Failed to update data.', 'error');
+      const err = await res.json();
+      alert(err.message || 'Logout failed');
     }
-  } catch (err) {
-    console.error('Update data error:', err);
-    showMessage('dataUpdateMessageBox', 'Network error or server unreachable. Please check your connection.', 'error');
+  } catch (e) {
+    console.error('Logout error:', e);
+    alert('An error occurred during logout.');
   }
 }
 
-async function uploadFile() {
-  const fileInput = document.getElementById('training-file');
-  const file = fileInput.files[0];
-  const uploadMessageBox = document.getElementById('uploadMessageBox');
+// --- Data Update Tab Logic ---
+document.getElementById('dataUpdateForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const messageElement = document.getElementById('dataUpdateMessage');
+    messageElement.style.display = 'none'; // Hide previous messages
 
-  // Validate file
-  if (!file) {
-    showMessage('uploadMessageBox', 'Please select a file to upload.', 'error');
-    return;
-  }
+    const dataField = document.getElementById('dataField').value;
+    const dataValue = document.getElementById('dataValue').value;
 
-  // Get checked categories
-  const categories = Array.from(document.querySelectorAll('.checkbox-group input:checked'))
-    .map(cb => cb.value);
-
-  if (categories.length === 0) {
-    showMessage('uploadMessageBox', 'Please select at least one category.', 'error');
-    return;
-  }
-
-  const formData = new FormData();
-  formData.append('file', file);
-  formData.append('categories', JSON.stringify(categories));
-
-  try {
-    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
-    const response = await fetch('http://localhost:9000/api/files/upload', {
-      method: 'POST',
-      credentials: 'include', // session cookie
-      body: formData
-    });
-
-    const result = await response.json().catch(() => null); // handle bad JSON gracefully
-
-    if (response.ok) {
-      showMessage('uploadMessageBox', `✅ File uploaded: ${result?.file?.original_name || file.name}`, 'success');
-      fileInput.value = '';
-      document.querySelectorAll('.checkbox-group input:checked').forEach(cb => cb.checked = false);
-    } else {
-      showMessage(
-        'uploadMessageBox',
-        result?.message || '⚠️ File upload failed. Please check your connection or try again.',
-        'error'
-      );
+    if (!dataField || !dataValue) {
+        showMessage(messageElement, 'Please fill in all fields to update data.', 'error');
+        return;
     }
-  } catch (err) {
-    console.error('Upload error:', err);
-    showMessage('uploadMessageBox', '❌ Network error. Please check your connection.', 'error');
-  }
-}
+
+    try {
+        const response = await fetch('/api/data/update', { // Assuming this is your API endpoint for data updates
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ field: dataField, value: dataValue }),
+            credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            showMessage(messageElement, result.message || 'Data updated successfully!', 'success');
+            document.getElementById('dataUpdateForm').reset(); // Clear form
+        } else {
+            showMessage(messageElement, result.message || 'Failed to update data. Please check input values.', 'error');
+        }
+    } catch (error) {
+        console.error('Error updating data:', error);
+        showMessage(messageElement, 'An unexpected error occurred while updating data. Please try again.', 'error');
+    }
+});
 
 
+// --- File Upload Tab Logic ---
+document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const messageElement = document.getElementById('uploadMessage');
+    messageElement.style.display = 'none'; // Hide previous messages
+
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput.files.length === 0) {
+        showMessage(messageElement, 'Please select a file to upload.', 'error');
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', fileInput.files[0]);
+    formData.append('categories', document.getElementById('fileCategories').value);
+    formData.append('system', document.getElementById('fileSystem').value);
+    formData.append('documentType', document.getElementById('fileDocumentType').value);
+    formData.append('healthType', document.getElementById('fileHealthType').value);
+
+
+    try {
+        const response = await fetch('/api/files/upload', { // Assuming this is your API endpoint for uploads
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            showMessage(messageElement, result.message || 'File uploaded successfully!', 'success');
+            document.getElementById('uploadForm').reset(); // Clear form
+            loadUploadedFiles(); // Refresh file list if on manage files tab
+        } else {
+            showMessage(messageElement, result.message || 'File upload failed. Please check file type or size.', 'error');
+        }
+    } catch (error) {
+        console.error('Error uploading file:', error);
+        showMessage(messageElement, 'An unexpected error occurred during file upload. Please try again.', 'error');
+    }
+});
+
+// --- Manage Files Tab Logic ---
+
+/**
+ * Load uploaded files from the backend.
+ */
 async function loadUploadedFiles() {
   const fileList = document.getElementById('fileList');
-  fileList.innerHTML = '<tr><td colspan="6">Loading files...</td></tr>'; // Changed colspan to 6
-
+  // Changed colspan to 8 for the new column layout (excluding download as a separate column)
+  fileList.innerHTML = '<tr><td colspan="8">Loading files...</td></tr>';
   try {
-    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
-    const res = await fetch('http://localhost:9000/api/files/list', {
-      credentials: 'include' // Important for sending cookies/session info
-    });
+    const res = await fetch('/api/files/list', { credentials: 'include' }); // Ensure correct API endpoint
     const data = await res.json();
 
-    fileList.innerHTML = ''; // Clear loading message
-
+    fileList.innerHTML = '';
     if (!data.files || data.files.length === 0) {
-      fileList.innerHTML = '<tr><td colspan="6">No files found.</td></tr>'; // Changed colspan to 6
+      fileList.innerHTML = '<tr><td colspan="8">No files found. Upload some to see them here!</td></tr>';
       return;
     }
 
-    data.files.forEach(file => {
+    data.files.forEach(f => {
       const row = document.createElement('tr');
-      // Added data-file-id attribute for easier selection later if needed
-      row.setAttribute('data-file-id', file.id);
+      // Ensure file.filename is the actual path to the file on your server, e.g., /uploads/my_file.pdf
+      const downloadPath = `/uploads/${encodeURIComponent(f.filename)}`; // Use encodeURIComponent for safety
       row.innerHTML = `
-        <td><a href="/uploads/${file.filename}" target="_blank" rel="noopener noreferrer">${file.original_name}</a></td>
-        <td>${file.mimetype}</td>
-        <td>${(file.categories && file.categories.length > 0 ? file.categories.join(', ') : 'N/A')}</td>
-        <td>${new Date(file.upload_date).toLocaleString('en-NA', { dateStyle: 'short', timeStyle: 'short' })}</td>
-        <td>
-          <a href="/uploads/${file.filename}" download="${file.original_name}">Download</a>
-        </td>
-        <td>
-          <button onclick="showEditModal(${file.id}, \`${escapeHtml(file.original_name)}\`, \`${escapeHtml((file.categories || []).join(", "))}\`)">Edit</button>
+        <td><a href="${downloadPath}" target="_blank" rel="noopener noreferrer">${escapeHtml(f.original_name || f.filename)}</a></td>
+        <td>${escapeHtml(f.mimetype || 'N/A')}</td>
+        <td>${escapeHtml(f.categories?.join(', ') || 'N/A')}</td>
+        <td>${escapeHtml(f.system || 'N/A')}</td>
+        <td>${escapeHtml(f.document_type || 'N/A')}</td>
+        <td>${escapeHtml(f.health_type || 'N/A')}</td>
+        <td>${new Date(f.upload_date).toLocaleString()}</td>
+        <td class="action-buttons">
+            <a href="${downloadPath}" download="${escapeHtml(f.original_name || f.filename)}" class="edit-btn" style="text-decoration: none; display: inline-block;">Download</a>
+            <button class="edit-btn" onclick="showEditModal(
+                ${f.id},
+                '${escapeHtml(f.original_name || f.filename)}',
+                '${escapeHtml(f.categories?.join(", ") || "")}',
+                '${escapeHtml(f.system || "")}',
+                '${escapeHtml(f.document_type || "")}',
+                '${escapeHtml(f.health_type || "")}'
+            )">Edit</button>
+            <button class="delete-btn" onclick="deleteFile(${f.id}, '${escapeHtml(f.original_name || f.filename)}')">Delete</button>
         </td>
       `;
       fileList.appendChild(row);
     });
   } catch (err) {
-    console.error('Load files error:', err);
-    fileList.innerHTML = '<tr><td colspan="6">Error loading files. Please check the console for details.</td></tr>'; // Changed colspan to 6
+    console.error('Failed to load files:', err);
+    fileList.innerHTML = '<tr><td colspan="8">Failed to load files. Please check console for errors or your network connection.</td></tr>';
   }
 }
 
-// Helper function to escape HTML for use in template literals
-function escapeHtml(unsafe) {
-    return unsafe
-         .replace(/&/g, "&amp;")
-         .replace(/</g, "&lt;")
-         .replace(/>/g, "&gt;")
-         .replace(/"/g, "&quot;")
-         .replace(/'/g, "&#039;");
-}
-
-
-async function handleLogout() {
-  try {
-    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
-    const res = await fetch('http://localhost:9000/api/logout', {
-      method: 'POST',
-      credentials: 'include' // Important for clearing server-side sessions/cookies
-    });
-    if (res.ok) {
-      window.location.href = 'login.html'; // Redirect to login page on successful logout
-    } else {
-      const errorData = await res.json();
-      alert('Logout failed: ' + (errorData.message || 'Unknown error.'));
+/**
+ * Delete a file.
+ */
+async function deleteFile(fileId, fileName) {
+    if (!confirm(`Are you sure you want to permanently delete "${fileName}"? This action cannot be undone.`)) {
+        return;
     }
-  } catch (err) {
-    console.error('Logout error:', err);
-    alert('Error logging out. Please try again.');
-  }
+
+    try {
+        const response = await fetch(`/api/files/${fileId}`, { // Assuming this is your API endpoint for file deletion
+            method: 'DELETE',
+            credentials: 'include'
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+            alert(result.message || 'File deleted successfully!');
+            loadUploadedFiles(); // Refresh the list
+        } else {
+            alert(result.message || 'Failed to delete file. You might not have the necessary permissions.');
+        }
+    } catch (error) {
+        console.error('Error deleting file:', error);
+        alert('An unexpected error occurred while deleting the file. Please try again.');
+    }
 }
 
-function showEditModal(id, name, categories) {
+
+// --- Edit Modal Logic ---
+
+/**
+ * Show edit modal with current file data.
+ */
+function showEditModal(id, originalName, categories, system, documentType, healthType) {
   document.getElementById('editFileId').value = id;
-  document.getElementById('editOriginalName').value = name;
+  document.getElementById('editOriginalName').value = originalName;
   document.getElementById('editCategories').value = categories;
-  document.getElementById('editModal').style.display = 'flex'; // Use flex to center the modal
+  document.getElementById('editSystem').value = system;
+  document.getElementById('editDocumentType').value = documentType;
+  document.getElementById('editHealthType').value = healthType;
+  document.getElementById('editModal').style.display = 'flex'; // Use flex for centering
 }
 
+/**
+ * Close edit modal.
+ */
 function closeEditModal() {
   document.getElementById('editModal').style.display = 'none';
 }
 
+/**
+ * Save file metadata edit.
+ */
 async function saveEdit() {
   const id = document.getElementById('editFileId').value;
-  const name = document.getElementById('editOriginalName').value;
-  const categories = document.getElementById('editCategories').value.split(',').map(s => s.trim()).filter(s => s !== ''); // Filter out empty strings
+  const original_name = document.getElementById('editOriginalName').value;
+  const categories = document.getElementById('editCategories').value
+    .split(',')
+    .map(s => s.trim())
+    .filter(Boolean); // Filter out empty strings
+  const system = document.getElementById('editSystem').value;
+  const document_type = document.getElementById('editDocumentType').value;
+  const health_type = document.getElementById('editHealthType').value;
+
 
   try {
-    const res = await fetch(`http://localhost:9000/api/files/${id}`, {
+    const res = await fetch(`/api/files/${id}`, { // Assuming this is your API endpoint for file updates
       method: 'PATCH',
       credentials: 'include',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ original_name: name, categories })
+      body: JSON.stringify({ original_name, categories, system, document_type, health_type })
     });
+    const result = await res.json();
 
-    const data = await res.json();
     if (res.ok) {
-      alert('File metadata updated successfully!');
+      alert(result.message || 'File details updated successfully!');
       closeEditModal();
-      loadUploadedFiles(); // Reload files to show updated data
+      loadUploadedFiles(); // Refresh file list
     } else {
-      alert(data.message || 'Failed to update file metadata.');
+      alert(result.message || 'Failed to update file details. Check your inputs and try again.');
     }
-  } catch (err) {
-    console.error(err);
-    alert('Error saving changes to file metadata.');
+  } catch (e) {
+    console.error('Error saving edit:', e);
+    alert('An unexpected error occurred while updating file details. Please try again.');
   }
 }
 
-async function loadAuditLogs() {
-  const auditLogList = document.getElementById('auditLogList');
-  auditLogList.innerHTML = '<tr><td colspan="5">Loading logs...</td></tr>';
+// --- Audit Log Tab Logic ---
 
+/**
+ * Load audit logs from the backend.
+ */
+async function loadAuditLogs() {
+  const logList = document.getElementById('auditLogList');
+  logList.innerHTML = '<tr><td colspan="5">Loading logs...</td></tr>';
   try {
-    // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
-    const res = await fetch('http://localhost:9000/api/files/audit', { credentials: 'include' });
+    const res = await fetch('/api/files/audit', { credentials: 'include' }); // Ensure correct API endpoint
     const data = await res.json();
 
-    auditLogList.innerHTML = '';
+    logList.innerHTML = '';
     if (!data.logs || data.logs.length === 0) {
-      auditLogList.innerHTML = '<tr><td colspan="5">No logs found.</td></tr>';
+      logList.innerHTML = '<tr><td colspan="5">No audit logs found.</td></tr>';
       return;
     }
 
-    data.logs.forEach(log => {
+    data.logs.forEach(l => {
       const row = document.createElement('tr');
       row.innerHTML = `
-        <td>${escapeHtml(log.user_name || 'N/A')}</td>
-        <td>${escapeHtml(log.action || 'N/A')}</td>
-        <td>${log.file_id ? escapeHtml(log.file_id) : 'N/A'}</td>
-        <td>${escapeHtml(log.details || 'N/A')}</td>
-        <td>${new Date(log.timestamp).toLocaleString('en-NA', { dateStyle: 'short', timeStyle: 'short' })}</td>
+        <td>${escapeHtml(l.user_name || 'N/A')}</td>
+        <td>${escapeHtml(l.action || 'N/A')}</td>
+        <td>${l.file_id ? escapeHtml(l.file_id.toString()) : 'N/A'}</td>
+        <td>${escapeHtml(l.details || 'N/A')}</td>
+        <td>${new Date(l.timestamp).toLocaleString()}</td>
       `;
-      auditLogList.appendChild(row);
+      logList.appendChild(row);
     });
   } catch (err) {
-    console.error(err);
-    auditLogList.innerHTML = '<tr><td colspan="5">Error loading logs. Please check the console for details.</td></tr>';
+    console.error('Failed to load audit logs:', err);
+    logList.innerHTML = '<tr><td colspan="5">Failed to load audit logs. Please check console for errors or your network connection.</td></tr>';
   }
 }
 
-
-// Load uploaded files when the page first loads
+// --- Initial Load ---
 document.addEventListener('DOMContentLoaded', () => {
-  // This ensures the first tab ('data-update') which is active by default has its message box ready
-  // and any initial data if needed.
+  // Automatically load content for the default active tab ('data-update' in this case).
+  // If you want 'Manage Files' to load first, you'd call loadUploadedFiles() here
+  // and set 'manage-files' tab as active initially in HTML.
+  // For now, it will load when you click the tab.
 });
 </script>
 </body>
