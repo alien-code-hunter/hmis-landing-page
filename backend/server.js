@@ -73,16 +73,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// --- Static Files ---
-const frontendPath = path.join(__dirname, '../frontend');
-app.use(express.static(frontendPath));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
-
-// --- API Routes ---
+// --- API Routes (MUST COME BEFORE STATIC FILE SERVING FOR /) ---
 app.use('/api/files', fileRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+
+// --- Static Files ---
+const frontendPath = path.join(__dirname, '../frontend');
+app.use(express.static(frontendPath)); // Serve static files from the frontend directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
 
 // --- Frontend Routes ---
 // Serve resources.html as the default page for the root path
