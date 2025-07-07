@@ -509,6 +509,7 @@
     <header>
         <div class="left">
             <img src="/flag.png" alt="Namibian flag Logo" class="logo" />
+            <h1>National Health Information System</h1>
             </div>
     
         <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
@@ -569,12 +570,12 @@
         </section>
 
         <section class="stats-container" aria-label="System Stats">
-            <div class="stat blue-tile"><h3 id="facilities-reporting">96%</h3><p>Facilities Reporting</p></div>
-            <div class="stat blue-tile"><h3 id="data-submission">91%</h3><p>Data Submission Rate</p></div>
-            <div class="stat blue-tile"><h3 id="reporting-period">Q1 2025</h3><p>Reporting Period</p></div>
-            <div class="stat blue-tile"><h3 id="timeliness">76%</h3><p>Timeliness Rate</p></div>
-            <div class="stat blue-tile"><h3 id="completeness">85%</h3><p>Completeness Rate</p></div>
-            <div class="stat blue-tile"><h3 id="active-users">342</h3><p>Active Users</p></div>
+            <div class="stat blue-tile"><h3 id="facilities-reporting">Loading...</h3><p>Facilities Reporting</p></div>
+            <div class="stat blue-tile"><h3 id="data-submission">Loading...</h3><p>Data Submission Rate</p></div>
+            <div class="stat blue-tile"><h3 id="reporting-period">Loading...</h3><p>Reporting Period</p></div>
+            <div class="stat blue-tile"><h3 id="timeliness">Loading...</h3><p>Timeliness Rate</p></div>
+            <div class="stat blue-tile"><h3 id="completeness">Loading...</h3><p>Completeness Rate</p></div>
+            <div class="stat blue-tile"><h3 id="active-users">Loading...</h3><p>Active Users</p></div>
         </section>
 
         <section class="info-section" aria-label="Additional Information">
@@ -615,18 +616,26 @@
         document.addEventListener('DOMContentLoaded', () => {
             async function fetchData() {
                 try {
-                    const response = await fetch('/data.json', {
-                        credentials: 'include'
-                    });
+                    const response = await fetch(`${window.location.origin}/api/dashboard`); // Fetch from new API endpoint
                     const data = await response.json();
+                    
+                    // Update the text content of the corresponding elements
                     document.getElementById('facilities-reporting').textContent = data.facilities_reporting;
                     document.getElementById('data-submission').textContent = data.data_submission;
-                    document.getElementById('reporting-period').textContent = data.reporting_period;
-                    document.getElementById('active-users').textContent = data.active_users;
+                    document.getElementById('reporting-period').textContent = data.reporting_period; // Corrected ID
                     document.getElementById('timeliness').textContent = data.timeliness;
                     document.getElementById('completeness').textContent = data.completeness;
+                    document.getElementById('active-users').textContent = data.active_users;
+
                 } catch (error) {
-                    console.error('Error fetching data:', error);
+                    console.error('Error fetching dashboard data:', error);
+                    // Optionally, display a message to the user or set default values
+                    document.getElementById('facilities-reporting').textContent = 'N/A';
+                    document.getElementById('data-submission').textContent = 'N/A';
+                    document.getElementById('reporting-period').textContent = 'N/A'; // Corrected ID
+                    document.getElementById('timeliness').textContent = 'N/A';
+                    document.getElementById('completeness').textContent = 'N/A';
+                    document.getElementById('active-users').textContent = 'N/A';
                 }
             }
             fetchData();

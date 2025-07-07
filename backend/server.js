@@ -5,13 +5,14 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const cors = require('cors');
-const morgan = require('morgan');
+const morgan = require('morgan'); // Import morgan for request logging
 const path = require('path');
 
+// Ensure these paths are correct relative to server.js
 const fileRoutes = require('./routes/fileRoutes');
-const authRoutes = require('./routes/authRoutes'); // Assuming you have this
-const userRoutes = require('./routes/userRoutes'); // Assuming you have this
-const dashboardRoutes = require('./routes/dashboardRoutes'); // Assuming you have this
+const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');
+const dashboardRoutes = require('./routes/dashboardRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 9000;
@@ -20,7 +21,7 @@ const PORT = process.env.PORT || 9000;
 const pool = new Pool({
   user: process.env.DB_USER || 'postgres',
   host: process.env.DB_HOST || 'localhost',
-  database: process.env.DB_NAME || 'hmis_landing_page', // Using 'hmis_landing_page'
+  database: process.env.DB_NAME || 'hmis_landing_page',
   password: process.env.DB_PASSWORD || '',
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 5432,
 });
@@ -66,6 +67,7 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
+app.use(morgan('dev')); // Add morgan for request logging: 'dev' format is concise
 
 // Middleware to attach db pool to request object
 app.use((req, res, next) => {
@@ -79,7 +81,7 @@ app.use((req, res, next) => {
 app.use('/api/files', fileRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/dashboard', dashboardRoutes); // This must be hit for dashboard data
 
 // --- Static Files ---
 const frontendPath = path.join(__dirname, '../frontend');
@@ -94,7 +96,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 // They should come AFTER API routes and general static file serving,
 // but before any catch-all 404 handlers.
 app.get('/', (req, res) => {
-  res.sendFile(path.join(frontendPath, 'resources.html'));
+  res.sendFile(path.join(frontendPath, 'index.html'));
 });
 app.get('/resources.html', (req, res) => {
   res.sendFile(path.join(frontendPath, 'resources.html'));
