@@ -491,7 +491,7 @@
                 box-shadow: none; /* Remove shadows for mobile */
             }
 
-            .dropdown-content a {
+            .dropdown-content a { /* Generic styles for links within dropdown-content */
                 padding-left: 30px;
                 background-color: #f0f0f0;
                 color: #2b4b78;
@@ -613,7 +613,7 @@
 
         /* NEW STYLES FOR RESOURCES PAGE */
         .container.resources-page { /* More specific selector for the resource page container */
-            max-width: 1200px;
+            max-width: 1400px; /* Increased from 1200px to 1400px */
             margin: 20px auto;
             padding: 20px;
             background-color: #fff;
@@ -646,7 +646,7 @@
             cursor: pointer;
             outline: none;
             transition: border-color 0.3s ease;
-            flex-grow: 1; /* Allow selects to grow within their space */
+            /* Removed flex-grow: 1; to prevent excessive widening */
             min-width: 120px; /* Minimum width for readability */
         }
 
@@ -846,7 +846,7 @@
         <nav class="menu" aria-label="Main Menu">
             <div class="nav-links">
                 <a href="#">Home</a>
-                <a href="#">Reports</a>
+                <a href="/">Reports</a> <!-- Changed to root for main page -->
                 <a href="resources.html">Training and Resources</a>
                 <a href="https://hmis.mhss.gov.na/core/" target="_blank" rel="noopener noreferrer">Data Quality</a>
 
@@ -887,23 +887,35 @@
         </nav>
     </header>
 
-    <main class="container resources-page"> <div class="filter-bar">
+    <main class="container resources-page">
+        <h2>Training and Resources</h2>
+        <div class="filter-bar">
             <label for="fileTypeFilter">File type:</label>
             <select id="fileTypeFilter" onchange="loadResources()">
                 <option value="all">All</option>
                 <option value="pdf">PDF</option>
-                <option value="word">Word</option>
+                <option value="word">Word Documents</option>
                 <option value="image">Images</option>
-                <option value="excel">Excel</option>
-                <option value="ppt">PowerPoint</option>
-                <option value="video">Videos</option> <option value="audio">Voice Recordings</option> </select>
+                <option value="excel">Excel Spreadsheets</option>
+                <option value="ppt">PowerPoint Presentations</option>
+                <!-- Add more as needed based on common mimetypes -->
+            </select>
 
             <label for="documentTypeFilter">Document type:</label>
             <select id="documentTypeFilter" onchange="loadResources()">
-                <option value="All">All</option>
+                <option value="all">All</option>
                 <option value="Training Manual">Training Manual</option>
                 <option value="User Manual">User Manual</option>
-                <option value="Policies">Policies</option> </select>
+                <option value="Policy Document">Policy Document</option>
+                <option value="Statistical Report">Statistical Report</option>
+                <option value="Clinical Guideline">Clinical Guideline</option>
+                <option value="Form">Form</option>
+                <option value="Presentation">Presentation</option>
+                <option value="Video">Video</option>
+                <option value="Audio">Audio</option>
+                <option value="Image">Image</option>
+                <option value="Other">Other</option>
+            </select>
 
             <label for="systemFilter">System:</label>
             <select id="systemFilter" onchange="loadResources()">
@@ -914,16 +926,26 @@
                 <option value="MPI">Master Patient Index</option>
                 <option value="e-Notification">e-Notification</option>
                 <option value="MFL">Master Facility List</option>
+                <option value="Other">Other</option>
             </select>
 
             <label for="healthTypeFilter">Health type:</label>
             <select id="healthTypeFilter" onchange="loadResources()">
                 <option value="all">All Processes</option>
                 <option value="Surveillance">Surveillance</option>
-                <option value="Inpatient">Inpatient</option>
-                <option value="Outpatient">Outpatient</option>
+                <option value="Inpatient Management">Inpatient Management</option>
+                <option value="Outpatient Services">Outpatient Services</option>
                 <option value="Data Capturing">Data Capturing</option>
-                <option value="Data Management">Data Management</option>
+                <option value="Data Analysis">Data Analysis</option>
+                <option value="Immunization">Immunization</option>
+                <option value="Maternal & Child Health">Maternal & Child Health</option>
+                <option value="HIV/AIDS">HIV/AIDS</option>
+                <option value="TB">TB</option>
+                <option value="Malaria">Malaria</option>
+                <option value="Pharmacy">Pharmacy</option>
+                <option value="Lab Services">Lab Services</option>
+                <option value="Community Health">Community Health</option>
+                <option value="Other">Other</option>
             </select>
         </div>
 
@@ -933,243 +955,167 @@
                     <tr>
                         <th>Filename</th>
                         <th>Type</th>
-                        <th>Category</th>
-                        <th>Uploaded</th>
-                        <th style="width: 180px;">Actions</th>
+                        <th>Categories</th>
+                        <th>System</th>
+                        <th>Document Type</th>
+                        <th>Health Type</th>
+                        <th>Uploaded Date</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="resourceList">
-                    <tr><td colspan="5">Loading resources...</td></tr>
+                    <tr><td colspan="8">Loading resources...</td></tr>
                 </tbody>
             </table>
         </div>
     </main>
 
-    <div id="previewModal" class="modal">
+    <footer>
+        <p>&copy; 2025 Ministry of Health and Social Services, Namibia. All rights reserved.</p>
+    </footer>
+
+    <!-- The Modal Structure for File Preview -->
+    <div id="filePreviewModal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="closePreview()">&times;</span>
-            <iframe id="previewFrame" src="" title="File Preview"></iframe>
+            <span class="close" onclick="closeModal()">&times;</span>
+            <iframe id="filePreviewFrame" src="" frameborder="0"></iframe>
         </div>
     </div>
 
-    <footer>
-        Ministry of Health and Social Services, Republic of Namibia<br />
-        Private Bag 13189, Windhoek, Namibia<br />
-        &copy; 2025 MoHSS. Version 1.0.0.1 | Maintained
-    </footer>
-
     <script>
-        // Initialize particles.js
-        particlesJS('particles-js', {
-            "particles": {
-                "number": {
-                    "value": 80,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 6,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
-            },
-            "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 140,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
-            },
-            "retina_detect": true
-        });
-
-
-        // --- Helper function to escape HTML ---
+        // --- Helper Functions ---
         function escapeHtml(unsafe) {
             return unsafe
-                 .replace(/&/g, "&amp;")
-                 .replace(/</g, "&lt;")
-                 .replace(/>/g, "&gt;")
-                 .replace(/"/g, "&quot;")
-                 .replace(/'/g, "&#039;");
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
         }
 
-        // --- Mobile Menu Toggle ---
+        // --- Menu Toggle for Mobile ---
         document.querySelector('.menu-toggle').addEventListener('click', function() {
-            const navMenu = document.querySelector('nav.menu');
-            navMenu.classList.toggle('active');
+            document.querySelector('.menu').classList.toggle('active');
         });
 
-        // --- Mobile Dropdown Toggle (for 'Systems' and sub-submenus) ---
-        document.querySelectorAll('.dropdown > .dropbtn, .dropdown-submenu > .dropbtn-submenu').forEach(button => {
+        // --- Dropdown Toggling for Mobile (and desktop if needed) ---
+        document.querySelectorAll('.dropdown .dropbtn, .dropdown-submenu .dropbtn-submenu').forEach(button => {
             button.addEventListener('click', function(event) {
-                // Only toggle if on a mobile view, where the menu is typically stacked
-                if (window.innerWidth <= 768) {
-                    event.preventDefault(); // Prevent default link behavior for menu items that open dropdowns
-                    const parentDropdown = this.closest('.dropdown') || this.closest('.dropdown-submenu');
-                    parentDropdown.classList.toggle('active'); // Toggle 'active' on the parent dropdown/submenu
+                event.preventDefault();
+                // Toggle 'active' class on the parent dropdown/submenu
+                this.closest('.dropdown, .dropdown-submenu').classList.toggle('active');
+
+                // Close other open dropdowns/submenus at the same level
+                const parentContainer = this.closest('.dropdown-content, .dropdown-submenu-content, .nav-links');
+                if (parentContainer) {
+                    parentContainer.querySelectorAll('.dropdown.active, .dropdown-submenu.active').forEach(openDropdown => {
+                        if (openDropdown !== this.closest('.dropdown, .dropdown-submenu')) {
+                            openDropdown.classList.remove('active');
+                        }
+                    });
                 }
             });
         });
 
+
         // --- File Preview Modal Functions ---
-        function openPreview(fileUrl) {
-            const previewModal = document.getElementById('previewModal');
-            const previewFrame = document.getElementById('previewFrame');
-            previewFrame.src = fileUrl;
-            previewModal.style.display = 'flex'; // Use flex to center
+        function previewFile(filePath) {
+            const modal = document.getElementById('filePreviewModal');
+            const iframe = document.getElementById('filePreviewFrame');
+            iframe.src = filePath;
+            modal.style.display = 'flex'; // Use flex to center
         }
 
-        function closePreview() {
-            const previewModal = document.getElementById('previewModal');
-            const previewFrame = document.getElementById('previewFrame');
-            previewFrame.src = ''; // Clear iframe src to stop playback/loading
-            previewModal.style.display = 'none';
+        function closeModal() {
+            const modal = document.getElementById('filePreviewModal');
+            const iframe = document.getElementById('filePreviewFrame');
+            iframe.src = ''; // Clear iframe src to stop any media/loading
+            modal.style.display = 'none';
         }
 
-        // --- Load Resources Function ---
+        // Close modal if user clicks outside of modal-content
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('filePreviewModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+
+        // --- Load Resources Function (Main Logic) ---
         async function loadResources() {
             const resourceList = document.getElementById('resourceList');
-            resourceList.innerHTML = '<tr><td colspan="5">Loading resources...</td></tr>';
+            resourceList.innerHTML = '<tr><td colspan="8">Loading resources...</td></tr>'; // Clear and show loading
 
+            // Get filter values
             const fileType = document.getElementById('fileTypeFilter').value;
             const documentType = document.getElementById('documentTypeFilter').value;
             const system = document.getElementById('systemFilter').value;
             const healthType = document.getElementById('healthTypeFilter').value;
 
-            // Construct query parameters based on selected filters
-            const queryParams = new URLSearchParams();
-            if (fileType !== 'all') queryParams.append('fileType', fileType);
-            if (documentType !== 'All') queryParams.append('documentType', documentType);
-            if (system !== 'all') queryParams.append('system', system);
-            if (healthType !== 'all') queryParams.append('healthType', healthType);
+            // Map frontend fileType to backend mimetypes
+            let mimetypes = [];
+            if (fileType !== 'all') {
+                switch (fileType) {
+                    case 'pdf': mimetypes = ['application/pdf']; break;
+                    case 'word': mimetypes = ['application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']; break;
+                    case 'image': mimetypes = ['image/jpeg', 'image/png', 'image/gif']; break;
+                    case 'excel': mimetypes = ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet']; break;
+                    case 'ppt': mimetypes = ['application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.presentationml.presentation']; break;
+                    case 'video': mimetypes = ['video/mp4', 'video/webm', 'video/ogg']; break; // Example video mimetypes
+                    case 'audio': mimetypes = ['audio/mpeg', 'audio/wav', 'audio/ogg']; break; // Example audio mimetypes
+                    // Add more mappings as needed
+                }
+            }
+
+            // Construct query parameters
+            const params = new URLSearchParams();
+            if (mimetypes.length > 0) params.append('mimetypes', mimetypes.join(','));
+            if (documentType !== 'all') params.append('documentType', documentType);
+            if (system !== 'all') params.append('system', system);
+            if (healthType !== 'all') params.append('healthType', healthType);
+
+            // Construct the URL more robustly
+            let url = `${window.location.origin}/api/files/list`; // Prepend origin for absolute URL
+            const queryString = params.toString();
+            if (queryString) {
+                url += `?${queryString}`;
+            }
 
             try {
-                // IMPORTANT: Replace 'http://localhost:9000' with your actual backend server URL for deployment.
-                // Your backend API should handle these query parameters to filter the results.
-                const response = await fetch(`http://localhost:9000/api/resources/list?${queryParams.toString()}`);
+                // Fetch from your backend API
+                const response = await fetch(url); // Use the constructed URL
                 const data = await response.json();
 
                 resourceList.innerHTML = ''; // Clear loading message
 
-                if (!data.resources || data.resources.length === 0) {
-                    resourceList.innerHTML = '<tr><td colspan="5">No resources found matching your criteria.</td></tr>';
+                if (!response.ok) {
+                    throw new Error(data.message || 'Failed to fetch resources.');
+                }
+
+                if (!data.files || data.files.length === 0) {
+                    resourceList.innerHTML = '<tr><td colspan="8">No resources found matching your criteria.</td></tr>';
                     return;
                 }
 
-                data.resources.forEach(resource => {
+                data.files.forEach(file => {
                     const row = document.createElement('tr');
-                    // Assuming your resource object has: filename, mimetype, categories (array), upload_date, and a unique ID
-                    // The backend should provide a direct download URL or a filename you can construct.
-                    const categoriesDisplay = Array.isArray(resource.categories) ? resource.categories.join(', ') : resource.categories || 'N/A';
+                    const downloadPath = `/uploads/${encodeURIComponent(file.filename)}`; // Path to the stored file
 
-                    // Determine if preview is possible directly in iframe. PDFs, images are generally fine.
-                    // Word/Excel/PPT might require Google Docs Viewer or similar, or just a download option.
-                    let previewButtonHtml = '';
-                    const fileExtension = resource.filename.split('.').pop().toLowerCase();
-                    const viewableExtensions = ['pdf', 'png', 'jpg', 'jpeg', 'gif']; // Add more if your iframe can handle them
-                    if (viewableExtensions.includes(fileExtension)) {
-                        previewButtonHtml = `<button class="preview-btn" onclick="openPreview('/uploads/${escapeHtml(resource.filename)}')">Preview</button>`;
-                    } else if (['doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'].includes(fileExtension)) {
-                        // Option for Google Docs Viewer for office files, but requires file to be publicly accessible online
-                        // previewButtonHtml = `<button class="preview-btn" onclick="openPreview('https://docs.google.com/gview?url=${encodeURIComponent(window.location.origin + '/uploads/' + resource.filename)}&embedded=true')">Preview</button>`;
-                        // For local development, direct preview of office files won't work in iframe without a viewer.
-                        // So, we'll just show a download button for these if no direct preview is available.
-                        previewButtonHtml = ''; // Or remove this else if block if you want only download
-                    }
-
+                    // Safely display array fields
+                    const getDisplayValue = (arr) => Array.isArray(arr) && arr.length > 0 ? arr.join(', ') : 'N/A';
 
                     row.innerHTML = `
-                        <td>${escapeHtml(resource.original_name || resource.filename)}</td>
-                        <td>${escapeHtml(resource.mimetype.split('/')[1] || resource.file_type || 'N/A')}</td>
-                        <td>${escapeHtml(categoriesDisplay)}</td>
-                        <td>${new Date(resource.upload_date).toLocaleString('en-NA', { dateStyle: 'short', timeStyle: 'short' })}</td>
+                        <td>${escapeHtml(file.original_name)}</td>
+                        <td>${escapeHtml(file.mimetype || 'N/A')}</td>
+                        <td>${getDisplayValue(file.categories)}</td>
+                        <td>${getDisplayValue(file.system)}</td>
+                        <td>${getDisplayValue(file.document_type)}</td>
+                        <td>${getDisplayValue(file.health_type)}</td>
+                        <td>${new Date(file.upload_date).toLocaleDateString()}</td>
                         <td>
-                            ${previewButtonHtml}
-                            <a href="/uploads/${escapeHtml(resource.filename)}" download="${escapeHtml(resource.original_name || resource.filename)}" class="download-btn">Download</a>
+                            <button class="preview-btn" onclick="previewFile('${downloadPath}')">Preview</button>
+                            <a href="${downloadPath}" download="${escapeHtml(file.original_name)}" class="download-btn">Download</a>
                         </td>
                     `;
                     resourceList.appendChild(row);
@@ -1177,13 +1123,32 @@
 
             } catch (error) {
                 console.error('Error loading resources:', error);
-                resourceList.innerHTML = '<tr><td colspan="5">Error loading resources. Please try again.</td></tr>';
+                resourceList.innerHTML = `<tr><td colspan="8">Error loading resources: ${escapeHtml(error.message)}. Please try again.</td></tr>`;
             }
         }
 
-        // --- Initial Load ---
+        // --- Particles.js Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
-            loadResources(); // Load resources when the page first loads
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    "particles": {
+                        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                        "color": { "value": "#ffffff" },
+                        "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+                        "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+                        "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+                        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+                        "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
+                    },
+                    "interactivity": {
+                        "detect_on": "canvas",
+                        "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                        "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
+                    },
+                    "retina_detect": true
+                });
+            }
+            loadResources(); // Initial load of resources when the page loads
         });
     </script>
 </body>
