@@ -73,7 +73,9 @@ app.use((req, res, next) => {
   next();
 });
 
-// --- API Routes (MUST COME BEFORE STATIC FILE SERVING FOR /) ---
+// --- API Routes ---
+// IMPORTANT: API routes MUST be registered BEFORE static file serving
+// This ensures that requests to /api/* are handled by your API controllers
 app.use('/api/files', fileRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
@@ -81,15 +83,19 @@ app.use('/api/dashboard', dashboardRoutes);
 
 // --- Static Files ---
 const frontendPath = path.join(__dirname, '../frontend');
-app.use(express.static(frontendPath)); // Serve static files from the frontend directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Serve uploaded files
+// Serve static files from the frontend directory
+// This includes your HTML, CSS, JS, and any images directly in 'frontend'
+app.use(express.static(frontendPath));
+// Serve uploaded files from the 'uploads' directory
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// --- Frontend Routes ---
-// Serve resources.html as the default page for the root path
+// --- Frontend HTML Routes ---
+// These routes serve your specific HTML files.
+// They should come AFTER API routes and general static file serving,
+// but before any catch-all 404 handlers.
 app.get('/', (req, res) => {
   res.sendFile(path.join(frontendPath, 'resources.html'));
 });
-// Explicitly serve resources.html if accessed directly
 app.get('/resources.html', (req, res) => {
   res.sendFile(path.join(frontendPath, 'resources.html'));
 });
@@ -99,12 +105,14 @@ app.get('/admin.html', (req, res) => {
 app.get('/login.html', (req, res) => {
   res.sendFile(path.join(frontendPath, 'login.html'));
 });
-app.get('/contact.html', (req, res) => { // Assuming you also have a contact.html
+app.get('/contact.html', (req, res) => {
   res.sendFile(path.join(frontendPath, 'contact.html'));
 });
 
 
 // --- 404 fallback ---
+// This should be the very last middleware. If no other route or static file
+// handler has responded, this will catch the request.
 app.use((req, res) => {
   res.status(404).send('Page not found');
 });

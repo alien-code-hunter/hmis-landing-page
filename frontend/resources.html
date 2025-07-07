@@ -690,7 +690,7 @@
             align-items: flex-start;
         }
 
-        .preview-btn, .download-btn {
+        .download-btn {
             padding: 8px 12px;
             border: none;
             border-radius: 5px;
@@ -699,19 +699,6 @@
             text-decoration: none; /* For download link */
             text-align: center;
             white-space: nowrap; /* Prevent button text from wrapping */
-        }
-
-        .preview-btn {
-            background-color: #184687;
-            color: white;
-            transition: background-color 0.3s ease;
-        }
-
-        .preview-btn:hover {
-            background-color: #12345e;
-        }
-
-        .download-btn {
             background-color: #4CAF50;
             color: white;
             transition: background-color 0.3s ease;
@@ -721,7 +708,8 @@
             background-color: #45a049;
         }
 
-        /* Modal for Preview */
+        /* Modal for Preview (removed display:none; as it's no longer used for preview) */
+        /* Keeping modal styles just in case for other uses, but it won't be triggered by "Preview" */
         .modal {
             display: none; /* Hidden by default */
             position: fixed; /* Stay in place */
@@ -732,7 +720,6 @@
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
             background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
-            display: flex; /* Use flex for centering */
             justify-content: center;
             align-items: center;
         }
@@ -760,7 +747,6 @@
 
         .close {
             color: #aaa;
-            /* float: right; Removed float for better flex/grid compatibility */
             font-size: 28px;
             font-weight: bold;
             position: absolute;
@@ -814,7 +800,7 @@
                 gap: 5px; /* Space between buttons */
             }
 
-            .preview-btn, .download-btn {
+            .download-btn {
                 padding: 6px 10px;
                 font-size: 0.8rem;
             }
@@ -974,7 +960,7 @@
         <p>&copy; 2025 Ministry of Health and Social Services, Namibia. All rights reserved.</p>
     </footer>
 
-    <!-- The Modal Structure for File Preview -->
+    <!-- The Modal Structure for File Preview (No longer used for preview, but kept for general modal styling if needed) -->
     <div id="filePreviewModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -1017,19 +1003,11 @@
             });
         });
 
-
-        // --- File Preview Modal Functions ---
-        function previewFile(filePath) {
-            const modal = document.getElementById('filePreviewModal');
-            const iframe = document.getElementById('filePreviewFrame');
-            iframe.src = filePath;
-            modal.style.display = 'flex'; // Use flex to center
-        }
-
+        // --- Modal Functions (No longer used for file preview, but kept if needed for other modals) ---
         function closeModal() {
             const modal = document.getElementById('filePreviewModal');
             const iframe = document.getElementById('filePreviewFrame');
-            iframe.src = ''; // Clear iframe src to stop any media/loading
+            iframe.src = ''; // Clear iframe src
             modal.style.display = 'none';
         }
 
@@ -1114,7 +1092,6 @@
                         <td>${getDisplayValue(file.health_type)}</td>
                         <td>${new Date(file.upload_date).toLocaleDateString()}</td>
                         <td>
-                            <button class="preview-btn" onclick="previewFile('${downloadPath}')">Preview</button>
                             <a href="${downloadPath}" download="${escapeHtml(file.original_name)}" class="download-btn">Download</a>
                         </td>
                     `;
