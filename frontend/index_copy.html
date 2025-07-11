@@ -4,7 +4,6 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Namibia - National Health Information System Portal</title>
         <meta name="description" content="Official portal of the Ministry of Health and Social Services, Namibia. Access dashboards, reports, and health systems information." />
         <link rel="icon" href="/favicon.ico" />
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
@@ -26,6 +25,7 @@
                 min-height: 100vh;
                 position: relative;
                 z-index: 1;
+                overflow-x: hidden; /* Prevent horizontal scrolling */
             }
         
             header {
@@ -50,6 +50,7 @@
                 left: 0;
                 z-index: 0;
                 background-color: transparent;
+                pointer-events: none; /* Allow clicks to pass through */
             }
         
             header .left {
@@ -70,6 +71,7 @@
                 margin: 0;
                 position: relative;
                 z-index: 1;
+                color: white; /* Changed to white */
             }
         
             .menu-toggle {
@@ -98,8 +100,6 @@
             }
         
             /* --- MENU ITEM STYLING AND COLORS --- */
-        
-            
             nav.menu a,
             .dropbtn,
             .dropbtn-submenu {
@@ -111,26 +111,20 @@
                 background-color: transparent; 
             }
         
-            
             .nav-links > a, 
             .nav-links > .dropdown > .dropbtn  {
                 color: white; 
             }
         
-            
             .dropdown-submenu .dropbtn-submenu, 
-            .dropdown-submenu-content a /* Links inside DHIS2/OpenMRS sub-sub-menus */ {
+            .dropdown-submenu-content a { /* Links inside DHIS2/OpenMRS sub-sub-menus */
                 color: white; 
             }
         
-            /* 3. Specific Sub-items under 'Systems' (e-Notification, NDW, MFL) */
-            
+            /* Specific Sub-items under 'Systems' (e-Notification, NDW, MFL) */
             .dropdown-content > a:not(.dropbtn-submenu) {
                 color: white; 
             }
-        
-        
-           
         
             /* Hover state for Main Menu Items */
             .nav-links > a:hover,
@@ -141,7 +135,6 @@
             }
         
             /* Hover state for ALL Submenu/Sub-Submenu Items (DHIS2, OpenMRS, e-Notification, NDW, MFL, and their children) */
-        
             .dropdown-content a:hover,
             .dropdown-submenu .dropbtn-submenu:hover,
             .dropdown-submenu-content a:hover {
@@ -150,9 +143,7 @@
                 border-bottom: none; 
             }
         
-        
             /* --- Dropdown Structure & Backgrounds --- */
-        
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -200,11 +191,12 @@
             }
         
             .dropdown-submenu .dropbtn-submenu::after {
-                content: '\25B6';
+                content: '\25B6'; /* Right-pointing triangle */
                 float: right;
                 margin-left: 5px;
                 font-size: 10px;
                 line-height: inherit;
+                transition: transform 0.2s ease; /* For rotation on mobile */
             }
         
             .dropdown-submenu-content {
@@ -225,9 +217,7 @@
         
             .dropdown-submenu-content a { /* Links within sub-sub-menus */
                 /* Color and background are handled by specific rules above */
-                /* I will do this after elements are added to the sub-sub-menus */
             }
-        
         
             /* --- General Page Layout & Components --- */
             main.container {
@@ -288,13 +278,11 @@
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.01);
                 text-align: center;
-                flex: 1;
-                min-width: 100px;
             }
         
             .stats-container {
-                display: flex;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
                 gap: 15px;
                 justify-content: center;
                 margin-bottom: 12px;
@@ -311,14 +299,8 @@
                 background-color: #ffffff;
                 padding: 20px;
                 border-radius: 10px;
-                width: 300px;
+                width: 300px; /* Fixed width on desktop */
                 box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            }
-        
-            .info-box h3 {
-                margin-top: 0;
-                font-size: 18px;
-                color: #2b4b78;
             }
         
             .blue-tile {
@@ -363,9 +345,30 @@
                 text-align: left;
             }
         
-            /* Mobile Styles. This ensures that styles are adjusted for smaller screens. I will full define later %%% */
+            /* Mobile Styles. This ensures that styles are adjusted for smaller screens. */
             @media (max-width: 768px) {
+                header {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    padding: 6px 7px; /* Scaled down from 8px 10px */
+                }
+        
+                header .left {
+                    flex-direction: row;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+        
+                header img.logo {
+                    width: 18px; /* Scaled down from 25px */
+                }
+        
+                header h1 {
+                    font-size: 13px; /* Scaled down from 18px */
+                }
+        
                 .menu-toggle {
+                    font-size: 14px; /* Scaled down from 20px */
                     display: block;
                 }
         
@@ -373,9 +376,9 @@
                     display: none;
                     flex-direction: column;
                     width: 100%;
-                    background-color: #f9f9f9; 
+                    background-color: #184687;
                     position: absolute;
-                    top: 60px;
+                    top: 34px; /* Scaled down from 48px */
                     left: 0;
                     z-index: 10;
                     border-top: 1px solid #ccc;
@@ -386,15 +389,20 @@
                     display: flex;
                 }
         
-                /* Main Menu Links */
+                /* Main Menu Links on Mobile */
                 .nav-links > a,
                 .nav-links > .dropdown > .dropbtn {
-                    padding: 12px 20px;
-                    border-top: 1px solid #ddd;
-                    color: #2b4b78; 
-                    background-color: #f9f9f9;
+                    padding: 6px 11px; /* Scaled down from 8px 15px */
+                    border-top: 1px solid rgba(255, 255, 255, 0.1);
+                    color: white;
+                    background-color: transparent;
                     width: 100%;
                     text-align: left;
+                    font-size: 10px; /* Scaled down from 14px */
+                }
+                .nav-links > a:last-child,
+                .nav-links > .dropdown:last-child .dropbtn {
+                    border-bottom: none;
                 }
         
                 /* All Submenu/Sub-Submenu items on Mobile */
@@ -403,101 +411,203 @@
                 }
         
                 .dropdown .dropbtn { 
-                    padding: 12px 20px;
+                    padding: 6px 11px; /* Scaled down from 8px 15px */
                     text-align: left;
-                    color: #2b4b78; 
-                    background-color: #f9f9f9;
+                    color: white; 
+                    background-color: transparent;
+                    font-size: 10px; /* Scaled down from 14px */
                 }
         
                 .dropdown-content {
                     display: none;
-                    position: static; 
-                    background-color: #eaeaea; 
+                    position: static;
+                    background-color: rgba(0, 0, 0, 0.1);
                     width: 100%;
                     border-top: 1px solid #ccc;
-                    box-shadow: none; /* this only for mobile */
+                    box-shadow: none;
+                }
+                .dropdown.active .dropdown-content {
+                    display: block;
                 }
         
                 .dropdown-content a { 
-                    padding-left: 30px;
-                    background-color: #f0f0f0; 
-                    color: #2b4b78; 
+                    padding-left: 14px; /* Scaled down from 20px */
+                    background-color: transparent; 
+                    color: white; 
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    font-size: 9px; /* Scaled down from 13px */
+                }
+                .dropdown-content a:last-child {
+                    border-bottom: none;
                 }
         
                 .dropdown-submenu {
-                    background-color: #f0f0f0;
+                    background-color: transparent;
                     width: 100%;
                 }
         
                 .dropdown-submenu .dropbtn-submenu { 
                     width: 100%;
-                    padding: 12px 30px;
+                    padding: 6px 18px; /* Scaled down from 8px 25px */
                     text-align: left;
-                    background-color: #f0f0f0;
-                    color: #2b4b78; 
+                    background-color: transparent;
+                    color: white; 
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                    font-size: 9px; /* Scaled down from 13px */
                 }
         
                 .dropdown-submenu .dropbtn-submenu::after {
-                    content: '\25BC'; 
+                    content: '\25BC';
                     float: right;
+                    transform: rotate(0deg);
+                }
+                .dropdown-submenu.active .dropbtn-submenu::after {
+                    transform: rotate(180deg);
                 }
         
                 .dropdown-submenu-content {
-                    position: static; 
-                    background-color: #e8e8e8; 
-                    padding-left: 20px;
+                    display: none;
+                    position: static;
+                    background-color: rgba(0, 0, 0, 0.05);
+                    padding-left: 11px; /* Scaled down from 15px */
                     width: 100%;
                     box-shadow: none; 
                 }
+                .dropdown-submenu.active .dropdown-submenu-content {
+                    display: block;
+                }
         
                 .dropdown-submenu-content a { 
-                    background-color: #e8e8e8;
-                    color: #2b4b78; 
-                    padding-left: 40px;
+                    background-color: transparent;
+                    color: white; 
+                    padding-left: 21px; /* Scaled down from 30px */
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+                    font-size: 8px; /* Scaled down from 12px */
+                }
+                .dropdown-submenu-content a:last-child {
+                    border-bottom: none;
+                }
+
+                /* General mobile layout adjustments */
+                main.container {
+                    padding: 7px; /* Scaled down from 10px */
                 }
         
-                .dropdown:hover .dropdown-content,
-                .dropdown-submenu:hover .dropdown-submenu-content {
-                    display: none;
+                .banner {
+                    padding: 14px; /* Scaled down from 20px */
+                    margin-bottom: 11px; /* Scaled down from 15px */
+                }
+                .banner h1 {
+                    font-size: 14px; /* Scaled down from 20px */
+                }
+                .banner h2 {
+                    font-size: 11px; /* Scaled down from 16px */
+                }
+                .banner p {
+                    font-size: 8px; /* Scaled down from 12px */
+                }
+                .banner .logo {
+                    width: 50px; /* Scaled down from 70px */
                 }
         
-                
-                #particles-js.full-bg {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: -1;
-                    pointer-events: none;
+                .stats-container {
+                    grid-template-columns: repeat(3, 1fr); /* Force 3 columns for 3x2 layout */
+                    gap: 6px; /* Scaled down from 8px */
+                }
+                .stat {
+                    padding: 7px; /* Scaled down from 10px */
+                }
+                .stat h3 {
+                    font-size: 14px; /* Scaled down from 20px */
+                }
+                .stat p {
+                    font-size: 8px; /* Scaled down from 12px */
                 }
         
-                /* Mobile layout adjustments. %%% */
-                header {
-                    flex-direction: column;
-                    align-items: flex-start;
-                    padding: 12px;
-                }
-        
-                header .left {
-                    flex-direction: row;
-                    justify-content: space-between;
-                    width: 100%;
-                }
-        
-                header h1 {
-                    font-size: 20px;
-                }
-        
-                .stats-container,
                 .info-section {
-                    flex-direction: column;
-                    align-items: center;
+                    display: grid; /* Changed to grid for 3 columns */
+                    grid-template-columns: repeat(3, 1fr); /* 3 columns for info boxes on mobile */
+                    gap: 7px; /* Scaled down from 10px */
                 }
         
-                .button {
-                    width: 100%;
-                    max-width: 300px;
+                .info-box {
+                    width: auto; /* Allow grid to manage width */
+                    max-width: none; /* Remove max-width constraint */
+                    padding: 11px; /* Scaled down from 15px */
+                }
+                .info-box h3 {
+                    font-size: 11px; /* Scaled down from 16px */
+                }
+                .info-box ul li,
+                .info-box p {
+                    font-size: 8px; /* Scaled down from 12px */
+                }
+            }
+
+            /* Adjust for tablets and larger mobiles (e.g., between 768px and 1024px) */
+            @media (min-width: 601px) and (max-width: 1024px) {
+                .stats-container {
+                    grid-template-columns: repeat(2, 1fr);
+                    gap: 11px; /* Scaled down from 15px */
+                }
+                .stat {
+                    padding: 11px; /* Scaled down from 15px */
+                }
+                .stat h3 {
+                    font-size: 20px; /* Scaled down from 28px */
+                }
+                .stat p {
+                    font-size: 10px; /* Scaled down from 14px */
+                }
+
+                .info-section {
+                    grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); /* Scaled down from 250px */
+                    gap: 11px; /* Scaled down from 15px */
+                }
+                .info-box {
+                    padding: 13px; /* Scaled down from 18px */
+                }
+                .info-box h3 {
+                    font-size: 13px; /* Scaled down from 18px */
+                }
+                .info-box ul li,
+                .info-box p {
+                    font-size: 10px; /* Scaled down from 14px */
+                }
+
+                header h1 {
+                    font-size: 17px; /* Scaled down from 24px */
+                }
+                .menu-toggle {
+                    font-size: 17px; /* Scaled down from 24px */
+                }
+                nav.menu {
+                    top: 39px; /* Scaled down from 55px */
+                }
+                .nav-links > a,
+                .nav-links > .dropdown > .dropbtn {
+                    font-size: 11px; /* Scaled down from 15px */
+                    padding: 7px 13px; /* Scaled down from 10px 18px */
+                }
+                .dropdown .dropbtn,
+                .dropdown-submenu .dropbtn-submenu {
+                    font-size: 11px; /* Scaled down from 15px */
+                    padding: 7px 13px; /* Scaled down from 10px 18px */
+                }
+                .dropdown-content a {
+                    font-size: 10px; /* Scaled down from 14px */
+                    padding-left: 18px; /* Scaled down from 25px */
+                }
+                .dropdown-submenu-content a {
+                    font-size: 9px; /* Scaled down from 13px */
+                    padding-left: 25px; /* Scaled down from 35px */
+                }
+            }
+
+            /* Desktop specific adjustments for 3 tiles in a row */
+            @media (min-width: 1025px) {
+                .stats-container {
+                    grid-template-columns: repeat(3, 1fr);
                 }
             }
         </style>
@@ -509,7 +619,6 @@
     <header>
         <div class="left">
             <img src="/flag.png" alt="Namibian flag Logo" class="logo" />
-            <h1>National Health Information System</h1>
             </div>
     
         <button class="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
@@ -622,7 +731,7 @@
                     // Update the text content of the corresponding elements
                     document.getElementById('facilities-reporting').textContent = data.facilities_reporting;
                     document.getElementById('data-submission').textContent = data.data_submission;
-                    document.getElementById('reporting-period').textContent = data.reporting_period; // Corrected ID
+                    document.getElementById('reporting-period').textContent = data.reporting_period;
                     document.getElementById('timeliness').textContent = data.timeliness;
                     document.getElementById('completeness').textContent = data.completeness;
                     document.getElementById('active-users').textContent = data.active_users;
@@ -632,7 +741,7 @@
                     // Optionally, display a message to the user or set default values
                     document.getElementById('facilities-reporting').textContent = 'N/A';
                     document.getElementById('data-submission').textContent = 'N/A';
-                    document.getElementById('reporting-period').textContent = 'N/A'; // Corrected ID
+                    document.getElementById('reporting-period').textContent = 'N/A';
                     document.getElementById('timeliness').textContent = 'N/A';
                     document.getElementById('completeness').textContent = 'N/A';
                     document.getElementById('active-users').textContent = 'N/A';
@@ -643,51 +752,33 @@
             // JavaScript for mobile menu toggle
             const menuToggle = document.querySelector('.menu-toggle');
             const navMenu = document.querySelector('nav.menu');
-            const dropdownToggle = document.querySelector('.dropdown .dropbtn'); // The main Systems link
-
+            
             menuToggle.addEventListener('click', () => {
                 navMenu.classList.toggle('active');
-                // Close all sub-menus when main menu is toggled
-                document.querySelectorAll('.dropdown-submenu-content').forEach(sub => {
-                    sub.style.display = 'none';
+                // Close all dropdowns/submenus when main menu is toggled
+                document.querySelectorAll('.dropdown.active, .dropdown-submenu.active').forEach(item => {
+                    item.classList.remove('active');
                 });
-                // Close main dropdown if menu is closed
-                if (!navMenu.classList.contains('active') && dropdownToggle.nextElementSibling.style.display === 'block') {
-                     dropdownToggle.nextElementSibling.style.display = 'none';
-                }
             });
 
-            // Toggle main 'Systems' dropdown for mobile
-            if (dropdownToggle) {
-                dropdownToggle.addEventListener('click', function(event) {
-                    // Only toggle if the main menu is active (i.e., on mobile)
+            // Universal handler for all dropdown buttons (top-level and sub-menu)
+            document.querySelectorAll('.dropdown .dropbtn, .dropdown-submenu .dropbtn-submenu').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    // Only toggle if on a small screen (mobile menu is active)
                     if (window.innerWidth <= 768) {
-                        event.preventDefault(); // Prevent navigating to #
-                        const dropdownContent = this.nextElementSibling;
-                        dropdownContent.style.display = (dropdownContent.style.display === 'block') ? 'none' : 'block';
-                        // Close any open sub-menus when main dropdown is toggled
-                        document.querySelectorAll('.dropdown-submenu-content').forEach(sub => {
-                            sub.style.display = 'none';
-                        });
-                    }
-                });
-            }
+                        event.preventDefault(); // Prevent default link behavior
+                        const parentDropdown = this.closest('.dropdown') || this.closest('.dropdown-submenu');
 
-            // New: Handle submenu toggles for mobile
-            const submenuToggles = document.querySelectorAll('.dropdown-submenu .dropbtn-submenu');
-            submenuToggles.forEach(toggle => {
-                toggle.addEventListener('click', function(event) {
-                    if (window.innerWidth <= 768) { // Only apply for mobile
-                        event.preventDefault();
-                        const submenuContent = this.nextElementSibling;
-                        // Close other open submenus within the same parent dropdown
-                        Array.from(this.closest('.dropdown-content').querySelectorAll('.dropdown-submenu-content')).forEach(otherSub => {
-                            if (otherSub !== submenuContent) {
-                                otherSub.style.display = 'none';
+                        // Close other open dropdowns/submenus at the same level
+                        const siblingDropdowns = this.closest('.dropdown-content, .dropdown-submenu-content, .nav-links').querySelectorAll('.dropdown.active, .dropdown-submenu.active');
+                        siblingDropdowns.forEach(sibling => {
+                            if (sibling !== parentDropdown) {
+                                sibling.classList.remove('active');
                             }
                         });
-                        // Toggle this submenu
-                        submenuContent.style.display = (submenuContent.style.display === 'block') ? 'none' : 'block';
+
+                        // Toggle the 'active' class on the clicked dropdown/submenu
+                        parentDropdown.classList.toggle('active');
                     }
                 });
             });
@@ -699,6 +790,10 @@
                     // Ensure all dropdowns are hidden when switching to desktop view, let CSS hover take over
                     document.querySelectorAll('.dropdown-content, .dropdown-submenu-content').forEach(el => {
                         el.style.display = ''; // Reset display to default (which will be 'none' for dropdowns and 'block' on hover by CSS)
+                    });
+                     // Also ensure active classes are removed from dropdowns when switching to desktop
+                    document.querySelectorAll('.dropdown.active, .dropdown-submenu.active').forEach(el => {
+                        el.classList.remove('active');
                     });
                 }
             });
@@ -762,7 +857,6 @@
                 },
                 "move": {
                     "enable": true,
-                    "speed": 3,
                     "direction": "none",
                     "random": false,
                     "straight": false,
