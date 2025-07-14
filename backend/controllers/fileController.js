@@ -3,7 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs/promises'); // Use fs.promises for async file operations
 
-const uploadDir = path.join(__dirname, '../uploads');
+const uploadDir = path.join(__dirname, '../Uploads');
 
 // Ensure the uploads directory exists asynchronously on server start
 // Multer's destination function can also create it, but this ensures it early.
@@ -22,7 +22,6 @@ const uploadDir = path.join(__dirname, '../uploads');
   }
 })();
 
-
 // Configure Multer storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -40,27 +39,35 @@ const upload = multer({
   storage: storage,
   limits: { fileSize: 20 * 1024 * 1024 }, // Max 20MB, adjust as needed
   fileFilter: (req, file, cb) => {
-    // Basic file type filtering (expand as needed)
+    // Log the MIME type and original filename for debugging
+    console.log(`File upload attempt: ${file.originalname}, MIME type: ${file.mimetype}`);
+
+    // Basic file type filtering (expanded to include more common types)
     const allowedMimeTypes = [
-      'image/jpeg', 'image/png', 'image/gif',
+      'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/bmp', 'image/webp',
       'application/pdf',
       'application/msword', // .doc
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document', // .docx
       'application/vnd.ms-excel', // .xls
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // .xlsx
+      'application/vnd.ms-excel.sheet.macroenabled.12', // .xlsm (macro-enabled Excel)
       'application/vnd.ms-powerpoint', // .ppt
       'application/vnd.openxmlformats-officedocument.presentationml.presentation', // .pptx
       'text/plain', // .txt
       'text/csv', // .csv
-      'video/mp4', 'video/webm', 'video/ogg', // Added video mimetypes
-      'audio/mpeg', 'audio/wav', 'audio/ogg'  // Added audio mimetypes
+      'video/mp4', 'video/webm', 'video/ogg', 'video/mpeg', 'video/avi', // Expanded video types
+      'audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/mp3', // Expanded audio types
+      'application/octet-stream' // Generic fallback for unknown types
     ];
 
-    if (allowedMimeTypes.includes(file.mimetype)) {
+    // Normalize MIME type to lowercase to handle case sensitivity
+    const fileMimeType = file.mimetype.toLowerCase();
+
+    if (allowedMimeTypes.includes(fileMimeType)) {
       cb(null, true);
     } else {
-      // Pass an error to Multer if file type is not allowed
-      cb(new Error('Invalid file type. Only images, PDFs, Word, Excel, PowerPoint, Text, CSV, Video, and Audio files are allowed.'), false);
+      // Include the rejected MIME type in the error message
+      cb(new Error(`Invalid file type: ${fileMimeType}. Only images, PDFs, Word, Excel, PowerPoint, Text, CSV, Video, and Audio files are allowed.`), false);
     }
   }
 });
@@ -174,11 +181,15 @@ const getFriendlyMimeTypeName = (mimetype) => {
     case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
       return 'Word Document';
     case 'image/jpeg':
+    case 'image/jpg':
     case 'image/png':
     case 'image/gif':
+    case 'image/bmp':
+    case 'image/webp':
       return 'Image File';
     case 'application/vnd.ms-excel':
     case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
+    case 'application/vnd.ms-excel.sheet.macroenabled.12':
       return 'Excel Spreadsheet';
     case 'application/vnd.ms-powerpoint':
     case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
@@ -190,16 +201,20 @@ const getFriendlyMimeTypeName = (mimetype) => {
     case 'video/mp4':
     case 'video/webm':
     case 'video/ogg':
+    case 'video/mpeg':
+    case 'video/avi':
       return 'Video File';
     case 'audio/mpeg':
     case 'audio/wav':
     case 'audio/ogg':
+    case 'audio/mp3':
       return 'Audio File';
+    case 'application/octet-stream':
+      return 'Generic File';
     default:
       return mimetype || 'Unknown Type'; // Fallback to raw mimetype if not mapped
   }
 };
-
 
 // 2. Get a list of files
 exports.listFiles = async (req, res) => {
@@ -274,7 +289,6 @@ exports.listFiles = async (req, res) => {
         paramIndex++;
       }
     }
-
 
     const offset = (parseInt(page) - 1) * parseInt(limit);
     queryParams.push(parseInt(limit), offset); // Add limit and offset params
@@ -426,14 +440,13 @@ exports.updateFileMetadata = async (req, res) => {
         const processedHealthType = processArrayField(healthType, 'health_type');
         if (processedHealthType !== null) {
             updateFields.push(`health_type = $${paramIndex}`);
-            queryParams.push(JSON.stringify(processedHealthType)); // Explicitly stringify for JSONB
+            queryParams.push(JSON.stringify(healthType)); // Explicitly stringify for JSONB
             paramIndex++;
         }
 
     } catch (parseError) {
         return res.status(400).json({ message: parseError.message });
     }
-
 
     if (updateFields.length === 0) {
       return res.status(400).json({ message: 'No fields provided for update.' });
@@ -460,7 +473,6 @@ exports.updateFileMetadata = async (req, res) => {
             [req.session.user.id, req.session.user.username, 'edit', fileId, `Updated file metadata for ID: ${fileId}`]
         );
     }
-
 
     res.status(200).json({ message: 'File metadata updated successfully.', file: result.rows[0] });
 
@@ -498,7 +510,6 @@ exports.deleteFile = async (req, res) => {
         }
     }
 
-
     // Delete record from database
     const deleteResult = await pool.query('DELETE FROM files WHERE id = $1 RETURNING id', [fileId]); // CORRECTED TABLE NAME
 
@@ -513,7 +524,6 @@ exports.deleteFile = async (req, res) => {
         [req.session.user.id, req.session.user.username, 'delete', fileId, `Deleted file ID: ${fileId}`]
       );
     }
-
 
     res.status(200).json({ message: 'File deleted successfully.' });
 
