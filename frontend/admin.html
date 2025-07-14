@@ -8,15 +8,12 @@
     <meta name="description" content="Admin portal for the Ministry of Health and Social Services, Namibia. Manage data, uploads, and audit logs." />
     <link rel="icon" href="/favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
-    <!-- Font Awesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" xintegrity="sha512-1ycn6IcaQQ40jHzQj2/FVwbc4nZlWfJ8+vE1V5j/2uR+xQOqU6+i5B+s9+1i5uL/QW+N+z9I5T/Q8+j5w+A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40jHzQj2/FVwbc4nZlWfJ8+vE1V5j/2uR+xQOqU6+i5B+s9+1i5uL/QW+N+z9I5T/Q8+j5w+A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <style>
-        /* Reset */
         * {
             box-sizing: border-box;
         }
-    
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f4f6f8;
@@ -29,8 +26,6 @@
             position: relative;
             z-index: 1;
         }
-        
-        /* Adjusted header for admin panel */
         .header {
             background-color: #184687;
             padding: 8px 20px;
@@ -39,25 +34,22 @@
             align-items: center;
             justify-content: space-between;
             color: white;
-            position: sticky; /* Make header sticky */
+            position: sticky;
             top: 0;
-            z-index: 1000; /* Ensure header stays on top */
-            min-height: 60px; /* Give it some minimum height */
+            z-index: 1000;
+            min-height: 60px;
         }
-    
         .header h1 {
             font-size: 28px;
             font-weight: 700;
             margin: 0;
-            color: white; /* Ensure title is white */
+            color: white;
         }
-    
         .header .hamburger {
             font-size: 24px;
             cursor: pointer;
-            display: none; /* Hidden by default, shown on mobile */
+            display: none;
         }
-    
         .header .logout-button {
             background-color: #e74c3c;
             color: white;
@@ -70,12 +62,9 @@
             align-items: center;
             gap: 8px;
         }
-    
         .header .logout-button:hover {
             background-color: #c0392b;
         }
-    
-        /* particles.js container for the header */
         #header-particles-js {
             position: absolute;
             width: 100%;
@@ -85,37 +74,31 @@
             z-index: 0;
             background-color: transparent;
         }
-    
-        /* Dashboard Layout */
         .dashboard-container {
             display: flex;
-            flex: 1; /* Allows it to take remaining vertical space */
-            position: relative; /* For sidebar positioning on mobile */
+            flex: 1;
+            position: relative;
         }
-    
         .sidebar {
             width: 250px;
             background-color: #ffffff;
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05);
             padding-top: 20px;
             transition: transform 0.3s ease-in-out;
-            position: sticky; /* Make sidebar sticky */
-            top: 60px; /* Adjust based on header height */
-            height: calc(100vh - 60px); /* Fill remaining viewport height */
-            overflow-y: auto; /* Enable scrolling for many nav items */
+            position: sticky;
+            top: 60px;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
             z-index: 900;
         }
-    
         .sidebar-nav {
             list-style: none;
             padding: 0;
             margin: 0;
         }
-    
         .sidebar-nav li {
             margin-bottom: 5px;
         }
-    
         .sidebar-nav a {
             display: flex;
             align-items: center;
@@ -125,30 +108,25 @@
             text-decoration: none;
             font-weight: 500;
             transition: background-color 0.3s ease, color 0.3s ease;
-            border-left: 5px solid transparent; /* For active indicator */
+            border-left: 5px solid transparent;
         }
-    
         .sidebar-nav a:hover {
             background-color: #e9eff7;
             color: #184687;
         }
-    
         .sidebar-nav a.active {
             background-color: #e9eff7;
             color: #184687;
             border-left-color: #184687;
         }
-    
         .sidebar-nav i {
             font-size: 18px;
         }
-    
         .main-content-area {
             flex: 1;
             padding: 20px;
             background-color: #f4f6f8;
         }
-    
         .tab-content {
             display: none;
             background-color: #ffffff;
@@ -156,11 +134,9 @@
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
-    
         .tab-content.active {
             display: block;
         }
-    
         .tab-content h3 {
             color: #184687;
             margin-top: 0;
@@ -169,19 +145,15 @@
             border-bottom: 2px solid #e9eff7;
             padding-bottom: 10px;
         }
-    
-        /* Form Styling */
         .form-group {
             margin-bottom: 18px;
         }
-    
         .form-group label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
             color: #2b4b78;
         }
-    
         .form-group input[type="text"],
         .form-group select,
         .form-group textarea {
@@ -191,35 +163,29 @@
             border-radius: 5px;
             font-size: 16px;
             color: #333;
-            box-sizing: border-box; /* Ensures padding doesn't add to total width */
+            box-sizing: border-box;
         }
-    
         .form-group input[type="text"]::placeholder,
         .form-group textarea::placeholder {
             color: #999;
         }
-        
-        /* New: Styles for checkbox groups */
         .checkbox-group {
             border: 1px solid #c9d8e7;
             border-radius: 5px;
             padding: 10px;
             background-color: #fcfdff;
-            max-height: 150px; /* Limit height for scrollability */
-            overflow-y: auto; /* Enable scrolling */
+            max-height: 150px;
+            overflow-y: auto;
         }
-
         .checkbox-group label {
-            display: flex; /* Align checkbox and text */
+            display: flex;
             align-items: center;
             margin-bottom: 5px;
-            font-weight: 400; /* Lighter weight for individual items */
+            font-weight: 400;
             cursor: pointer;
         }
-
         .checkbox-group input[type="checkbox"] {
             margin-right: 8px;
-            /* Customize checkbox appearance if needed */
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
@@ -230,16 +196,14 @@
             outline: none;
             cursor: pointer;
             position: relative;
-            top: 1px; /* Adjust vertical alignment */
+            top: 1px;
         }
-
         .checkbox-group input[type="checkbox"]:checked {
             background-color: #184687;
             border-color: #184687;
         }
-
         .checkbox-group input[type="checkbox"]:checked::after {
-            content: '\2713'; /* Checkmark character */
+            content: '\2713';
             display: block;
             color: white;
             font-size: 12px;
@@ -251,11 +215,9 @@
             width: 100%;
             height: 100%;
         }
-
         .checkbox-group label:hover input[type="checkbox"] {
-            border-color: #0056b3; /* Darker border on hover */
+            border-color: #0056b3;
         }
-    
         .form-group button[type="submit"] {
             background-color: #28a745;
             color: white;
@@ -269,32 +231,26 @@
             align-items: center;
             gap: 8px;
         }
-    
         .form-group button[type="submit"]:hover {
             background-color: #218838;
         }
-    
         .message {
             margin-top: 15px;
             padding: 10px;
             border-radius: 5px;
-            display: none; /* Hidden by default */
+            display: none;
             font-weight: 500;
         }
-    
         .message.success {
             background-color: #d4edda;
             color: #155724;
             border: 1px solid #c3e6cb;
         }
-    
         .message.error {
             background-color: #f8d7da;
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
-    
-        /* File Input Customization */
         .file-input-wrapper {
             display: flex;
             align-items: center;
@@ -304,11 +260,9 @@
             padding: 5px;
             background-color: #fff;
         }
-    
         .file-input-wrapper input[type="file"] {
-            display: none; /* Hide default input */
+            display: none;
         }
-    
         .file-button {
             background-color: #007bff;
             color: white;
@@ -319,29 +273,24 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            white-space: nowrap; /* Prevent button text from wrapping */
+            white-space: nowrap;
         }
-    
         .file-button:hover {
             background-color: #0056b3;
         }
-    
         .file-name {
-            flex-grow: 1; /* Allows text to take up remaining space */
+            flex-grow: 1;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
             color: #555;
             padding-left: 5px;
         }
-    
-        /* Table Styling */
         .file-table, .audit-table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
         }
-    
         .file-table th, .audit-table th {
             background-color: #e9eff7;
             color: #184687;
@@ -349,33 +298,27 @@
             text-align: left;
             border-bottom: 2px solid #c9d8e7;
         }
-    
         .file-table td, .audit-table td {
             padding: 10px 15px;
             border-bottom: 1px solid #e9eff7;
             vertical-align: middle;
         }
-    
         .file-table tr:hover {
             background-color: #f9fbfd;
         }
-    
         .file-table td a {
             color: #007bff;
             text-decoration: none;
         }
-    
         .file-table td a:hover {
             text-decoration: underline;
         }
-    
         .action-buttons {
             display: flex;
             gap: 8px;
-            flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+            flex-wrap: wrap;
             justify-content: center;
         }
-    
         .action-buttons button,
         .action-buttons .download-btn {
             padding: 6px 10px;
@@ -386,10 +329,9 @@
             display: flex;
             align-items: center;
             gap: 5px;
-            text-decoration: none; /* For the <a> tag acting as a button */
-            white-space: nowrap; /* Prevent button text from wrapping */
+            text-decoration: none;
+            white-space: nowrap;
         }
-    
         .download-btn {
             background-color: #17a2b8;
             color: white;
@@ -397,7 +339,6 @@
         .download-btn:hover {
             background-color: #138496;
         }
-    
         .edit-btn {
             background-color: #ffc107;
             color: #333;
@@ -405,7 +346,6 @@
         .edit-btn:hover {
             background-color: #e0a800;
         }
-    
         .delete-btn {
             background-color: #dc3545;
             color: white;
@@ -413,34 +353,30 @@
         .delete-btn:hover {
             background-color: #c82333;
         }
-    
-        /* Modal Styling */
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1001; /* Sit on top */
+            display: none;
+            position: fixed;
+            z-index: 1001;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
             justify-content: center;
             align-items: center;
         }
-    
         .modal-content {
             background-color: #fefefe;
             margin: auto;
             padding: 30px;
             border: 1px solid #888;
-            width: 90%; /* Responsive width */
+            width: 90%;
             max-width: 600px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.3);
             position: relative;
         }
-    
         .modal-content h3 {
             color: #184687;
             margin-top: 0;
@@ -448,18 +384,15 @@
             text-align: center;
             font-size: 22px;
         }
-    
         .modal-content div {
             margin-bottom: 15px;
         }
-    
         .modal-content label {
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
             color: #2b4b78;
         }
-    
         .modal-content input[type="text"],
         .modal-content select {
             width: 100%;
@@ -468,20 +401,15 @@
             border-radius: 5px;
             font-size: 16px;
         }
-    
-        /* Modal Checkbox groups */
         .modal-content .checkbox-group {
-            max-height: 120px; /* Slightly smaller for modal */
+            max-height: 120px;
         }
-
-    
         .modal-buttons {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
             margin-top: 25px;
         }
-    
         .modal-buttons button {
             padding: 10px 20px;
             border: none;
@@ -490,15 +418,13 @@
             font-size: 16px;
             transition: background-color 0.3s ease;
         }
-    
-        .modal-buttons button:first-child { /* Save Changes */
+        .modal-buttons button:first-child {
             background-color: #28a745;
             color: white;
         }
         .modal-buttons button:first-child:hover {
             background-color: #218838;
         }
-    
         .modal-buttons .cancel-btn {
             background-color: #6c757d;
             color: white;
@@ -506,8 +432,6 @@
         .modal-buttons .cancel-btn:hover {
             background-color: #5a6268;
         }
-    
-        /* Overlay for mobile sidebar */
         .overlay {
             display: none;
             position: fixed;
@@ -516,887 +440,737 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.5);
-            z-index: 800; /* Below modal, above content */
+            z-index: 800;
         }
-    
         .overlay.active {
             display: block;
         }
-
-        /* New: Horizontal alignment for form groups */
         .form-row {
             display: flex;
-            gap: 20px; /* Space between the two columns */
-            margin-bottom: 18px; /* Space between rows of form groups */
-            flex-wrap: wrap; /* Allow columns to wrap on smaller screens */
+            gap: 20px;
+            margin-bottom: 18px;
+            flex-wrap: wrap;
         }
-
         .form-row .form-group {
-            flex: 1; /* Each form group takes equal space */
-            min-width: 250px; /* Minimum width to prevent squishing */
-            margin-bottom: 0; /* Remove bottom margin here, handled by form-row */
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 0;
         }
-
-        /* Adjust the margin of the last form group if it's alone */
         #uploadForm .form-group:last-child {
             margin-bottom: 0;
         }
-
-    
-        /* Mobile Styles */
         @media (max-width: 768px) {
             .header .hamburger {
-                display: block; /* Show hamburger on mobile */
+                display: block;
             }
-    
             .header h1 {
-                font-size: 20px; /* Smaller title on mobile */
+                font-size: 20px;
             }
-    
             .sidebar {
                 position: fixed;
                 top: 0;
-                left: -250px; /* Hide sidebar off-screen */
+                left: -250px;
                 height: 100%;
-                z-index: 950; /* Above overlay */
-                transform: translateX(0); /* Reset transform */
+                z-index: 950;
+                transform: translateX(0);
             }
-    
             .sidebar.active {
-                transform: translateX(250px); /* Slide in sidebar */
+                transform: translateX(250px);
             }
-    
             .dashboard-container {
-                flex-direction: column; /* Stack content vertically */
+                flex-direction: column;
             }
-    
             .main-content-area {
-                padding: 15px; /* Adjust padding for smaller screens */
+                padding: 15px;
             }
-    
             .file-table, .audit-table {
-                font-size: 14px; /* Smaller font for tables */
+                font-size: 14px;
             }
-    
             .file-table th, .audit-table th,
             .file-table td, .audit-table td {
-                padding: 8px 10px; /* Smaller padding for table cells */
+                padding: 8px 10px;
             }
-    
             .action-buttons {
-                flex-direction: column; /* Stack action buttons vertically */
+                flex-direction: column;
                 align-items: flex-start;
                 gap: 5px;
             }
-    
             .action-buttons button,
             .action-buttons .download-btn {
-                width: 100%; /* Full width for buttons */
+                width: 100%;
                 text-align: left;
                 justify-content: flex-start;
             }
-
-            /* Mobile adjustments for form rows */
             .form-row {
-                flex-direction: column; /* Stack columns on small screens */
-                gap: 0; /* No gap when stacked */
+                flex-direction: column;
+                gap: 0;
             }
-
             .form-row .form-group {
-                min-width: unset; /* Remove min-width on mobile */
-                width: 100%; /* Full width on mobile */
-                margin-bottom: 18px; /* Restore bottom margin for stacking */
+                min-width: unset;
+                width: 100%;
+                margin-bottom: 18px;
             }
         }
     </style>
-      
-</head>
-<body>
-
-<div id="header-particles-js"></div>
-
-<div class="header">
-  <div class="hamburger" onclick="toggleSidebar()">
-      <i class="fas fa-bars"></i>
-  </div>
-  <h1>Admin Panel - HMIS</h1>
-  <button class="logout-button" onclick="handleLogout()">
-      <i class="fas fa-sign-out-alt"></i> Logout
-  </button>
-</div>
-
-<div class="dashboard-container">
-  <div class="sidebar">
-    <ul class="sidebar-nav">
-      <li><a href="#" class="nav-link active" data-tab="data-update"><i class="fas fa-chart-line"></i> Data Update</a></li>
-      <li><a href="#" class="nav-link" data-tab="upload-files"><i class="fas fa-upload"></i> Upload Files</a></li>
-      <li><a href="#" class="nav-link" data-tab="manage-files"><i class="fas fa-folder-open"></i> Manage Files</a></li>
-      <li><a href="#" class="nav-link" data-tab="audit-log"><i class="fas fa-clipboard-list"></i> Audit Logs</a></li>
-    </ul>
-  </div>
-
-  <div class="main-content-area">
-    <div id="data-update" class="tab-content active">
-      <h3>Update Data Records</h3>
-      <form id="dataUpdateForm">
-        <div class="form-group">
-          <label for="dataField">Data Field Name:</label>
-          <input type="text" id="dataField" name="dataField" placeholder="e.g., total_registered_users" required>
-        </div>
-        <div class="form-group">
-          <label for="dataValue">New Value:</label>
-          <input type="text" id="dataValue" name="dataValue" placeholder="e.g., 5000 (for numbers) or 'Active' (for status)" required>
-        </div>
-        <div class="form-group">
-          <button type="submit"><i class="fas fa-save"></i> Apply Update</button>
-        </div>
-        <div id="dataUpdateMessage" class="message"></div>
-      </form>
+  </head>
+  <body>
+    <div id="header-particles-js"></div>
+    <div class="header">
+      <div class="hamburger" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <h1>Admin Panel - HMIS</h1>
+      <button class="logout-button" onclick="handleLogout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </button>
     </div>
-
-    <div id="upload-files" class="tab-content">
-      <h3>Upload New Documents or Media</h3>
-      <form id="uploadForm" enctype="multipart/form-data">
-        <div class="form-group">
-          <label for="fileInput">Select File to Upload:</label>
-          <div class="file-input-wrapper">
-              <input type="file" id="fileInput" name="file" required onchange="updateFileName(this)">
-              <label for="fileInput" class="file-button">
+    <div class="dashboard-container">
+      <div class="sidebar">
+        <ul class="sidebar-nav">
+          <li><a href="#" class="nav-link active" data-tab="data-update"><i class="fas fa-chart-line"></i> Data Update</a></li>
+          <li><a href="#" class="nav-link" data-tab="upload-files"><i class="fas fa-upload"></i> Upload Files</a></li>
+          <li><a href="#" class="nav-link" data-tab="manage-files"><i class="fas fa-folder-open"></i> Manage Files</a></li>
+          <li><a href="#" class="nav-link" data-tab="audit-log"><i class="fas fa-clipboard-list"></i> Audit Logs</a></li>
+        </ul>
+      </div>
+      <div class="main-content-area">
+        <div id="data-update" class="tab-content active">
+          <h3>Update Data Records</h3>
+          <form id="dataUpdateForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="facilitiesReporting">Facilities Reporting:</label>
+                <input type="text" id="facilitiesReporting" name="facilitiesReporting" placeholder="e.g., 120" required>
+              </div>
+              <div class="form-group">
+                <label for="dataSubmissionRate">Data Submission Rate:</label>
+                <input type="text" id="dataSubmissionRate" name="dataSubmissionRate" placeholder="e.g., 95%" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="totalRegisteredUsers">Total Registered Users:</label>
+                <input type="text" id="totalRegisteredUsers" name="totalRegisteredUsers" placeholder="e.g., 5000" required>
+              </div>
+              <div class="form-group">
+                <label for="activeUsers">Active Users:</label>
+                <input type="text" id="activeUsers" name="activeUsers" placeholder="e.g., 3000" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="lastDataSync">Last Data Sync:</label>
+                <input type="text" id="lastDataSync" name="lastDataSync" placeholder="e.g., 2025-07-14 10:00" required>
+              </div>
+              <div class="form-group">
+                <label for="systemUptime">System Uptime:</label>
+                <input type="text" id="systemUptime" name="systemUptime" placeholder="e.g., 99.9%" required>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit"><i class="fas fa-save"></i> Apply Updates</button>
+            </div>
+            <div id="dataUpdateMessage" class="message"></div>
+          </form>
+        </div>
+        <div id="upload-files" class="tab-content">
+          <h3>Upload New Documents or Media</h3>
+          <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+              <label for="fileInput">Select File to Upload:</label>
+              <div class="file-input-wrapper">
+                <input type="file" id="fileInput" name="file" required onchange="updateFileName(this)">
+                <label for="fileInput" class="file-button">
                   <i class="fas fa-file-upload"></i> Choose File
-              </label>
-              <span class="file-name" id="fileNameDisplay">No file chosen</span>
+                </label>
+                <span class="file-name" id="fileNameDisplay">No file chosen</span>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Categories:</label>
+                <div class="checkbox-group" id="fileCategoriesCheckboxes"></div>
+              </div>
+              <div class="form-group">
+                <label>Associated System:</label>
+                <div class="checkbox-group" id="fileSystemCheckboxes"></div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Document Type:</label>
+                <div class="checkbox-group" id="fileDocumentTypeCheckboxes"></div>
+              </div>
+              <div class="form-group">
+                <label>Health Type/Process:</label>
+                <div class="checkbox-group" id="fileHealthTypeCheckboxes"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit"><i class="fas fa-upload"></i> Upload File Now</button>
+            </div>
+            <div id="uploadMessage" class="message"></div>
+          </form>
+        </div>
+        <div id="manage-files" class="tab-content">
+          <h3>Manage Uploaded Files</h3>
+          <div style="overflow-x: auto;">
+            <table class="file-table">
+              <thead>
+                <tr>
+                  <th>Filename</th>
+                  <th>Type</th>
+                  <th>Categories</th>
+                  <th>System</th>
+                  <th>Doc Type</th>
+                  <th>Health Type</th>
+                  <th>Uploaded Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="fileList">
+                <tr><td colspan="8">Loading files...</td></tr>
+              </tbody>
+            </table>
           </div>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>Categories:</label>
-                <div class="checkbox-group" id="fileCategoriesCheckboxes">
-                    </div>
-            </div>
-
-            <div class="form-group">
-                <label>Associated System:</label>
-                <div class="checkbox-group" id="fileSystemCheckboxes">
-                    </div>
-            </div>
+        <div id="audit-log" class="tab-content">
+          <h3>System Audit Logs</h3>
+          <div style="overflow-x: auto;">
+            <table class="audit-table">
+              <thead>
+                <tr><th>User</th><th>Action</th><th>File ID</th><th>Details</th><th>Time</th></tr>
+              </thead>
+              <tbody id="auditLogList"><tr><td colspan="5">Loading...</td></tr></tbody>
+            </table>
+          </div>
         </div>
-
-        <div class="form-row">
-            <div class="form-group">
-                <label>Document Type:</label>
-                <div class="checkbox-group" id="fileDocumentTypeCheckboxes">
-                    </div>
-            </div>
-
-            <div class="form-group">
-                <label>Health Type/Process:</label>
-                <div class="checkbox-group" id="fileHealthTypeCheckboxes">
-                    </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-          <button type="submit"><i class="fas fa-upload"></i> Upload File Now</button>
-        </div>
-        <div id="uploadMessage" class="message"></div>
-      </form>
-    </div>
-
-    <div id="manage-files" class="tab-content">
-      <h3>Manage Uploaded Files</h3>
-      <div style="overflow-x: auto;">
-          <table class="file-table">
-            <thead>
-              <tr>
-                <th>Filename</th>
-                <th>Type</th>
-                <th>Categories</th>
-                <th>System</th>
-                <th>Doc Type</th>
-                <th>Health Type</th>
-                <th>Uploaded Date</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="fileList">
-              <tr><td colspan="8">Loading files...</td></tr>
-            </tbody>
-          </table>
       </div>
     </div>
-
-    <div id="audit-log" class="tab-content">
-      <h3>System Audit Logs</h3>
-      <div style="overflow-x: auto;">
-          <table class="audit-table">
-            <thead>
-              <tr><th>User</th><th>Action</th><th>File ID</th><th>Details</th><th>Time</th></tr>
-            </thead>
-            <tbody id="auditLogList"><tr><td colspan="5">Loading...</td></tr></tbody>
-          </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="editModal" class="modal">
-  <div class="modal-content">
-    <h3>Edit File Details</h3>
-    <input type="hidden" id="editFileId">
-    <div>
-      <label for="editOriginalName">Filename:</label>
-      <input type="text" id="editOriginalName" placeholder="Enter new filename">
-    </div>
-    
-    <div class="form-row">
-        <div class="form-group">
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <h3>Edit File Details</h3>
+        <input type="hidden" id="editFileId">
+        <div>
+          <label for="editOriginalName">Filename:</label>
+          <input type="text" id="editOriginalName" placeholder="Enter new filename">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
             <label>Categories:</label>
-            <div class="checkbox-group" id="editCategoriesCheckboxes">
-                </div>
-        </div>
-
-        <div class="form-group">
+            <div class="checkbox-group" id="editCategoriesCheckboxes"></div>
+          </div>
+          <div class="form-group">
             <label>Associated System:</label>
-            <div class="checkbox-group" id="editSystemCheckboxes">
-                </div>
+            <div class="checkbox-group" id="editSystemCheckboxes"></div>
+          </div>
         </div>
-    </div>
-
-    <div class="form-row">
-        <div class="form-group">
+        <div class="form-row">
+          <div class="form-group">
             <label>Document Type:</label>
-            <div class="checkbox-group" id="editDocumentTypeCheckboxes">
-                </div>
-        </div>
-
-        <div class="form-group">
+            <div class="checkbox-group" id="editDocumentTypeCheckboxes"></div>
+          </div>
+          <div class="form-group">
             <label>Health Type/Process:</label>
-            <div class="checkbox-group" id="editHealthTypeCheckboxes">
-                </div>
+            <div class="checkbox-group" id="editHealthTypeCheckboxes"></div>
+          </div>
         </div>
+        <div class="modal-buttons">
+          <button onclick="saveEdit()">Save Changes</button>
+          <button class="cancel-btn" onclick="closeEditModal()">Cancel</button>
+        </div>
+      </div>
     </div>
+    <div class="overlay" onclick="toggleSidebar()"></div>
+    <script>
+      // --- Helper Functions ---
 
-    <div class="modal-buttons">
-      <button onclick="saveEdit()">Save Changes</button>
-      <button class="cancel-btn" onclick="closeEditModal()">Cancel</button>
-    </div>
-  </div>
-</div>
+      /**
+       * Utility to safely render text in HTML context.
+       */
+      function escapeHtml(unsafe) {
+        return unsafe
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
 
-<div class="overlay" onclick="toggleSidebar()"></div>
+      /**
+       * Displays a message in a specified message element.
+       * @param {HTMLElement} messageElement - The DOM element to display the message.
+       * @param {string} message - The message text.
+       * @param {string} type - 'success' or 'error'.
+       */
+      function showMessage(messageElement, message, type) {
+        messageElement.textContent = message;
+        messageElement.className = `message ${type}`;
+        messageElement.style.display = 'block';
+        setTimeout(() => {
+          messageElement.style.display = 'none';
+        }, 5000);
+      }
 
-<script>
-// --- Helper Functions ---
+      // --- Sidebar/Tab Management ---
 
-/**
- * Utility to safely render text in HTML context.
- */
-function escapeHtml(unsafe) {
-  return unsafe
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
-}
+      // Function to update active tab and content
+      function showTab(tabId) {
+        document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
+        document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        document.querySelector(`.nav-link[data-tab="${tabId}"]`).classList.add('active');
+        if (window.innerWidth <= 768) {
+          toggleSidebar();
+        }
+        if (tabId === 'manage-files') loadUploadedFiles();
+        if (tabId === 'audit-log') loadAuditLogs();
+      }
 
-/**
- * Displays a message in a specified message element.
- * @param {HTMLElement} messageElement - The DOM element to display the message.
- * @param {string} message - The message text.
- * @param {string} type - 'success' or 'error'.
- */
-function showMessage(messageElement, message, type) {
-    messageElement.textContent = message;
-    messageElement.className = `message ${type}`;
-    messageElement.style.display = 'block';
-    setTimeout(() => {
-        messageElement.style.display = 'none';
-    }, 5000); // Hide after 5 seconds
-}
+      // Event listeners for sidebar navigation links
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(event) {
+          event.preventDefault();
+          const tabId = this.getAttribute('data-tab');
+          showTab(tabId);
+        });
+      });
 
-// --- Sidebar/Tab Management ---
+      // Mobile Sidebar Toggle
+      function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        const overlay = document.querySelector('.overlay');
+        sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+      }
 
-// Function to update active tab and content
-function showTab(tabId) {
-    document.querySelectorAll('.tab-content').forEach(div => div.classList.remove('active'));
-    document.querySelectorAll('.nav-link').forEach(a => a.classList.remove('active'));
+      // --- Custom File Input Display ---
+      function updateFileName(input) {
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (input.files && input.files.length > 0) {
+          fileNameDisplay.textContent = input.files[0].name;
+        } else {
+          fileNameDisplay.textContent = 'No file chosen';
+        }
+      }
 
-    document.getElementById(tabId).classList.add('active');
-    document.querySelector(`.nav-link[data-tab="${tabId}"]`).classList.add('active');
+      // --- Logout Function ---
 
-    // Close sidebar on mobile after selection
-    if (window.innerWidth <= 768) {
-        toggleSidebar();
-    }
+      /**
+       * Handles user logout.
+       */
+      async function handleLogout() {
+        try {
+          const res = await fetch('/api/auth/logout', {
+            method: 'POST',
+            credentials: 'include'
+          });
+          if (res.ok) {
+            window.location.href = 'login.html';
+          } else {
+            const err = await res.json();
+            alert(err.message || 'Logout failed');
+          }
+        } catch (e) {
+          console.error('Logout error:', e);
+          alert('An error occurred during logout.');
+        }
+      }
 
-    // Load content specific to the tab when it's activated
-    if (tabId === 'manage-files') loadUploadedFiles();
-    if (tabId === 'audit-log') loadAuditLogs();
-}
-
-// Event listeners for sidebar navigation links
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(event) {
+      // --- Data Update Tab Logic ---
+      document.getElementById('dataUpdateForm').addEventListener('submit', async function(event) {
         event.preventDefault();
-        const tabId = this.getAttribute('data-tab');
-        showTab(tabId);
-    });
-});
+        const messageElement = document.getElementById('dataUpdateMessage');
+        messageElement.style.display = 'none';
 
-// Mobile Sidebar Toggle
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.querySelector('.overlay');
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-}
+        const data = {
+          facilitiesReporting: document.getElementById('facilitiesReporting').value,
+          dataSubmissionRate: document.getElementById('dataSubmissionRate').value,
+          totalRegisteredUsers: document.getElementById('totalRegisteredUsers').value,
+          activeUsers: document.getElementById('activeUsers').value,
+          lastDataSync: document.getElementById('lastDataSync').value,
+          systemUptime: document.getElementById('systemUptime').value
+        };
 
-// --- Custom File Input Display ---
-function updateFileName(input) {
-    const fileNameDisplay = document.getElementById('fileNameDisplay');
-    if (input.files && input.files.length > 0) {
-        fileNameDisplay.textContent = input.files[0].name;
-    } else {
-        fileNameDisplay.textContent = 'No file chosen';
-    }
-}
+        // Validate that all fields are filled
+        if (!data.facilitiesReporting || !data.dataSubmissionRate || !data.totalRegisteredUsers ||
+            !data.activeUsers || !data.lastDataSync || !data.systemUptime) {
+          showMessage(messageElement, 'Please fill in all fields to update data.', 'error');
+          return;
+        }
 
-
-// --- Logout Function ---
-
-/**
- * Handles user logout.
- */
-async function handleLogout() {
-  try {
-    const res = await fetch('/api/auth/logout', {
-      method: 'POST',
-      credentials: 'include' // Important for sending cookies
-    });
-    if (res.ok) {
-      window.location.href = 'login.html'; // Redirect to login page
-    } else {
-      const err = await res.json();
-      alert(err.message || 'Logout failed');
-    }
-  } catch (e) {
-    console.error('Logout error:', e);
-    alert('An error occurred during logout.');
-  }
-  }
-
-// --- Data Update Tab Logic ---
-document.getElementById('dataUpdateForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const messageElement = document.getElementById('dataUpdateMessage');
-    messageElement.style.display = 'none'; // Hide previous messages
-
-    const dataField = document.getElementById('dataField').value;
-    const dataValue = document.getElementById('dataValue').value;
-
-    if (!dataField || !dataValue) {
-        showMessage(messageElement, 'Please fill in all fields to update data.', 'error');
-        return;
-    }
-
-    try {
-        const response = await fetch('/api/data/update', { // Assuming this is your API endpoint for data updates
+        try {
+          const response = await fetch('/api/data/bulk-update', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+              'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ field: dataField, value: dataValue }),
+            body: JSON.stringify(data),
             credentials: 'include'
-        });
+          });
 
-        const result = await response.json();
+          const result = await response.json();
 
-        if (response.ok) {
-            showMessage(messageElement, result.message || 'Data updated successfully!', 'success');
-            document.getElementById('dataUpdateForm').reset(); // Clear form
-        } else {
+          if (response.ok) {
+            showMessage(messageElement, result.message || 'All data updated successfully!', 'success');
+            document.getElementById('dataUpdateForm').reset();
+          } else {
             showMessage(messageElement, result.message || 'Failed to update data. Please check input values.', 'error');
+          }
+        } catch (error) {
+          console.error('Error updating data:', error);
+          showMessage(messageElement, 'An unexpected error occurred while updating data. Please try again.', 'error');
         }
-    } catch (error) {
-        console.error('Error updating data:', error);
-        showMessage(messageElement, 'An unexpected error occurred while updating data. Please try again.', 'error');
-    }
-});
+      });
 
+      // --- File Upload Tab Logic ---
 
-// --- File Upload Tab Logic ---
+      // Define options for checkboxes
+      const uploadOptions = {
+        categories: ['Reports', 'Guidelines', 'Training', 'Manuals', 'Forms', 'Presentations', 'Policies', 'Data Tools', 'Other'],
+        systems: ['DHIS2', 'PTracker', 'NDW', 'MPI', 'e-Notification', 'MFL', 'Other'],
+        documentTypes: ['Training Manual', 'User Manual', 'Policy Document', 'Statistical Report', 'Clinical Guideline', 'Form', 'Presentation', 'Video', 'Audio', 'Image', 'Other'],
+        healthTypes: ['Surveillance', 'Inpatient Management', 'Outpatient Services', 'Data Capturing', 'Data Analysis', 'Immunization', 'Maternal & Child Health', 'HIV/AIDS', 'TB', 'Malaria', 'Pharmacy', 'Lab Services', 'Community Health', 'Other']
+      };
 
-// Define options for checkboxes
-const uploadOptions = {
-    categories: ['Reports', 'Guidelines', 'Training', 'Manuals', 'Forms', 'Presentations', 'Policies', 'Data Tools', 'Other'],
-    systems: ['DHIS2', 'PTracker', 'NDW', 'MPI', 'e-Notification', 'MFL', 'Other'],
-    documentTypes: ['Training Manual', 'User Manual', 'Policy Document', 'Statistical Report', 'Clinical Guideline', 'Form', 'Presentation', 'Video', 'Audio', 'Image', 'Other'],
-    healthTypes: ['Surveillance', 'Inpatient Management', 'Outpatient Services', 'Data Capturing', 'Data Analysis', 'Immunization', 'Maternal & Child Health', 'HIV/AIDS', 'TB', 'Malaria', 'Pharmacy', 'Lab Services', 'Community Health', 'Other']
-};
-
-/**
- * Populates a checkbox group.
- * @param {HTMLElement} container - The div element to populate.
- * @param {string[]} options - An array of string options.
- * @param {string} namePrefix - The name prefix for the checkbox inputs (e.g., 'categories').
- * @param {string[]} [selectedValues=[]] - An array of values that should be pre-checked.
- */
-function populateCheckboxes(container, options, namePrefix, selectedValues = []) {
-    container.innerHTML = ''; // Clear existing
-    options.forEach(option => {
-        const id = `${namePrefix}-${option.replace(/\s+/g, '-').toLowerCase()}`;
-        const isChecked = selectedValues.includes(option);
-        container.innerHTML += `
+      /**
+       * Populates a checkbox group.
+       * @param {HTMLElement} container - The div element to populate.
+       * @param {string[]} options - An array of string options.
+       * @param {string} namePrefix - The name prefix for the checkbox inputs (e.g., 'categories').
+       * @param {string[]} [selectedValues=[]] - An array of values that should be pre-checked.
+       */
+      function populateCheckboxes(container, options, namePrefix, selectedValues = []) {
+        container.innerHTML = '';
+        options.forEach(option => {
+          const id = `${namePrefix}-${option.replace(/\s+/g, '-').toLowerCase()}`;
+          const isChecked = selectedValues.includes(option);
+          container.innerHTML += `
             <label for="${id}">
-                <input type="checkbox" id="${id}" name="${namePrefix}[]" value="${escapeHtml(option)}" ${isChecked ? 'checked' : ''}>
-                ${escapeHtml(option)}
+              <input type="checkbox" id="${id}" name="${namePrefix}[]" value="${escapeHtml(option)}" ${isChecked ? 'checked' : ''}>
+              ${escapeHtml(option)}
             </label>
-        `;
-    });
-}
-
-// Populate upload form checkboxes on DOMContentLoaded
-document.addEventListener('DOMContentLoaded', () => {
-    populateCheckboxes(document.getElementById('fileCategoriesCheckboxes'), uploadOptions.categories, 'categories');
-    populateCheckboxes(document.getElementById('fileSystemCheckboxes'), uploadOptions.systems, 'system');
-    populateCheckboxes(document.getElementById('fileDocumentTypeCheckboxes'), uploadOptions.documentTypes, 'documentType');
-    populateCheckboxes(document.getElementById('fileHealthTypeCheckboxes'), uploadOptions.healthTypes, 'healthType');
-});
-
-document.getElementById('uploadForm').addEventListener('submit', async function(event) {
-    event.preventDefault();
-    const messageElement = document.getElementById('uploadMessage');
-    messageElement.style.display = 'none'; // Hide previous messages
-
-    const fileInput = document.getElementById('fileInput');
-    if (fileInput.files.length === 0) {
-        showMessage(messageElement, 'Please select a file to upload.', 'error');
-        return;
-    }
-
-    // Get selected checkbox values (before validation check for mandatory fields)
-    const getCheckedValues = (name) => {
-        return Array.from(document.querySelectorAll(`input[name="${name}[]"]:checked`))
-                    .map(checkbox => checkbox.value);
-    };
-
-    const categories = getCheckedValues('categories');
-    const system = getCheckedValues('system');
-    const documentType = getCheckedValues('documentType');
-    const healthType = getCheckedValues('healthType');
-
-    // --- Validation for mandatory fields ---
-    if (categories.length === 0) {
-        showMessage(messageElement, 'Please select at least one Category.', 'error');
-        return;
-    }
-    if (system.length === 0) {
-        showMessage(messageElement, 'Please select at least one Associated System.', 'error');
-        return;
-    }
-    if (documentType.length === 0) {
-        showMessage(messageElement, 'Please select at least one Document Type.', 'error');
-        return;
-    }
-    if (healthType.length === 0) {
-        showMessage(messageElement, 'Please select at least one Health Type/Process.', 'error');
-        return;
-    }
-
-    // Create FormData object
-    const formData = new FormData();
-
-    // Append the file FIRST
-    formData.append('file', fileInput.files[0]); // Key 'file' must match Multer's upload.single('file')
-
-    // Append the other form fields (checkbox arrays) to FormData as JSON strings
-    formData.append('categories', JSON.stringify(categories));
-    formData.append('system', JSON.stringify(system));
-    formData.append('documentType', JSON.stringify(documentType));
-    formData.append('healthType', JSON.stringify(healthType));
-
-    try {
-        // Use full URL if not running on same origin (e.g., frontend on 3000, backend on 9000)
-        // If frontend and backend are on the same origin (e.g., both served by Node.js on 9000),
-        // then '/api/files/upload' is sufficient.
-        const response = await fetch('/api/files/upload', {
-            method: 'POST',
-            body: formData, // <--- Send FormData directly!
-            credentials: 'include'
-            // DO NOT set 'Content-Type' header manually for FormData.
-            // The browser handles it automatically.
+          `;
         });
+      }
 
-        const result = await response.json();
+      // Populate upload form checkboxes on DOMContentLoaded
+      document.addEventListener('DOMContentLoaded', () => {
+        populateCheckboxes(document.getElementById('fileCategoriesCheckboxes'), uploadOptions.categories, 'categories');
+        populateCheckboxes(document.getElementById('fileSystemCheckboxes'), uploadOptions.systems, 'system');
+        populateCheckboxes(document.getElementById('fileDocumentTypeCheckboxes'), uploadOptions.documentTypes, 'documentType');
+        populateCheckboxes(document.getElementById('fileHealthTypeCheckboxes'), uploadOptions.healthTypes, 'healthType');
+      });
 
-        if (response.ok) {
+      document.getElementById('uploadForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const messageElement = document.getElementById('uploadMessage');
+        messageElement.style.display = 'none';
+
+        const fileInput = document.getElementById('fileInput');
+        if (fileInput.files.length === 0) {
+          showMessage(messageElement, 'Please select a file to upload.', 'error');
+          return;
+        }
+
+        const getCheckedValues = (name) => {
+          return Array.from(document.querySelectorAll(`input[name="${name}[]"]:checked`))
+            .map(checkbox => checkbox.value);
+        };
+
+        const categories = getCheckedValues('categories');
+        const system = getCheckedValues('system');
+        const documentType = getCheckedValues('documentType');
+        const healthType = getCheckedValues('healthType');
+
+        if (categories.length === 0) {
+          showMessage(messageElement, 'Please select at least one Category.', 'error');
+          return;
+        }
+        if (system.length === 0) {
+          showMessage(messageElement, 'Please select at least one Associated System.', 'error');
+          return;
+        }
+        if (documentType.length === 0) {
+          showMessage(messageElement, 'Please select at least one Document Type.', 'error');
+          return;
+        }
+        if (healthType.length === 0) {
+          showMessage(messageElement, 'Please select at least one Health Type/Process.', 'error');
+          return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+        formData.append('categories', JSON.stringify(categories));
+        formData.append('system', JSON.stringify(system));
+        formData.append('documentType', JSON.stringify(documentType));
+        formData.append('healthType', JSON.stringify(healthType));
+
+        try {
+          const response = await fetch('/api/files/upload', {
+            method: 'POST',
+            body: formData,
+            credentials: 'include'
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
             showMessage(messageElement, result.message || 'File uploaded successfully!', 'success');
-            document.getElementById('uploadForm').reset(); // Clear form
-            updateFileName(fileInput); // Reset file name display
-            
-            // Also reset checkboxes visually by re-populating them without selected values
+            document.getElementById('uploadForm').reset();
+            updateFileName(fileInput);
             populateCheckboxes(document.getElementById('fileCategoriesCheckboxes'), uploadOptions.categories, 'categories');
             populateCheckboxes(document.getElementById('fileSystemCheckboxes'), uploadOptions.systems, 'system');
             populateCheckboxes(document.getElementById('fileDocumentTypeCheckboxes'), uploadOptions.documentTypes, 'documentType');
             populateCheckboxes(document.getElementById('fileHealthTypeCheckboxes'), uploadOptions.healthTypes, 'healthType');
-
-            loadUploadedFiles(); // Refresh the file list if on the manage-files tab
-        } else {
-            // If response is not OK, try to get a more specific error message from the server
+            loadUploadedFiles();
+          } else {
             showMessage(messageElement, result.message || 'File upload failed. Please try again.', 'error');
+          }
+        } catch (error) {
+          console.error('Error during file upload:', error);
+          showMessage(messageElement, 'An unexpected error occurred during file upload. Please try again.', 'error');
         }
-    } catch (error) {
-        console.error('Error during file upload:', error);
-        showMessage(messageElement, 'An unexpected error occurred during file upload. Please check your network and try again.', 'error');
-    }
-});
+      });
 
-// --- Manage Files Tab Logic ---
+      // --- Manage Files Tab Logic ---
 
-/**
- * Load uploaded files from the backend.
- */
-async function loadUploadedFiles() {
-  const fileList = document.getElementById('fileList');
-  // Changed colspan to 8 for the new column layout (excluding download as a separate column)
-  fileList.innerHTML = '<tr><td colspan="8">Loading files...</td></tr>';
-  try {
-    const res = await fetch('/api/files/list', { credentials: 'include' }); // Ensure correct API endpoint
-    const data = await res.json();
+      /**
+       * Load uploaded files from the backend.
+       */
+      async function loadUploadedFiles() {
+        const fileList = document.getElementById('fileList');
+        fileList.innerHTML = '<tr><td colspan="8">Loading files...</td></tr>';
+        try {
+          const res = await fetch('/api/files/list', { credentials: 'include' });
+          const data = await res.json();
 
-    fileList.innerHTML = '';
-    if (!data.files || data.files.length === 0) {
-      fileList.innerHTML = '<tr><td colspan="8">No files found. Upload some to see them here!</td></tr>';
-      return;
-    }
+          fileList.innerHTML = '';
+          if (!data.files || data.files.length === 0) {
+            fileList.innerHTML = '<tr><td colspan="8">No files found. Upload some to see them here!</td></tr>';
+            return;
+          }
 
-    data.files.forEach(f => {
-      const row = document.createElement('tr');
-      // Ensure file.filename is the actual path to the file on your server, e.g., /uploads/my_file.pdf
-      const downloadPath = `/uploads/${encodeURIComponent(f.filename)}`; // Use encodeURIComponent for safety
-      
-      // Categories are JSONB array, so join them for display
-      const categoriesDisplay = Array.isArray(f.categories) ? f.categories.join(', ') : (f.categories || 'N/A');
+          data.files.forEach(f => {
+            const row = document.createElement('tr');
+            const downloadPath = `/uploads/${encodeURIComponent(f.filename)}`;
+            const categoriesDisplay = Array.isArray(f.categories) ? f.categories.join(', ') : (f.categories || 'N/A');
+            const systemDisplay = Array.isArray(f.system) ? f.system.join(', ') : (f.system || 'N/A');
+            const documentTypeDisplay = Array.isArray(f.document_type) ? f.document_type.join(', ') : (f.document_type || 'N/A');
+            const healthTypeDisplay = Array.isArray(f.health_type) ? f.health_type.join(', ') : (f.health_type || 'N/A');
 
-      // Assuming your database schema for uploaded_files ONLY has:
-      // id, filename, original_name, mimetype, categories, upload_date
-      // If you add system, document_type, health_type to your DB, you'll need to fetch them
-      // and display them here similar to categories. For now, they'll be N/A.
-      const systemDisplay = Array.isArray(f.system) ? f.system.join(', ') : 'N/A';
-      const documentTypeDisplay = Array.isArray(f.document_type) ? f.document_type.join(', ') : 'N/A';
-      const healthTypeDisplay = Array.isArray(f.health_type) ? f.health_type.join(', ') : 'N/A';
+            row.innerHTML = `
+              <td><a href="${downloadPath}" target="_blank" rel="noopener noreferrer">${escapeHtml(f.original_name || f.filename)}</a></td>
+              <td>${escapeHtml(f.mimetype || 'N/A')}</td>
+              <td>${escapeHtml(categoriesDisplay)}</td>
+              <td>${escapeHtml(systemDisplay)}</td>
+              <td>${escapeHtml(documentTypeDisplay)}</td>
+              <td>${escapeHtml(healthTypeDisplay)}</td>
+              <td>${new Date(f.upload_date).toLocaleString()}</td>
+              <td class="action-buttons">
+                <a href="${downloadPath}" download="${escapeHtml(f.original_name || f.filename)}" class="download-btn"><i class="fas fa-download"></i> Download</a>
+                <button class="edit-btn" onclick="showEditModal(
+                  ${f.id},
+                  '${escapeHtml(f.original_name || f.filename)}',
+                  '${escapeHtml(JSON.stringify(f.categories || []))}',
+                  '${escapeHtml(JSON.stringify(f.system || []))}',
+                  '${escapeHtml(JSON.stringify(f.document_type || []))}',
+                  '${escapeHtml(JSON.stringify(f.health_type || []))}'
+                )"><i class="fas fa-edit"></i> Edit</button>
+                <button class="delete-btn" onclick="deleteFile(${f.id}, '${escapeHtml(f.original_name || f.filename)}')"><i class="fas fa-trash-alt"></i> Delete</button>
+              </td>
+            `;
+            fileList.appendChild(row);
+          });
+        } catch (err) {
+          console.error('Failed to load files:', err);
+          fileList.innerHTML = '<tr><td colspan="8">Failed to load files. Please check console for errors or your network connection.</td></tr>';
+        }
+      }
 
+      /**
+       * Delete a file.
+       * @param {number} fileId - The ID of the file to delete.
+       * @param {string} fileName - The name of the file (for confirmation message).
+       */
+      async function deleteFile(fileId, fileName) {
+        if (!confirm(`Are you sure you want to delete "${fileName}"? This action cannot be undone.`)) {
+          return;
+        }
 
-      row.innerHTML = `
-        <td><a href="${downloadPath}" target="_blank" rel="noopener noreferrer">${escapeHtml(f.original_name || f.filename)}</a></td>
-        <td>${escapeHtml(f.mimetype || 'N/A')}</td>
-        <td>${escapeHtml(categoriesDisplay)}</td>
-        <td>${escapeHtml(systemDisplay)}</td>
-        <td>${escapeHtml(documentTypeDisplay)}</td>
-        <td>${escapeHtml(healthTypeDisplay)}</td>
-        <td>${new Date(f.upload_date).toLocaleString()}</td>
-        <td class="action-buttons">
-            <a href="${downloadPath}" download="${escapeHtml(f.original_name || f.filename)}" class="download-btn"><i class="fas fa-download"></i> Download</a>
-            <button class="edit-btn" onclick="showEditModal(
-                ${f.id},
-                '${escapeHtml(f.original_name || f.filename)}',
-                '${escapeHtml(JSON.stringify(f.categories || []))}',
-                '${escapeHtml(JSON.stringify(f.system || []))}',
-                '${escapeHtml(JSON.stringify(f.document_type || []))}',
-                '${escapeHtml(JSON.stringify(f.health_type || []))}'
-            )"><i class="fas fa-edit"></i> Edit</button>
-            <button class="delete-btn" onclick="deleteFile(${f.id}, '${escapeHtml(f.original_name || f.filename)}')"><i class="fas fa-trash-alt"></i> Delete</button>
-        </td>
-      `;
-      fileList.appendChild(row);
-    });
-  } catch (err) {
-    console.error('Failed to load files:', err);
-    fileList.innerHTML = '<tr><td colspan="8">Failed to load files. Please check console for errors or your network connection.</td></tr>';
-  }
-}
-
-/**
- * Delete a file.
- * @param {number} fileId - The ID of the file to delete.
- * @param {string} fileName - The name of the file (for confirmation message).
- */
-async function deleteFile(fileId, fileName) {
-    if (!confirm(`Are you sure you want to delete "${fileName}"? This action cannot be undone.`)) {
-        return;
-    }
-
-    try {
-        const response = await fetch(`/api/files/${fileId}`, { // API endpoint for deletion
+        try {
+          const response = await fetch(`/api/files/${fileId}`, {
             method: 'DELETE',
             credentials: 'include'
-        });
+          });
 
-        const result = await response.json();
-        if (response.ok) {
+          const result = await response.json();
+          if (response.ok) {
             alert(result.message || 'File deleted successfully!');
-            loadUploadedFiles(); // Refresh the list
-        } else {
+            loadUploadedFiles();
+          } else {
             alert(result.message || 'Failed to delete file.');
+          }
+        } catch (error) {
+          console.error('Error deleting file:', error);
+          alert('An error occurred while deleting the file. Please try again.');
         }
-    } catch (error) {
-        console.error('Error deleting file:', error);
-        alert('An error occurred while deleting the file. Please try again.');
-    }
-}
+      }
 
-// --- Edit Modal Logic ---
+      // --- Edit Modal Logic ---
 
-let currentEditFileId = null; // Store the ID of the file currently being edited
+      let currentEditFileId = null;
 
-/**
- * Shows the edit modal and populates it with file data.
- */
-function showEditModal(id, originalName, categoriesJsonStr, systemJsonStr, documentTypeJsonStr, healthTypeJsonStr) {
-    currentEditFileId = id;
-    document.getElementById('editFileId').value = id;
-    document.getElementById('editOriginalName').value = originalName;
+      /**
+       * Shows the edit modal and populates it with file data.
+       */
+      function showEditModal(id, originalName, categoriesJsonStr, systemJsonStr, documentTypeJsonStr, healthTypeJsonStr) {
+        currentEditFileId = id;
+        document.getElementById('editFileId').value = id;
+        document.getElementById('editOriginalName').value = originalName;
 
-    // Parse JSON strings back to arrays for pre-checking checkboxes
-    const categoriesArray = categoriesJsonStr ? JSON.parse(categoriesJsonStr) : [];
-    const systemsArray = systemJsonStr ? JSON.parse(systemJsonStr) : [];
-    const documentTypesArray = documentTypeJsonStr ? JSON.parse(documentTypeJsonStr) : [];
-    const healthTypesArray = healthTypeJsonStr ? JSON.parse(healthTypeJsonStr) : [];
+        const categoriesArray = categoriesJsonStr ? JSON.parse(categoriesJsonStr) : [];
+        const systemsArray = systemJsonStr ? JSON.parse(systemJsonStr) : [];
+        const documentTypesArray = documentTypeJsonStr ? JSON.parse(documentTypeJsonStr) : [];
+        const healthTypesArray = healthTypeJsonStr ? JSON.parse(healthTypeJsonStr) : [];
 
-    populateCheckboxes(document.getElementById('editCategoriesCheckboxes'), uploadOptions.categories, 'editCategories', categoriesArray);
-    populateCheckboxes(document.getElementById('editSystemCheckboxes'), uploadOptions.systems, 'editSystem', systemsArray);
-    populateCheckboxes(document.getElementById('editDocumentTypeCheckboxes'), uploadOptions.documentTypes, 'editDocumentType', documentTypesArray);
-    populateCheckboxes(document.getElementById('editHealthTypeCheckboxes'), uploadOptions.healthTypes, 'editHealthType', healthTypesArray);
-    
-    document.getElementById('editModal').style.display = 'flex'; // Use flex to center
-}
+        populateCheckboxes(document.getElementById('editCategoriesCheckboxes'), uploadOptions.categories, 'editCategories', categoriesArray);
+        populateCheckboxes(document.getElementById('editSystemCheckboxes'), uploadOptions.systems, 'editSystem', systemsArray);
+        populateCheckboxes(document.getElementById('editDocumentTypeCheckboxes'), uploadOptions.documentTypes, 'editDocumentType', documentTypesArray);
+        populateCheckboxes(document.getElementById('editHealthTypeCheckboxes'), uploadOptions.healthTypes, 'editHealthType', healthTypesArray);
 
-/**
- * Closes the edit modal.
- */
-function closeEditModal() {
-    document.getElementById('editModal').style.display = 'none';
-    currentEditFileId = null;
-}
+        document.getElementById('editModal').style.display = 'flex';
+      }
 
-/**
- * Saves edited file details to the backend.
- */
-async function saveEdit() {
-    if (currentEditFileId === null) return;
+      /**
+       * Closes the edit modal.
+       */
+      function closeEditModal() {
+        document.getElementById('editModal').style.display = 'none';
+        currentEditFileId = null;
+      }
 
-    // Get selected checkbox values for editing
-    const getCheckedEditValues = (name) => {
-        return Array.from(document.querySelectorAll(`#editModal input[name="${name}[]"]:checked`))
-                    .map(checkbox => checkbox.value);
-    };
+      /**
+       * Saves edited file details to the backend.
+       */
+      async function saveEdit() {
+        if (currentEditFileId === null) return;
 
-    const updatedDetails = {
-        original_name: document.getElementById('editOriginalName').value,
-        categories: getCheckedEditValues('editCategories'), // Send as array directly
-        system: getCheckedEditValues('editSystem'),
-        documentType: getCheckedEditValues('editDocumentType'),
-        healthType: getCheckedEditValues('editHealthType')
-    };
+        const getCheckedEditValues = (name) => {
+          return Array.from(document.querySelectorAll(`#editModal input[name="${name}[]"]:checked`))
+            .map(checkbox => checkbox.value);
+        };
 
-    // --- Validation for mandatory fields in edit modal ---
-    if (updatedDetails.categories.length === 0) {
-        alert('Please select at least one Category for the edited file.');
-        return;
-    }
-    if (updatedDetails.system.length === 0) {
-        alert('Please select at least one Associated System for the edited file.');
-        return;
-    }
-    if (updatedDetails.documentType.length === 0) {
-        alert('Please select at least one Document Type for the edited file.');
-        return;
-    }
-    if (updatedDetails.healthType.length === 0) {
-        alert('Please select at least one Health Type/Process for the edited file.');
-        return;
-    }
-    // --- End Validation ---
+        const updatedDetails = {
+          original_name: document.getElementById('editOriginalName').value,
+          categories: getCheckedEditValues('editCategories'),
+          system: getCheckedEditValues('editSystem'),
+          documentType: getCheckedEditValues('editDocumentType'),
+          healthType: getCheckedEditValues('editHealthType')
+        };
 
+        if (updatedDetails.categories.length === 0) {
+          alert('Please select at least one Category for the edited file.');
+          return;
+        }
+        if (updatedDetails.system.length === 0) {
+          alert('Please select at least one Associated System for the edited file.');
+          return;
+        }
+        if (updatedDetails.documentType.length === 0) {
+          alert('Please select at least one Document Type for the edited file.');
+          return;
+        }
+        if (updatedDetails.healthType.length === 0) {
+          alert('Please select at least one Health Type/Process for the edited file.');
+          return;
+        }
 
-    try {
-        const response = await fetch(`/api/files/${currentEditFileId}`, { // API endpoint for update
-            method: 'PATCH', // Use PATCH for partial updates
+        try {
+          const response = await fetch(`/api/files/${currentEditFileId}`, {
+            method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify(updatedDetails),
             credentials: 'include'
-        });
+          });
 
-        const result = await response.json();
+          const result = await response.json();
 
-        if (response.ok) {
+          if (response.ok) {
             alert(result.message || 'File updated successfully!');
             closeEditModal();
-            loadUploadedFiles(); // Refresh file list
-        } else {
+            loadUploadedFiles();
+          } else {
             alert(result.message || 'Failed to update file details.');
+          }
+        } catch (error) {
+          console.error('Error updating file:', error);
+          alert('An unexpected error occurred while updating file. Please try again.');
         }
-    } catch (error) {
-        console.error('Error updating file:', error);
-        alert('An unexpected error occurred while updating file. Please try again.');
-    }
-}
+      }
 
-// --- Audit Log Tab Logic ---
+      // --- Audit Log Tab Logic ---
 
-/**
- * Loads audit logs from the backend.
- */
-async function loadAuditLogs() {
-    const auditLogList = document.getElementById('auditLogList');
-    auditLogList.innerHTML = '<tr><td colspan="5">Loading audit logs...</td></tr>';
-    try {
-        const res = await fetch('/api/files/audit', { credentials: 'include' }); // API endpoint for audit logs
-        const data = await res.json();
+      /**
+       * Loads audit logs from the backend.
+       */
+      async function loadAuditLogs() {
+        const auditLogList = document.getElementById('auditLogList');
+        auditLogList.innerHTML = '<tr><td colspan="5">Loading audit logs...</td></tr>';
+        try {
+          const res = await fetch('/api/files/audit', { credentials: 'include' });
+          const data = await res.json();
 
-        auditLogList.innerHTML = '';
-        if (!data.logs || data.logs.length === 0) {
+          auditLogList.innerHTML = '';
+          if (!data.logs || data.logs.length === 0) {
             auditLogList.innerHTML = '<tr><td colspan="5">No audit logs found.</td></tr>';
             return;
-        }
+          }
 
-        data.logs.forEach(log => {
+          data.logs.forEach(log => {
             const row = document.createElement('tr');
             row.innerHTML = `
-                <td>${escapeHtml(log.user_name || 'N/A')}</td>
-                <td>${escapeHtml(log.action || 'N/A')}</td>
-                <td>${escapeHtml(log.file_id || 'N/A')}</td>
-                <td>${escapeHtml(log.details || 'N/A')}</td>
-                <td>${new Date(log.timestamp).toLocaleString()}</td>
+              <td>${escapeHtml(log.user_name || 'N/A')}</td>
+              <td>${escapeHtml(log.action || 'N/A')}</td>
+              <td>${escapeHtml(log.file_id || 'N/A')}</td>
+              <td>${escapeHtml(log.details || 'N/A')}</td>
+              <td>${new Date(log.timestamp).toLocaleString()}</td>
             `;
             auditLogList.appendChild(row);
-        });
-    } catch (err) {
-        console.error('Failed to load audit logs:', err);
-        auditLogList.innerHTML = '<tr><td colspan="5">Failed to load audit logs. Please check console for errors or your network connection.</td></tr>';
-    }
-}
+          });
+        } catch (err) {
+          console.error('Failed to load audit logs:', err);
+          auditLogList.innerHTML = '<tr><td colspan="5">Failed to load audit logs. Please check console for errors or your network connection.</td></tr>';
+        }
+      }
 
-// --- Initialization ---
+      // --- Initialization ---
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize particles.js for the header background
-    if (typeof particlesJS !== 'undefined') {
-        particlesJS('header-particles-js', {
+      document.addEventListener('DOMContentLoaded', () => {
+        if (typeof particlesJS !== 'undefined') {
+          particlesJS('header-particles-js', {
             "particles": {
-                "number": {
-                    "value": 30,
-                    "density": {
-                        "enable": true,
-                        "value_area": 800
-                    }
-                },
-                "color": {
-                    "value": "#ffffff"
-                },
-                "shape": {
-                    "type": "circle",
-                    "stroke": {
-                        "width": 0,
-                        "color": "#000000"
-                    },
-                    "polygon": {
-                        "nb_sides": 5
-                    }
-                },
-                "opacity": {
-                    "value": 0.5,
-                    "random": false,
-                    "anim": {
-                        "enable": false,
-                        "speed": 1,
-                        "opacity_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "size": {
-                    "value": 3,
-                    "random": true,
-                    "anim": {
-                        "enable": false,
-                        "speed": 40,
-                        "size_min": 0.1,
-                        "sync": false
-                    }
-                },
-                "line_linked": {
-                    "enable": true,
-                    "distance": 150,
-                    "color": "#ffffff",
-                    "opacity": 0.4,
-                    "width": 1
-                },
-                "move": {
-                    "enable": true,
-                    "speed": 3,
-                    "direction": "none",
-                    "random": false,
-                    "straight": false,
-                    "out_mode": "out",
-                    "bounce": false,
-                    "attract": {
-                        "enable": false,
-                        "rotateX": 600,
-                        "rotateY": 1200
-                    }
-                }
+              "number": { "value": 30, "density": { "enable": true, "value_area": 800 } },
+              "color": { "value": "#ffffff" },
+              "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" }, "polygon": { "nb_sides": 5 } },
+              "opacity": { "value": 0.5, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } },
+              "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } },
+              "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+              "move": { "enable": true, "speed": 3, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } }
             },
             "interactivity": {
-                "detect_on": "canvas",
-                "events": {
-                    "onhover": {
-                        "enable": true,
-                        "mode": "grab"
-                    },
-                    "onclick": {
-                        "enable": true,
-                        "mode": "push"
-                    },
-                    "resize": true
-                },
-                "modes": {
-                    "grab": {
-                        "distance": 140,
-                        "line_linked": {
-                            "opacity": 1
-                        }
-                    },
-                    "bubble": {
-                        "distance": 400,
-                        "size": 40,
-                        "duration": 2,
-                        "opacity": 8,
-                        "speed": 3
-                    },
-                    "repulse": {
-                        "distance": 200,
-                        "duration": 0.4
-                    },
-                    "push": {
-                        "particles_nb": 4
-                    },
-                    "remove": {
-                        "particles_nb": 2
-                    }
-                }
+              "detect_on": "canvas",
+              "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+              "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } }
             },
             "retina_detect": true
-        });
-    }
-
-    // Show the default active tab on page load
-    showTab('data-update');
-});
-</script>
-
-</body>
+          });
+        }
+        showTab('data-update');
+      });
+    </script>
+  </body>
 </html>
