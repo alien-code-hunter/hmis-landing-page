@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Namibia - National Health Information System Portal - Admin</title>
-    <meta name="description" content="Admin portal for the Ministry of Health and Social Services, Namibia. Manage data, uploads, and audit logs." />
+    <meta name="description" content="Admin portal for the Ministry of Health and Social Services, Namibia. Manage data, uploads, audit logs, and user accounts." />
     <link rel="icon" href="/favicon.ico" />
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40jHzQj2/FVwbc4nZlWfJ8+vE1V5j/2uR+xQOqU6+i5B+s9+1i5uL/QW+N+z9I5T/Q8+j5w+A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -155,6 +155,8 @@
             color: #2b4b78;
         }
         .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
         .form-group select,
         .form-group textarea {
             width: 100%;
@@ -166,6 +168,8 @@
             box-sizing: border-box;
         }
         .form-group input[type="text"]::placeholder,
+        .form-group input[type="email"]::placeholder,
+        .form-group input[type="password"]::placeholder,
         .form-group textarea::placeholder {
             color: #999;
         }
@@ -456,7 +460,8 @@
             min-width: 250px;
             margin-bottom: 0;
         }
-        #uploadForm .form-group:last-child {
+        #uploadForm .form-group:last-child,
+        #manageUsersForm .form-group:last-child {
             margin-bottom: 0;
         }
         @media (max-width: 768px) {
@@ -482,6 +487,24 @@
             }
             .main-content-area {
                 padding: 15px;
+            }
+            .tab-content h3 {
+                font-size: 20px;
+            }
+            .form-group label {
+                font-size: 14px;
+            }
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="password"],
+            .form-group select,
+            .form-group textarea {
+                font-size: 14px;
+                padding: 8px 10px;
+            }
+            .form-group button[type="submit"] {
+                font-size: 14px;
+                padding: 10px 15px;
             }
             .file-table, .audit-table {
                 font-size: 14px;
@@ -510,6 +533,48 @@
                 width: 100%;
                 margin-bottom: 18px;
             }
+            .modal-content {
+                padding: 20px;
+                width: 95%;
+            }
+            .modal-content h3 {
+                font-size: 18px;
+            }
+            .modal-content input[type="text"],
+            .modal-content select {
+                font-size: 14px;
+                padding: 8px;
+            }
+            .modal-buttons button {
+                font-size: 14px;
+                padding: 8px 15px;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .header h1 {
+                font-size: 24px;
+            }
+            .main-content-area {
+                padding: 18px;
+            }
+            .tab-content h3 {
+                font-size: 22px;
+            }
+            .form-group label {
+                font-size: 15px;
+            }
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="password"],
+            .form-group select,
+            .form-group textarea {
+                font-size: 15px;
+                padding: 9px 11px;
+            }
+            .form-group button[type="submit"] {
+                font-size: 15px;
+                padding: 11px 18px;
+            }
         }
     </style>
   </head>
@@ -531,6 +596,7 @@
           <li><a href="#" class="nav-link" data-tab="upload-files"><i class="fas fa-upload"></i> Upload Files</a></li>
           <li><a href="#" class="nav-link" data-tab="manage-files"><i class="fas fa-folder-open"></i> Manage Files</a></li>
           <li><a href="#" class="nav-link" data-tab="audit-log"><i class="fas fa-clipboard-list"></i> Audit Logs</a></li>
+          <li><a href="#" class="nav-link" data-tab="manage-users"><i class="fas fa-users"></i> Manage Users</a></li>
         </ul>
       </div>
       <div class="main-content-area">
@@ -644,6 +710,57 @@
               <tbody id="auditLogList"><tr><td colspan="5">Loading...</td></tr></tbody>
             </table>
           </div>
+        </div>
+        <div id="manage-users" class="tab-content">
+          <h3>Manage User Accounts</h3>
+          <form id="manageUsersForm">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="fname" name="fname" placeholder="e.g., John" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="lname" name="lname" placeholder="e.g., Doe" required>
+                  </div>
+                <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" placeholder="e.g., admin123" required>
+              </div>
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" placeholder="e.g., admin@example.com" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" required>
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm password" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="role">Role:</label>
+                <select id="role" name="role" required>
+                  <option value="" disabled selected>Select a role</option>
+                  <option value="Admin">Admin</option>
+                  <option value="Super Admin">Super Admin</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Permissions:</label>
+                <div class="checkbox-group" id="userPermissionsCheckboxes"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <button type="submit"><i class="fas fa-user-plus"></i> Create User</button>
+            </div>
+            <div id="manageUsersMessage" class="message"></div>
+          </form>
         </div>
       </div>
     </div>
@@ -830,7 +947,8 @@
         categories: ['Reports', 'Guidelines', 'Training', 'Manuals', 'Forms', 'Presentations', 'Policies', 'Data Tools', 'Other'],
         systems: ['DHIS2', 'PTracker', 'NDW', 'MPI', 'e-Notification', 'MFL', 'Other'],
         documentTypes: ['Training Manual', 'User Manual', 'Policy Document', 'Statistical Report', 'Clinical Guideline', 'Form', 'Presentation', 'Video', 'Audio', 'Image', 'Other'],
-        healthTypes: ['Surveillance', 'Inpatient Management', 'Outpatient Services', 'Data Capturing', 'Data Analysis', 'Immunization', 'Maternal & Child Health', 'HIV/AIDS', 'TB', 'Malaria', 'Pharmacy', 'Lab Services', 'Community Health', 'Other']
+        healthTypes: ['Surveillance', 'Inpatient Management', 'Outpatient Services', 'Data Capturing', 'Data Analysis', 'Immunization', 'Maternal & Child Health', 'HIV/AIDS', 'TB', 'Malaria', 'Pharmacy', 'Lab Services', 'Community Health', 'Other'],
+        permissions: ['Data Update', 'Upload Files', 'Manage Files', 'Audit Logs']
       };
 
       /**
@@ -854,14 +972,81 @@
         });
       }
 
-      // Populate upload form checkboxes on DOMContentLoaded
+      // Populate upload form and user permissions checkboxes on DOMContentLoaded
       document.addEventListener('DOMContentLoaded', () => {
         populateCheckboxes(document.getElementById('fileCategoriesCheckboxes'), uploadOptions.categories, 'categories');
         populateCheckboxes(document.getElementById('fileSystemCheckboxes'), uploadOptions.systems, 'system');
         populateCheckboxes(document.getElementById('fileDocumentTypeCheckboxes'), uploadOptions.documentTypes, 'documentType');
         populateCheckboxes(document.getElementById('fileHealthTypeCheckboxes'), uploadOptions.healthTypes, 'healthType');
+        populateCheckboxes(document.getElementById('userPermissionsCheckboxes'), uploadOptions.permissions, 'permissions');
       });
 
+      // --- Manage Users Tab Logic ---
+      document.getElementById('manageUsersForm').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const messageElement = document.getElementById('manageUsersMessage');
+        messageElement.style.display = 'none';
+
+        const username = document.getElementById('username').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const role = document.getElementById('role').value;
+        const permissions = Array.from(document.querySelectorAll('input[name="permissions[]"]:checked'))
+          .map(checkbox => checkbox.value);
+
+        // Client-side validation
+        if (!username || !email || !password || !confirmPassword || !role) {
+          showMessage(messageElement, 'Please fill in all fields.', 'error');
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+          showMessage(messageElement, 'Please enter a valid email address.', 'error');
+          return;
+        }
+        if (password !== confirmPassword) {
+          showMessage(messageElement, 'Passwords do not match.', 'error');
+          return;
+        }
+        if (permissions.length === 0) {
+          showMessage(messageElement, 'Please select at least one permission.', 'error');
+          return;
+        }
+
+        const userData = {
+          username,
+          email,
+          password,
+          role,
+          permissions
+        };
+
+        try {
+          const response = await fetch('/api/users/create', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(userData),
+            credentials: 'include'
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            showMessage(messageElement, result.message || 'User created successfully!', 'success');
+            document.getElementById('manageUsersForm').reset();
+            populateCheckboxes(document.getElementById('userPermissionsCheckboxes'), uploadOptions.permissions, 'permissions');
+          } else {
+            showMessage(messageElement, result.message || 'Failed to create user. Please check input values.', 'error');
+          }
+        } catch (error) {
+          console.error('Error creating user:', error);
+          showMessage(messageElement, 'An unexpected error occurred while creating the user. Please try again.', 'error');
+        }
+      });
+
+      // --- File Upload Tab Logic ---
       document.getElementById('uploadForm').addEventListener('submit', async function(event) {
         event.preventDefault();
         const messageElement = document.getElementById('uploadMessage');
